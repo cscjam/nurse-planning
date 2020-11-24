@@ -11,7 +11,6 @@
 .card-visit-info {
   height: 100%;
   padding: 20px;
-  flex-shrink: 0;
 }
 
 .card-visit a {
@@ -35,12 +34,27 @@
 
 .done {
   height: 100%;
-  width: 60px;
+  padding: 0 20px;
   border-left: solid 1px white;
   display: flex;
   justify-content: center;
 }
 
 .done i {
+  align-self: center;
+}
+
+.not-done {
+  background-color: white;
+  color: $orange;
+  height: 100%;
+  padding: 0 20px;
+  border: solid 1px $orange;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.not-done i {
   align-self: center;
 }
