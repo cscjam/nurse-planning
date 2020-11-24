@@ -1,16 +1,17 @@
-<p>Horaire souhaité : <%=@visit.wish_time%>h-<%=@visit.wish_time+1%>h</p>
-<div class="card_care">
-  <h3>Liste de soins</h3>
-  <div class="cares">
-    <% @visit.cares.each do |care| %>
-      <%= render '/cares/show', care: care %>
-    <% end %>
+<div class="container">
+  <p>Horaire souhaité : <%=@visit.wish_time%>h-<%=@visit.wish_time+1%>h</p>
+  <div class="card_care">
+    <h3>Liste de soins</h3>
+    <div class="cares">
+      <% @visit.cares.each do |care| %>
+        <%= render '/cares/show', care: care %>
+      <% end %>
+    </div>
   </div>
-</div>
-<% if @visit&.minutes.last %>
+  <% if @visit&.minutes.last %>
+    <br>
+    <%= render 'last_minute', visit: @visit %>
+  <% end %>
   <br>
-  <%= render 'last_minute', visit: @visit %>
-<% end %>
-<br>
-<%#= render 'minute/create', [@visit, @minute] %>
-
+  <%#= render 'minute/create', [@visit, @minute] %>
+</div>

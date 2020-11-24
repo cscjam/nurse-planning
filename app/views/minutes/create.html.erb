@@ -1,10 +1,10 @@
 <div class="add_minute">
   <h3>Ajouter un compte-rendu</h3>
-
   <div class="minute-content">
-  <%= simple_form_for @offer do |f| %>
-    <%= f.input :content, label_html: { class: '' }%>
-    <%= f.button :submit, class: 'btn btn-danger' %>
-  <% end %>
+    <%= simple_form_for(minute) do |f| %>
+      <%= f.input :content %>
+      <%= f.input :photos, as: :file %>
+      <%= f.submit %>
+    <% end %>
   </div>
 </div>
