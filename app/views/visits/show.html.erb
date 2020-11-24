@@ -1,2 +1,16 @@
-<h1>Visits#show</h1>
-<p>Find me in app/views/visits/show.html.erb</p>
+<p>Horaire souhaité : <%=@visit.wish_time%>h-<%=@visit.wish_time+1%>h</p>
+<div class="card_care">
+  <h3>Liste de soins</h3>
+  <div class="cares">
+    <% @visit.cares.each do |care| %>
+      <%= render '/cares/show', care: care %>
+    <% end %>
+  </div>
+</div>
+<% if @visit&.minutes.last %>
+  <br>
+  <%= render 'last_minute', visit: @visit %>
+<% end %>
+<br>
+<%#= render 'minute/create', [@visit, @minute] %>
+
