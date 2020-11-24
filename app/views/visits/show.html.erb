@@ -3,7 +3,7 @@
     <div class="col-12 col-md-6 col-lg-4">
       <p>Horaire souhaité : <%=@visit.wish_time%>h-<%=@visit.wish_time+1%>h</p>
       <div class="card_care">
-        <h3>Liste de soins</h3>
+        <h3>Liste des soins</h3>
         <div class="cares">
           <% @visit.cares.each do |care| %>
             <%= render '/cares/show', care: care %>
@@ -15,7 +15,7 @@
         <%= render 'last_minute', visit: @visit %>
       <% end %>
       <br>
-      <%#= render 'minute/create', [@visit, @minute] %>
+      <%= render '/minutes/create' , visit: @visit, minute: @minute %>
     </div>
   </div>
 </div>

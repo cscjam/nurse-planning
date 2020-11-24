@@ -6,20 +6,26 @@ parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
 parc_bourran = Team.create!(name: "Cabinet du parc Bouran")
 #--------------------------------------------------------------------
 puts "SEED > ADD USERS"
-jackie = User.create!(
+jackie = User.new(
   first_name: "Nurse",
   last_name: "JACKIE",
   email: "njackie@mail.com",
   password: "nurseplan",
   address: "avenue Carnot 33200 Bordeaux",
   team: parc_bordelais)
-serge = User.create!(
+file = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
+jackie.avatar.attach(io: file, filename: 'Nurse Jackie', content_type: 'image/png')
+jackie.save!
+serge = User.new(
   first_name: "Serge",
   last_name: "BLANCO",
   email: "sblanco@mail.com",
   password: "nurseplan",
   address: "rue du Vélodrome 33200 Bordeaux",
   team: parc_bordelais)
+file = URI.open('https://i.pinimg.com/236x/bd/5e/31/bd5e31d61b3cb58ed315e46ef257eb30--ballon-rugby.jpg')
+serge.avatar.attach(io: file, filename: 'Serge Blanco', content_type: 'image/png')
+serge.save!
  #--------------------------------------------------------------------
 puts "SEED > ADD PATIENTS"
 alain = Patient.create!(
