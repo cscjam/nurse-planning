@@ -1,12 +1,10 @@
-<h1>Minutes#create</h1>
-<p>Find me in app/views/minutes/create.html.erb</p>
-
-<!-- Install Cloudinary app/views/minutes -->
-<%= simple_form_for(minute) do |f| %>
-  <%= f.input :content %>
-  <%= f.input :photos, as: :file %>
-  <%= f.submit %>
-<% end %>
-
-<!-- Install Cloudinary : Displaying images -->
-<!-- <%= cl_image_tag @minute.photo.key, height: 300, width: 400, crop: :fill %> -->
+<div class="add_minute">
+  <h3>Ajouter un compte-rendu</h3>
+  <div class="minute-content">
+    <%= simple_form_for(minute) do |f| %>
+      <%= f.input :content %>
+      <%= f.input :photos, as: :file %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
