@@ -38,10 +38,9 @@
   border-left: solid 1px white;
   display: flex;
   justify-content: center;
-}
-
-.done i {
+  i {
   align-self: center;
+  }
 }
 
 .not-done {
@@ -53,8 +52,7 @@
   border-radius: 0 10px 10px 0;
   display: flex;
   justify-content: center;
-}
-
-.not-done i {
+  i {
   align-self: center;
+  }
 }
