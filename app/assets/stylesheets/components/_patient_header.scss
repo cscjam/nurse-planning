@@ -1,0 +1,55 @@
+.patient-header {
+  background-color: $orange;
+  height: 100px;
+  width: 100vw;
+  top: 0;
+}
+
+.patient-info {
+  display: flex;
+  position: relative;
+  top: 0px;
+  height: 50px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  color: $white;
+  padding-top: 5px;
+  margin-left: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.buttons .button_disabled {
+  display: flex;
+  justify-content: center;
+  width: 130px;
+  text-decoration: none;
+  border:2px solid white;
+  border-radius: 5px;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  padding: 1px 20px 1px 20px;
+  color: $orange;
+  background-color: white;
+}
+
+.buttons .button {
+  display: flex;
+  justify-content: center;
+  width: 130px;
+  text-decoration: none;
+  border:2px solid white;
+  border-radius: 5px;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  padding: 1px 20px 1px 20px;
+  background-color: $orange;
+  color: white;
+}
