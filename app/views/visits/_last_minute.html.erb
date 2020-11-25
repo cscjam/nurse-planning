@@ -1,0 +1,13 @@
+<% if visit&.minutes.last %>
+  <div class="last_minute">
+    <h3>Dernier compte-rendu</h3>
+    <div class="minute-content">
+      <%= image_tag "https://thispersondoesnotexist.com/image", class: "avatar pb-3"%>
+      <div class="right">
+        <p class="text-center"><%=visit.date%></p>
+        <p>Enregistré par <%=visit.user.get_full_name%></p>
+        <p><%=visit&.minutes.last.content%></p>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -82,7 +82,7 @@ patients = Patient.all
       date: Date.today - day,
       position: position,
       time: nil,
-      wish_time: nil,
+      wish_time: (6..20).to_a.sample,
       user: jackie,
       patient: patients.sample,
       is_done: true)
@@ -93,7 +93,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "8:00",
+  wish_time: 8,
   user: jackie,
   patient: alain,
   is_done: true)
@@ -101,7 +101,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "8:00",
+  wish_time: 8,
   user: jackie,
   patient: pierre,
   is_done: true)
@@ -109,7 +109,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "9:00",
+  wish_time: 9,
   user: jackie,
   patient: nicolas,
   is_done: true)
@@ -117,7 +117,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "9:00",
+  wish_time: 9,
   user: jackie,
   patient: hugues,
   is_done: false)
@@ -125,7 +125,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "10:00",
+  wish_time: 10,
   user: jackie,
   patient: jacques,
   is_done: false)
@@ -133,7 +133,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "10:30",
+  wish_time: 10,
   user: jackie,
   patient: fernand,
   is_done: false)
@@ -141,7 +141,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "17:00",
+  wish_time: 17,
   user: jackie,
   patient: alain,
   is_done: false)
@@ -149,7 +149,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "17:30",
+  wish_time: 17,
   user: jackie,
   patient: pierre,
   is_done: false)
@@ -157,7 +157,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "18:00",
+  wish_time: 18,
   user: jackie,
   patient: nicolas,
   is_done: false)
@@ -165,7 +165,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "18:30",
+  wish_time: 18,
   user: jackie,
   patient: hugues,
   is_done: false)
@@ -173,7 +173,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "19:00",
+  wish_time: 19,
   user: jackie,
   patient: jacques,
   is_done: false)
@@ -181,7 +181,7 @@ Visit.create!(
   date: Date.today,
   position: position + 1,
   time: nil,
-  wish_time: "19:30",
+  wish_time: 19,
   user: jackie,
   patient: fernand,
   is_done: false)
@@ -192,7 +192,7 @@ patients = Patient.all
       date: Date.today + day,
       position: position,
       time: nil,
-      wish_time: nil,
+      wish_time: (6..20).to_a.sample,
       user: jackie,
       patient: patients.sample,
       is_done: false)
@@ -232,7 +232,7 @@ Care.create!(
     icon: "<i class='far fa-tasks-alt'></i>"
 )
 #--------------------------------------------------------------------
-puts "SEED > ADD MNINUTES"
+puts "SEED > ADD VISITS-CARES"
 visits = Visit.all
 cares = Care.all
 visits.each do |visit|

@@ -1,0 +1,38 @@
+.header-day {
+  margin: 20px 0;
+}
+
+.header-day h3 {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.header-day .week {
+  display:flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.header-day a{
+  text-decoration: none;
+  color: $gray;
+}
+
+.header-day .day {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 20px;
+  text-align: center;
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+}
+
+.active {
+  background-color: $orange;
+  p {
+    color: white;
+  }
+}

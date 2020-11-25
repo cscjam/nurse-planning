@@ -1,6 +1,7 @@
-<h1>Dashboards#show</h1>
-<p>Find me in app/views/dashboards/show.html.erb</p>
-
+<div class="header-home">
+  <h1><%= "Hello #{current_user.first_name.capitalize} #{current_user.last_name.capitalize}" %></h1>
+    <p><%= l Time.now, format: :long %></p>
+</div>
 
 <!--Call avatar.attach to attach an avatar to an existing user:-->
 <!--Current.user.avatar.attach(params[:avatar])-->

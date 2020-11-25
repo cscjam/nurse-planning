@@ -1,2 +1,55 @@
-<h1>Visits#index</h1>
-<p>Find me in app/views/visits/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+
+      <div class="header-day">
+        <h3>S 34 - January</h3>
+        <div class="week">
+          <%= link_to visits_path(params: {day: "today"}), class: "day #{"active" if @visit_type == "today"}" do %>
+            <p><%= Time.new.strftime("%A").first %></p>
+            <p><%= Date.today.day %></p>
+          <% end %>
+          <%= link_to visits_path(params: {day: "tomorrow"}), class: "day #{"active" if @visit_type == "tomorrow"}" do %>
+            <p><%= Time.new.strftime("%A").first %></p>
+            <p><%= Date.today.day + 1 %></p>
+          <% end %>
+          <%= link_to visits_path(params: {day: "dayThree"}), class: "day #{"active" if @visit_type == "dayThree"}" do %>
+            <p><%= Time.new.strftime("%A").first %></p>
+            <p><%= Date.today.day + 2 %></p>
+          <% end %>
+          <%= link_to visits_path(params: {day: "dayFour"}), class: "day #{"active" if @visit_type == "dayFour"}" do %>
+            <p><%= Time.new.strftime("%A").first %></p>
+            <p><%= Date.today.day + 3 %></p>
+          <% end %>
+          <%= link_to visits_path(params: {day: "dayFive"}), class: "day #{"active" if @visit_type == "dayFive"}" do %>
+            <p><%= Time.new.strftime("%A").first %></p>
+            <p><%= Date.today.day + 4 %></p>
+          <% end %>
+        </div>
+      </div>
+
+      <% ["today", "tomorrow", "dayThree", "dayFive"].each do |visit_type| %>
+    <% if @visit_type == visit_type %>
+
+      <% @visits.each do |visit| %>
+        <div class="card-visit">
+          <%= link_to visit_path(visit) do %>
+            <div class="card-visit-info">
+              <h2><%= visit.patient.first_name %> <%= visit.patient.last_name %></h2>
+              <p><%= visit.patient.address %></p>
+              <p><%= visit.patient.compl_address %></p>
+              <p><%= visit.patient.phone %></p>
+            </div>
+          <% end %>
+          <div class="not-done">
+            <i class="fas fa-check"></i>
+          </div>
+        </div>
+      <% end %>
+
+      <% end %>
+      <% end %>
+
+    </div>
+  </div>
+</div>

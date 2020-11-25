@@ -1,0 +1,58 @@
+.card-visit {
+  height: 120px;
+  margin: 10px 0;
+  background-color: $orange;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between
+}
+
+.card-visit-info {
+  height: 100%;
+  padding: 20px;
+}
+
+.card-visit a {
+  text-decoration: none;
+  color: white;
+}
+
+.card-visit p {
+  margin: 0;
+  font-size: 14px;
+  font-family: $body-font;
+}
+
+.card-visit h2 {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: $body-font;
+}
+
+.done {
+  height: 100%;
+  padding: 0 20px;
+  border-left: solid 1px white;
+  display: flex;
+  justify-content: center;
+  i {
+  align-self: center;
+  }
+}
+
+.not-done {
+  background-color: white;
+  color: $orange;
+  height: 100%;
+  padding: 0 20px;
+  border: solid 1px $orange;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  justify-content: center;
+  i {
+  align-self: center;
+  }
+}
