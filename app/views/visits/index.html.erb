@@ -4,10 +4,21 @@
 
       <div class="header-day">
         <h3>S 34 - January</h3>
+
+        <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
+          <div class="search-form-control form-group">
+            <input class="form-control string required" type="text" name="query" id="search_query" />
+            <button name="button" type="submit" class="btn btn-flat">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        <% end %>
+        <!-- Format date: 2020-11-27 -->
+
         <div class="week">
           <% (0..4).to_a.each do |d| %>
-            <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d}" do %>
-            <p><%= @days[Time.new.wday + d - 1].first(2) %></p>
+            <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d && params[:query].present? == false}" do %>
+            <p><%= @days[(Time.new.wday + d - 1)%7].first(2) %></p>
             <p><%= Date.today.day + d %></p>
           <% end %>
           <% end %>

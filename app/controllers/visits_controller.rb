@@ -2,9 +2,14 @@ class VisitsController < ApplicationController
   before_action :get_visit, only: [:show]
 
   def index
-    days
+    @days = days
     @delay = params[:delay].to_i || 0
-    @visits = Visit.where(date: Date.today + @delay)
+
+    if params[:query].present?
+      @visits = Visit.where(date: params[:query])
+    else
+      @visits = Visit.where(date: Date.today + @delay)
+    end
   end
 
   def update
