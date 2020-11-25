@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show]
+  before_action :get_visit, only: [:show, :destroy]
 
   def index
     @days = days
@@ -16,6 +16,8 @@ class VisitsController < ApplicationController
   end
 
   def destroy
+    @visit.destroy
+    redirect_to visits_path(date: params[:delay])
   end
 
   def show

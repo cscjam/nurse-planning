@@ -33,6 +33,10 @@
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p><%= visit.patient.phone %></p>
+              <p><%= visit.date %></p>
+              <%= link_to visit_path(visit), method: :delete do%>
+                <i class="far fa-times-circle"></i>
+              <% end %>
             </div>
           <% end %>
           <div class="not-done">
