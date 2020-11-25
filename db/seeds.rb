@@ -6,29 +6,26 @@ parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
 parc_bourran = Team.create!(name: "Cabinet du parc Bouran")
 #--------------------------------------------------------------------
 puts "SEED > ADD USERS"
-jackie = User.create!(
+jackie = User.new(
   first_name: "Nurse",
   last_name: "JACKIE",
   email: "njackie@mail.com",
   password: "nurseplan",
   address: "avenue Carnot 33200 Bordeaux",
   team: parc_bordelais)
-serge = User.create!(
+file = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
+jackie.avatar.attach(io: file, filename: 'Nurse Jackie', content_type: 'image/png')
+jackie.save!
+serge = User.new(
   first_name: "Serge",
   last_name: "BLANCO",
   email: "sblanco@mail.com",
   password: "nurseplan",
   address: "rue du Vélodrome 33200 Bordeaux",
   team: parc_bordelais)
-
-file1 = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
-jackie.avatar.attach(io: file1, filename: 'Nurse Jackie', content_type: 'image/png')
-jackie.save!
-
-file2 = URI.open('https://i.pinimg.com/236x/bd/5e/31/bd5e31d61b3cb58ed315e46ef257eb30--ballon-rugby.jpg')
-serge.avatar.attach(io: file2, filename: 'Serge Blanco', content_type: 'image/png')
+file = URI.open('https://i.pinimg.com/236x/bd/5e/31/bd5e31d61b3cb58ed315e46ef257eb30--ballon-rugby.jpg')
+serge.avatar.attach(io: file, filename: 'Serge Blanco', content_type: 'image/png')
 serge.save!
-
  #--------------------------------------------------------------------
 puts "SEED > ADD PATIENTS"
 alain = Patient.create!(
@@ -77,10 +74,11 @@ fernand = Patient.create!(
 puts "SEED > ADD VISITES"
 patients = Patient.all
 2.times do |day|
-  (8..16).to_a.sample.times do |position|
+  position = 0
+  (8..16).to_a.sample.times do
     Visit.create!(
       date: Date.today - day,
-      position: position,
+      position: position +=1 ,
       time: nil,
       wish_time: (6..20).to_a.sample,
       user: jackie,
@@ -91,7 +89,7 @@ end
 position = 0
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 8,
   user: jackie,
@@ -99,7 +97,7 @@ Visit.create!(
   is_done: true)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 8,
   user: jackie,
@@ -107,7 +105,7 @@ Visit.create!(
   is_done: true)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 9,
   user: jackie,
@@ -115,7 +113,7 @@ Visit.create!(
   is_done: true)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 9,
   user: jackie,
@@ -123,7 +121,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 10,
   user: jackie,
@@ -131,7 +129,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 10,
   user: jackie,
@@ -139,7 +137,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 17,
   user: jackie,
@@ -147,7 +145,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 17,
   user: jackie,
@@ -155,7 +153,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 18,
   user: jackie,
@@ -163,7 +161,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 18,
   user: jackie,
@@ -171,7 +169,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 19,
   user: jackie,
@@ -179,7 +177,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 19,
   user: jackie,
@@ -187,10 +185,11 @@ Visit.create!(
   is_done: false)
 patients = Patient.all
 5.times do |day|
-  (4..16).to_a.sample.times do |position|
+  position = 0
+  (4..16).to_a.sample.times do
     Visit.create!(
       date: Date.today + day,
-      position: position,
+      position: position += 1,
       time: nil,
       wish_time: (6..20).to_a.sample,
       user: jackie,
@@ -252,5 +251,3 @@ visits.each do |visit|
   )
 end
 #--------------------------------------------------------------------
-
-
