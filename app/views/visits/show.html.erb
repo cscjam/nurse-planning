@@ -1,3 +1,13 @@
+<div class="patient-header">
+  <div class="patient-info">
+    <%=@visit.patient.first_name%> <%=@visit.patient.last_name%><br>
+    <%=@visit.patient.address%><br>
+    <%=@visit.patient.compl_address%><br>
+    <%=@visit.patient.phone%>
+  </div>
+  <%= render '/shared/patientheader' %>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">

@@ -1,4 +1,6 @@
 class PatientsController < ApplicationController
+  before_action :get_patient, only: [:show]
+
   def index
   end
 
@@ -9,5 +11,15 @@ class PatientsController < ApplicationController
   end
 
   def create
+  end
+
+  private
+
+  def get_patient
+    @patient = Patient.find(params[:id])
+  end
+
+  def patient_params
+    params[:patient].permit(:first_name, :last_name, :adress, :compl_adress, :phone)
   end
 end
