@@ -1,6 +1,5 @@
 class MinutesController < ApplicationController
   def create
-    byebug
     @visit = Visit.find(params[:visit_id])
     @minute = Minute.new(minute_params)
     @minute.visit = @visit
@@ -14,6 +13,7 @@ class MinutesController < ApplicationController
   private
 
   def minute_params
-    params.require(:minute).permit(:content, :photos)
+    params.require(:minute).permit(:content, photos: [])
   end
 end
+

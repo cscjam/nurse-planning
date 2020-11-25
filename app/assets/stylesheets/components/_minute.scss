@@ -22,5 +22,25 @@
         color: $orange;
       }
     }
+    [type="file"] {
+      border: 0;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      overflow: hidden;
+      padding: 0;
+      white-space: nowrap;
+      width: 1px;
+    }
+    .form-group{
+      display: flex;
+      margin-bottom: 0rem !important;
+    }
+    label {
+      margin-bottom: 0px !important;
+    }
+    [type="file"]:focus + label {
+      outline: 1px dotted #000;
+      outline: -webkit-focus-ring-color auto 5px;
+    }
   }
 }
