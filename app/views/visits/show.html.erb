@@ -12,7 +12,7 @@
       </div>
       <% if @visit&.minutes.last %>
         <br>
-        <%= render 'last_minute', visit: @visit %>
+        <%= render '/visits/last_minute', visit: @visit %>
       <% end %>
       <br>
       <%= render '/minutes/create' , visit: @visit, minute: @minute %>

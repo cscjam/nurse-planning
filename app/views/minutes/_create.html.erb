@@ -2,8 +2,13 @@
   <h3>Ajouter un compte-rendu</h3>
   <div class="minute-content">
     <%= simple_form_for [visit, minute] do |f| %>
+      <%= f.input :photos, label: false, as: :file, input_html: {id:"real-photo-selector", class: "d-none", multiple: true } %>
+      <%= link_to "#", id:"fake-photo-selector" do %>
+        <i class="far fa-image"></i>
+      <% end %>
       <%= f.input :content, label: false, input_html: { id: "speech", rows: 1} %>
-      <%= button_tag type: 'submit', class: "btn btn-link p-0",   id: "speech-push" do %>
+      <%#= button_tag type: 'submit', class: "btn btn-link p-0", id: "minute-submit" do %>
+      <%= button_tag type: 'button', onclick:"submit()", class: "btn btn-link p-0", id: "minute-submit" do %>
           <i class="fas fa-paper-plane"></i>
       <% end %>
     <% end %>

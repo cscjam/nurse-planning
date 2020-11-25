@@ -1,11 +1,9 @@
 export const initSpeechApi = () => {
   const speechElt = document.getElementById("speech");
   const recordBtn = document.querySelector(".fa-microphone");
-  const pushBtn = document.getElementById ("speech-push");
+  const pushBtn = document.getElementById ("minute-submit");
 
-  console.log("initSpeechApi");
   if(speechElt && recordBtn && pushBtn) {
-    console.log("pose speech");
     const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = 'fr-FR';
@@ -22,12 +20,10 @@ export const initSpeechApi = () => {
       pushBtn.click();
     };
     recordBtn.addEventListener("mousedown", event => {
-      console.log("Down");
       speechElt.innerText = "";
       recognition.start();
     });
     recordBtn.addEventListener("mouseup", event => {
-      console.log("up");
       recognition.stop();
     });
   }

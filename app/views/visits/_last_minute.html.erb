@@ -3,10 +3,13 @@
     <h3>Dernier compte-rendu</h3>
     <div class="minute-content">
       <%= cl_image_tag visit.user.avatar.key, class: "avatar py-3"%>
-      <div class="right">
+      <div>
         <p class="text-center"><%=visit.date%></p>
         <p>Enregistré par <%=visit.user.get_full_name%></p>
-        <p><%=visit&.minutes.last.content%></p>
+        <p><%=visit&.minutes&.last.content%></p>
+        <% visit&.minutes&.last&.photos.each do |photo| %>
+          <%= cl_image_tag(photo.key, size: '50x50', crop: :thumb) %>
+        <% end %>
       </div>
     </div>
   </div>
