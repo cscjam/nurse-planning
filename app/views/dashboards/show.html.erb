@@ -14,7 +14,6 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-
       <% @visits.each do |visit| %>
         <div class="card-visit">
           <%= link_to visit_path(visit) do %>
@@ -30,7 +29,7 @@
               </div>
             </div>
           <% end %>
-          <%= link_to visit_path(visit), method: :patch do%>
+          <%= link_to visit_path(visit), remote: true, method: :patch do%>
             <div class="<%= visit.is_done ? 'done' : 'not-done'%>">
               <i class="fas fa-check"></i>
             </div>
