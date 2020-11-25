@@ -7,7 +7,7 @@
         <p class="text-center"><%=visit.date%></p>
         <p>Enregistré par <%=visit.user.get_full_name%></p>
         <p><%=visit&.minutes&.last.content%></p>
-        <p><%=visit&.minutes&.last&.photos.count || 0 %> photo(s) :
+        <p><%=pluralize (visit&.minutes&.last&.photos.count || 0) "photo"%>
           <% visit&.minutes&.last&.photos.each do |photo| %>
             <%= cl_image_tag(photo.key, size: '50x50', crop: :thumb) %>
           <% end %>

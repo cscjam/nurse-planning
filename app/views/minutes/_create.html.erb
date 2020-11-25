@@ -1,5 +1,17 @@
 <div class="add_minute">
   <h3>Ajouter un compte-rendu</h3>
+
+  <div>
+    <%= simple_form_for [visit, minute] do |f| %>
+      <%= link_to "#", id:"fake-photo-selector" do %>
+        <%# # Ce click browse les photoq mais ne les enregistre pas dans l'input %>
+        <i class="far fa-image"></i>
+      <% end %>
+      <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+      <%= f.input :content %>
+      <%= f.submit %>
+    <% end %>
+  </div>
   <div class="minute-content">
     <%= simple_form_for [visit, minute] do |f| %>
       <%= f.input :photos, as: :file, input_html: { multiple: true },
