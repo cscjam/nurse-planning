@@ -66,12 +66,12 @@ fernand = Patient.create!(
   team: parc_bordelais)
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
-patients = Patient.all
 2.times do |day|
-  (8..16).to_a.sample.times do |position|
+  position = 0
+  (8..16).to_a.sample.times do
     Visit.create!(
       date: Date.today - day,
-      position: position,
+      position: position +=1 ,
       time: nil,
       wish_time: (6..20).to_a.sample,
       user: jackie,
@@ -82,7 +82,7 @@ end
 position = 0
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 8,
   user: jackie,
@@ -90,7 +90,7 @@ Visit.create!(
   is_done: true)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 8,
   user: jackie,
@@ -98,7 +98,7 @@ Visit.create!(
   is_done: true)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 9,
   user: jackie,
@@ -106,7 +106,7 @@ Visit.create!(
   is_done: true)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 9,
   user: jackie,
@@ -114,7 +114,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 10,
   user: jackie,
@@ -122,7 +122,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 10,
   user: jackie,
@@ -130,7 +130,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 17,
   user: jackie,
@@ -138,7 +138,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 17,
   user: jackie,
@@ -146,7 +146,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 18,
   user: jackie,
@@ -154,7 +154,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 18,
   user: jackie,
@@ -162,7 +162,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 19,
   user: jackie,
@@ -170,7 +170,7 @@ Visit.create!(
   is_done: false)
 Visit.create!(
   date: Date.today,
-  position: position + 1,
+  position: position += 1,
   time: nil,
   wish_time: 19,
   user: jackie,
@@ -178,10 +178,11 @@ Visit.create!(
   is_done: false)
 patients = Patient.all
 5.times do |day|
-  (4..16).to_a.sample.times do |position|
+  position = 0
+  (4..16).to_a.sample.times do
     Visit.create!(
       date: Date.today + day,
-      position: position,
+      position: position += 1,
       time: nil,
       wish_time: (6..20).to_a.sample,
       user: jackie,
