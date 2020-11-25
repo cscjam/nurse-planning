@@ -7,9 +7,9 @@
         <p class="text-center"><%=visit.date%></p>
         <p>Enregistré par <%=visit.user.get_full_name%></p>
         <p><%=visit&.minutes&.last.content%></p>
-        <p><%=pluralize (visit&.minutes&.last&.photos.count || 0) "photo"%>
+        <p><%=pluralize(visit&.minutes&.last&.photos.count || 0, "photo", locale: 'fr')  %>
           <% visit&.minutes&.last&.photos.each do |photo| %>
-            <%= cl_image_tag(photo.key, size: '50x50', crop: :thumb) %>
+            <%= cl_image_tag(photo.key, size: '40x40', crop: :thumb) %>
           <% end %>
         </p>
       </div>

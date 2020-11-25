@@ -8,9 +8,7 @@ import "bootstrap";
 
 // Internal imports, e.g:
 import { initSpeechApi } from '../components/init_speech_api.js';
-import { initPhotoLoader } from '../components/init_photo_loader.js';
 
 document.addEventListener('turbolinks:load', () => {
   initSpeechApi();
-  initPhotoLoader();
 });
