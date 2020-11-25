@@ -5,31 +5,14 @@
       <div class="header-day">
         <h3>S 34 - January</h3>
         <div class="week">
-          <%= link_to visits_path(params: {day: "today"}), class: "day #{"active" if @visit_type == "today"}" do %>
-            <p><%= Time.new.strftime("%A").first %></p>
-            <p><%= Date.today.day %></p>
+          <% (0..4).to_a.each do |d| %>
+            <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d}" do %>
+            <p><%= @days[Time.new.wday + d - 1].first(2) %></p>
+            <p><%= Date.today.day + d %></p>
           <% end %>
-          <%= link_to visits_path(params: {day: "tomorrow"}), class: "day #{"active" if @visit_type == "tomorrow"}" do %>
-            <p><%= Time.new.strftime("%A").first %></p>
-            <p><%= Date.today.day + 1 %></p>
-          <% end %>
-          <%= link_to visits_path(params: {day: "dayThree"}), class: "day #{"active" if @visit_type == "dayThree"}" do %>
-            <p><%= Time.new.strftime("%A").first %></p>
-            <p><%= Date.today.day + 2 %></p>
-          <% end %>
-          <%= link_to visits_path(params: {day: "dayFour"}), class: "day #{"active" if @visit_type == "dayFour"}" do %>
-            <p><%= Time.new.strftime("%A").first %></p>
-            <p><%= Date.today.day + 3 %></p>
-          <% end %>
-          <%= link_to visits_path(params: {day: "dayFive"}), class: "day #{"active" if @visit_type == "dayFive"}" do %>
-            <p><%= Time.new.strftime("%A").first %></p>
-            <p><%= Date.today.day + 4 %></p>
           <% end %>
         </div>
       </div>
-
-      <% ["today", "tomorrow", "dayThree", "dayFive"].each do |visit_type| %>
-    <% if @visit_type == visit_type %>
 
       <% @visits.each do |visit| %>
         <div class="card-visit">
@@ -45,9 +28,6 @@
             <i class="fas fa-check"></i>
           </div>
         </div>
-      <% end %>
-
-      <% end %>
       <% end %>
 
     </div>
