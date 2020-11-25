@@ -18,7 +18,7 @@
         <div class="week">
           <% (0..4).to_a.each do |d| %>
             <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d && params[:query].present? == false}" do %>
-            <p><%= @days[Time.new.wday + d - 1].first(2) %></p>
+            <p><%= @days[(Time.new.wday + d - 1)%7].first(2) %></p>
             <p><%= Date.today.day + d %></p>
           <% end %>
           <% end %>

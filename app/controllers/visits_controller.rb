@@ -2,7 +2,7 @@ class VisitsController < ApplicationController
   before_action :get_visit, only: [:show]
 
   def index
-    days
+    @days = days
     @delay = params[:delay].to_i || 0
 
     if params[:query].present?
