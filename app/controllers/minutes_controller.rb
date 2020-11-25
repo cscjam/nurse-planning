@@ -1,7 +1,7 @@
 class MinutesController < ApplicationController
   def create
-    @minute = Minute.new(minute_params)
     @visit = Visit.find(params[:visit_id])
+    @minute = Minute.new(minute_params)
     @minute.visit = @visit
     if @minute.save!
       redirect_to visit_path(@visit)

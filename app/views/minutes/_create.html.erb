@@ -1,15 +1,11 @@
 <div class="add_minute">
   <h3>Ajouter un compte-rendu</h3>
   <div class="minute-content">
-    <%= simple_form_for [@visit, @minute] do |f| %>
-      <%= f.input :content, label: false, input_html: { rows: 1} %>
-      <%= link_to visit_minutes_path(@visit, @minute), method: :post do %>
+    <%= simple_form_for [visit, minute] do |f| %>
+      <%= f.input :content, label: false, input_html: { id: "speech", rows: 1} %>
+      <%= button_tag type: 'submit', class: "btn btn-link p-0",   id: "speech-push" do %>
           <i class="fas fa-paper-plane"></i>
       <% end %>
-      <%= f.submit %>
-    <% end %>
-    <%= link_to visit_minutes_path(@visit, @minute), method: :post do%>
-        <i class="fas fa-paper-plane"></i>
     <% end %>
   </div>
 </div>

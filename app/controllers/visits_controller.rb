@@ -3,8 +3,6 @@ class VisitsController < ApplicationController
 
   def index
     @visit_type = params[:day] || "today"
-    # TODO: params[:day] = 0,1, ...
-    #      @visits = Visit.where(date: Date.today + params[:day]) => permet aussi le -1, ...
     case @visit_type
     when "today"
       @visits = Visit.where(date: Date.today)
