@@ -30,9 +30,11 @@
               </div>
             </div>
           <% end %>
-          <div class="done">
-            <i class="fas fa-check"></i>
-          </div>
+          <%= link_to visit_path(visit), method: :patch do%>
+            <div class="<%= visit.is_done ? 'done' : 'not-done'%>">
+              <i class="fas fa-check"></i>
+            </div>
+          <% end %>
         </div>
       <% end %>
 

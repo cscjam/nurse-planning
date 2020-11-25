@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show]
+  before_action :get_visit, only: [:show, :update]
 
   def index
     @visit_type = params[:day] || "today"
@@ -19,6 +19,10 @@ class VisitsController < ApplicationController
   end
 
   def update
+
+    @visit.is_done ? @visit.is_done = false : @visit.is_done = true
+    @visit.save
+    redirect_to root_path
   end
 
   def destroy
