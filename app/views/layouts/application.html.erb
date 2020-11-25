@@ -12,8 +12,14 @@
   </head>
 
   <body>
+
       <%= render 'shared/flashes' %>
 
       <%= yield %>
+
+
+    <div class="d-flex w-100 justify-content-around align-content-center fixed-bottom p-2 mt-2">
+      <%= render 'shared/footer' %>
+    </div>
   </body>
 </html>
