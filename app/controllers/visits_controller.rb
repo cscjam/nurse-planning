@@ -2,19 +2,13 @@ class VisitsController < ApplicationController
   before_action :get_visit, only: [:show]
 
   def index
-    @visit_type = params[:day] || "today"
+    @days = days
+    @delay = params[:delay].to_i || 0
 
-    case @visit_type
-    when "today"
-      @visits = Visit.where(date: Date.today)
-    when "tomorrow"
-      @visits = Visit.where(date: Date.today + 1)
-    when "dayThree"
-      @visits = Visit.where(date: Date.today + 2)
-    when "dayFour"
-      @visits = Visit.where(date: Date.today + 3)
-    when "dayFive"
-      @visits = Visit.where(date: Date.today + 4)
+    if params[:query].present?
+      @visits = Visit.where(date: params[:query])
+    else
+      @visits = Visit.where(date: Date.today + @delay)
     end
   end
 
