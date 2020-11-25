@@ -20,6 +20,15 @@ serge = User.create!(
   password: "nurseplan",
   address: "rue du Vélodrome 33200 Bordeaux",
   team: parc_bordelais)
+
+file1 = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
+jackie.avatar.attach(io: file1, filename: 'Nurse Jackie', content_type: 'image/png')
+jackie.save!
+
+file2 = URI.open('https://i.pinimg.com/236x/bd/5e/31/bd5e31d61b3cb58ed315e46ef257eb30--ballon-rugby.jpg')
+serge.avatar.attach(io: file2, filename: 'Serge Blanco', content_type: 'image/png')
+serge.save!
+
  #--------------------------------------------------------------------
 puts "SEED > ADD PATIENTS"
 alain = Patient.create!(
