@@ -1,6 +1,7 @@
 <div class="header-home">
-  <h1><%= "Hello #{current_user.first_name.capitalize} #{current_user.last_name.capitalize}" %></h1>
+  <h1><%= "Bonjour #{current_user.first_name.capitalize} #{current_user.last_name.capitalize}" %></h1>
     <p><%= l Time.now, format: :long %></p>
+    <%= image_tag "https://thispersondoesnotexist.com/image", class: "avatar-bordered"%>
 </div>
 
 
@@ -21,7 +22,12 @@
               <h2><%= visit.patient.first_name %> <%= visit.patient.last_name %></h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
-              <p><%= visit.patient.phone %></p>
+              <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
+              <div>
+                <% visit.cares.each do |care| %>
+                  <i class="<%= care.icon %> m-2"></i>
+                <% end %>
+              </div>
             </div>
           <% end %>
           <div class="done">

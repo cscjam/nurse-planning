@@ -195,32 +195,32 @@ puts "SEED > ADD CARES"
 Care.create!(
     name: "Toilette",
     duration: "20",
-    icon: "<i class='fal fa-hand-sparkles'></i>"
+    icon: "fas fa-hand-sparkles"
 )
 Care.create!(
     name: "Pansement",
     duration: "10",
-    icon: "<i class='fal fa-band-aid'></i>"
+    icon: "fas fa-band-aid"
 )
 Care.create!(
     name: "Insuline",
     duration: "5",
-    icon: "<i class='fas fa-syringe'></i>"
+    icon: "fas fa-syringe"
 )
 Care.create!(
     name: "Diabete",
     duration: "5",
-    icon: "<i class='fal fa-candy-cane'></i>"
+    icon: "fas fa-candy-cane"
 )
 Care.create!(
     name: "Traitement",
     duration: "5",
-    icon: "<i class='fas fa-pills'></i>"
+    icon: "fas fa-prescription-bottle"
 )
 Care.create!(
     name: "Pillulier",
     duration: "15",
-    icon: "<i class='far fa-tasks-alt'></i>"
+    icon: "fas fa-pills"
 )
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITS-CARES"
