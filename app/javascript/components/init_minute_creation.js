@@ -1,7 +1,14 @@
-export const initSpeechApi = () => {
+export const initMinuteCreation = () => {
   const speechElt = document.getElementById("speech");
   const recordBtn = document.querySelector(".fa-microphone");
   const pushBtn = document.getElementById ("minute-submit");
+
+  const uploadPhotoBtn = document.getElementById ("minute_photos");
+  if (uploadPhotoBtn){
+    uploadPhotoBtn.addEventListener("change", (event) => {
+      pushBtn.click();
+    })
+  }
 
   if(speechElt && recordBtn && pushBtn) {
     const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;

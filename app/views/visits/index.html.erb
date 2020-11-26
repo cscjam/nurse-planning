@@ -33,6 +33,7 @@
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p><%= visit.patient.phone %></p>
+              <p>Durée des soins : <%= visit.get_pretty_duration %></p>
             </div>
           <% end %>
           <div class="not-done">
