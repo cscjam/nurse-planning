@@ -18,7 +18,9 @@
       <%= yield %>
 
 
-    <div class="d-flex w-100 justify-content-around align-content-center fixed-bottom p-2 mt-2">
+    <div class="footer fixed-bottom">
+      <%= link_to root_path do %><i class="fas fa-home"></i><% end %>
+      <%= link_to visits_path do %><i class="fas fa-calendar-day"></i><% end %>
       <%= render 'shared/footer' %>
     </div>
   </body>
