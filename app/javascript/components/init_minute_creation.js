@@ -27,10 +27,12 @@ export const initMinuteCreation = () => {
       pushBtn.click();
     };
     recordBtn.addEventListener("mousedown", event => {
+      console.log("down");
       speechElt.innerText = "";
       recognition.start();
     });
     recordBtn.addEventListener("mouseup", event => {
+      console.log("up");
       recognition.stop();
     });
   }
