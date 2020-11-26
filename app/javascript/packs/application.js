@@ -7,8 +7,8 @@ require("channels")
 import "bootstrap";
 
 // Internal imports, e.g:
-import { initSpeechApi } from '../components/init_speech_api.js';
+import { initMinuteCreation } from '../components/init_minute_creation.js';
 
 document.addEventListener('turbolinks:load', () => {
-  initSpeechApi();
+  initMinuteCreation();
 });

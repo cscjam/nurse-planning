@@ -4,7 +4,7 @@
     <%= simple_form_for [visit, minute] do |f| %>
       <%= f.input :photos, as: :file, input_html: { multiple: true },
         label: "<i class='fas fa-upload'></i>".html_safe %>
-      <%= f.input :content, label: false, input_html: { rows: 1} %>
+      <%= f.input :content, label: false, input_html: { rows: 1, id: "speech"} %>
       <%= button_tag type: 'submit', label: false, class: "btn btn-link p-0", id: "minute-submit" do %>
         <i class="fas fa-paper-plane"></i>
       <% end %>
