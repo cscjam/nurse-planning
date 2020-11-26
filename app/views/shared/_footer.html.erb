@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%- if controller_name == 'dashboards'%>
   <%= link_to new_patient_path do %><i class="fas fa-user-plus"></i><% end %>
   <%= link_to patients_path do %><i class="fas fa-search"></i><% end %>
@@ -23,12 +24,22 @@
 <% end %>
 
 <%- if controller_name == 'patients' && action_name == 'new' %>
+=======
+<%= link_to root_path do %><i class="fas fa-home"></i><% end %>
+<%= link_to visits_path do %><i class="fas fa-calendar-day"></i><% end %>
+
+<%- if ['dashboards#show', 'patients#index', 'patients#new', 'visits#index'].include?("#{controller_name}##{action_name}")%>
+>>>>>>> master
   <%= link_to new_patient_path do %><i class="fas fa-user-plus"></i><% end %>
   <%= link_to patients_path do %><i class="fas fa-search"></i><% end %>
   <i class="fas fa-file-download"></i>
 <% end %>
 
+<<<<<<< HEAD
 <%- if controller_name == 'patients' && action_name == 'show' %>
+=======
+<%- if ['minutes#create', 'visits#show', 'patients#show'].include?("#{controller_name}##{action_name}")%>
+>>>>>>> master
   <i class="far fa-calendar-plus"></i>
   <i class="far fa-image"></i>
   <i class="fas fa-microphone"></i>
