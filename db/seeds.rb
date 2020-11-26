@@ -39,7 +39,7 @@ pierre = Patient.create!(
   first_name: "Pierre",
   last_name: "HURMIC",
   address: "12 rue Falquet 33200 Bordeaux ",
-  compl_address: "Chien méchatn",
+  compl_address: "Chien méchant",
   phone: "06 66 66 66 66",
   team: parc_bordelais)
 nicolas = Patient.create!(
