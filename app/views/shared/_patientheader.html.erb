@@ -5,7 +5,11 @@
   <% end %>
 
   <%- if controller_name == 'patients' && action_name == 'show'%>
+    <% if @patient.visits.count != 0 %>
     <%= link_to "Visit", visit_path(@patient.visits.last), class: "button"%>
+    <% else %>
+    <%= link_to "Visit", nil, class: "button"%>
+    <% end %>
     <%= link_to "Historique", patient_path, class: "button_disabled"%>
   <% end %>
 </div>
