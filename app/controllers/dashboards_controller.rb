@@ -6,18 +6,16 @@ class DashboardsController < ApplicationController
     case visitref.position
     when 1
       @current_visits << visitref
-      @current_visits << Visit.where(date: Date.today, position: 2)
-      @current_visits << Visit.where(date: Date.today, position: 3)
+      @current_visits << Visit.find_by(date: Date.today, position: 2)
+      @current_visits << Visit.find_by(date: Date.today, position: 3)
     when @today_visits.last.position
-      @current_visits << Visit.where(date: Date.today, position: visitref.position - 2)
-      @current_visits << Visit.where(date: Date.today, position: visitref.position - 1)
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position - 2)
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position - 1)
       @current_visits << visitref
     else
-      @current_visits << Visit.where(date: Date.today, position: visitref.position - 1)
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position - 1)
       @current_visits << visitref
-      @current_visits << Visit.where(date: Date.today, position: visitref.position + 1)
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position + 1)
     end
-    @current_visits.to_h
-    raise
   end
 end
