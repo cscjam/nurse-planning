@@ -3,17 +3,18 @@
     <div class="col-12 col-md-6 col-lg-4">
 
       <div class="header-day">
-        <h3>S 34 - January</h3>
+        <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
 
         <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
+          <%#= f.input :query, input_html: {class: "datepicker"} %>
+          <%#= f.submit "GO", class: "btn btn-flat" %>
           <div class="search-form-control form-group">
-            <input class="form-control string required" type="text" name="query" id="search_query" />
+            <input class="form-control datepicker" type="text" name="query"/>
             <button name="button" type="submit" class="btn btn-flat">
               <i class="fas fa-search"></i>
             </button>
           </div>
         <% end %>
-        <!-- Format date: 2020-11-27 -->
 
       <div class="week">
           <% (Date.today..Date.today + 4).to_a.each do |d| %>
