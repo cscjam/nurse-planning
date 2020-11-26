@@ -8,9 +8,17 @@ class PatientsController < ApplicationController
   end
 
   def new
+    @patient = Patient.new
   end
 
   def create
+    @patient = Patient.new(patient_params)
+    @patient.team = current_user.team
+    if @patient.save
+      redirect_to patient_path(@patient)
+    else
+      render :new
+    end
   end
 
   private
