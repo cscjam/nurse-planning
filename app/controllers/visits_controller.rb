@@ -1,20 +1,16 @@
+
+
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show, :update]
+  before_action :get_visit, only: [:show, :update, :destroy]
 
   def index
-    @visit_type = params[:day] || "today"
+    @delay = params[:delay] || Date.today.to_s
+    delay_integer = @delay.split('-').map { |element| element.to_i }
 
-    case @visit_type
-    when "today"
-      @visits = Visit.where(date: Date.today)
-    when "tomorrow"
-      @visits = Visit.where(date: Date.today + 1)
-    when "dayThree"
-      @visits = Visit.where(date: Date.today + 2)
-    when "dayFour"
-      @visits = Visit.where(date: Date.today + 3)
-    when "dayFive"
-      @visits = Visit.where(date: Date.today + 4)
+    if params[:query].present?
+      @visits = Visit.where(date: params[:query])
+    else
+      @visits = Visit.where(date: Date.new(delay_integer[0], delay_integer[1], delay_integer[2]))
     end
   end
 
@@ -25,10 +21,12 @@ class VisitsController < ApplicationController
   end
 
   def destroy
+    @visit.destroy
+    redirect_to visits_path(delay: params[:delay])
   end
 
   def show
-
+    @minute = Minute.new
   end
 
   private

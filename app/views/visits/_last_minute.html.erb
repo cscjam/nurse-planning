@@ -2,11 +2,16 @@
   <div class="last_minute">
     <h3>Dernier compte-rendu</h3>
     <div class="minute-content">
-      <%= image_tag "https://thispersondoesnotexist.com/image", class: "avatar pb-3"%>
-      <div class="right">
+      <%= cl_image_tag visit.user.avatar.key, class: "avatar py-3"%>
+      <div>
         <p class="text-center"><%=visit.date%></p>
         <p>Enregistré par <%=visit.user.get_full_name%></p>
-        <p><%=visit&.minutes.last.content%></p>
+        <p><%=visit&.minutes&.last.content%></p>
+        <p><%=pluralize(visit&.minutes&.last&.photos.count || 0, "photo", locale: 'fr')  %>
+          <% visit&.minutes&.last&.photos.each do |photo| %>
+            <%= cl_image_tag(photo.key, size: '40x40', crop: :thumb) %>
+          <% end %>
+        </p>
       </div>
     </div>
   </div>
