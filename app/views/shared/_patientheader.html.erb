@@ -1,11 +1,15 @@
 <div class= "buttons">
   <%- if controller_name == 'visits' && action_name == 'show'%>
     <div><%= link_to "Visit", visit_path, class: "button_disabled"%></div>
-    <div><%= link_to "Historique", patient_path(@visit.patient), class: "button"%></div>
+    <div><%= link_to "Historique", patient_path(@visit.patient), class: "button-active"%></div>
   <% end %>
 
   <%- if controller_name == 'patients' && action_name == 'show'%>
-    <%= link_to "Visit", visit_path(@patient.visits.last), class: "button"%>
+    <% if @patient.visits.count != 0 %>
+    <%= link_to "Visit", visit_path(@patient.visits.last), class: "button-active"%>
+    <% else %>
+    <%= link_to "Visit", nil, class: "button-active"%>
+    <% end %>
     <%= link_to "Historique", patient_path, class: "button_disabled"%>
   <% end %>
 </div>
