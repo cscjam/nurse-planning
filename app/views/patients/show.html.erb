@@ -1,9 +1,9 @@
 <div class="patient-header">
   <div class="patient-info">
-    <%=@patient.first_name%> <%=@patient.last_name%><br>
-    <%=@patient.address%><br>
-    <%=@patient.phone%><br>
-    <%=@patient.compl_address%>
+    <h2><%=@patient.first_name%> <%=@patient.last_name%></h2>
+    <p><%=@patient.address%></p>
+    <p><%=@patient.phone%></p>
+    <p><%=@patient.compl_address%></p>
   </div>
   <%= render '/shared/patientheader' %>
 </div>
