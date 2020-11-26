@@ -15,11 +15,11 @@
         <% end %>
         <!-- Format date: 2020-11-27 -->
 
-        <div class="week">
-          <% (0..4).to_a.each do |d| %>
-            <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d && params[:query].present? == false}" do %>
-            <p><%= @days[(Time.new.wday + d - 1)%7].first(2) %></p>
-            <p><%= Date.today.day + d %></p>
+      <div class="week">
+          <% (Date.today..Date.today + 4).to_a.each do |d| %>
+            <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d.to_s && params[:query].present? == false}" do %>
+            <p><%= l(d, format: '%a').first(2).capitalize %></p>
+            <p><%= d.day %></p>
           <% end %>
           <% end %>
         </div>
@@ -29,10 +29,13 @@
         <div class="card-visit">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-info">
-              <h2><%= visit.patient.first_name %> <%= visit.patient.last_name %></h2>
+              <h2><%= visit.patient.get_full_name %></h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p><%= visit.patient.phone %></p>
+              <%= link_to visit_path(visit, delay: visit.date), method: :delete do%>
+                <i class="far fa-times-circle"></i>
+              <% end %>
             </div>
           <% end %>
           <div class="not-done">

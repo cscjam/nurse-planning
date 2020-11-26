@@ -45,7 +45,7 @@ pierre = Patient.create!(
 nicolas = Patient.create!(
   first_name: "Nicolas",
   last_name: "FLORIAN",
-  address: "3 rue ¨Pasteur 33200 Bordeaux ",
+  address: "3 rue Pasteur 33200 Bordeaux ",
   compl_address: "",
   phone: "0666666666",
   team: parc_bordelais)
