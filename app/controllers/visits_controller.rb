@@ -23,7 +23,7 @@ class VisitsController < ApplicationController
   end
 
   def show
-
+    @minute = Minute.new
   end
 
   private

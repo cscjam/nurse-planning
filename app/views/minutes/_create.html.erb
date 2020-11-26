@@ -1,0 +1,13 @@
+<div class="add_minute">
+  <h3>Ajouter un compte-rendu</h3>
+  <div class="minute-content">
+    <%= simple_form_for [visit, minute] do |f| %>
+      <%= f.input :photos, as: :file, input_html: { multiple: true },
+        label: "<i class='fas fa-upload'></i>".html_safe %>
+      <%= f.input :content, label: false, input_html: { rows: 1} %>
+      <%= button_tag type: 'submit', label: false, class: "btn btn-link p-0", id: "minute-submit" do %>
+        <i class="fas fa-paper-plane"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>
