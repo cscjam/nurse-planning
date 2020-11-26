@@ -39,7 +39,7 @@ pierre = Patient.create!(
   first_name: "Pierre",
   last_name: "HURMIC",
   address: "12 rue Falquet 33200 Bordeaux ",
-  compl_address: "Chien méchatn",
+  compl_address: "Chien méchant",
   phone: "06 66 66 66 66",
   team: parc_bordelais)
 nicolas = Patient.create!(
@@ -73,20 +73,21 @@ fernand = Patient.create!(
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
 
-# patients = Patient.all
-# 2.times do |day|
-#   position = 0
-#   (8..16).to_a.sample.times do
-#     Visit.create!(
-#       date: Date.today - day,
-#       position: position +=1 ,
-#       time: nil,
-#       wish_time: (6..20).to_a.sample,
-#       user: jackie,
-#       patient: patients.sample,
-#       is_done: true)
-#   end
-# end
+patients = Patient.all
+delays = (-2..-1).to_a + (1..5).to_a
+delays.each do |day|
+  position = 0
+  (8..16).to_a.sample.times do
+    Visit.create!(
+      date: Date.today - day,
+      position: position +=1 ,
+      time: nil,
+      wish_time: (6..20).to_a.sample,
+      user: jackie,
+      patient: patients.sample,
+      is_done: true)
+  end
+end
 
 position = 0
 Visit.create!(
@@ -185,21 +186,6 @@ Visit.create!(
   user: jackie,
   patient: fernand,
   is_done: false)
-
-# patients = Patient.all
-# 5.times do |day|
-#   position = 0
-#   (4..16).to_a.sample.times do
-#     Visit.create!(
-#       date: Date.today + day,
-#       position: position += 1,
-#       time: nil,
-#       wish_time: (6..20).to_a.sample,
-#       user: jackie,
-#       patient: patients.sample,
-#       is_done: false)
-#   end
-# end
 
 #--------------------------------------------------------------------
 # Injection, Prise de sang, perfusion, alimentation gastro, CHimio
