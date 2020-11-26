@@ -72,6 +72,7 @@ fernand = Patient.create!(
   team: parc_bordelais)
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
+
 patients = Patient.all
 delays = (-2..-1).to_a + (1..5).to_a
 delays.each do |day|
@@ -185,6 +186,7 @@ Visit.create!(
   user: jackie,
   patient: fernand,
   is_done: false)
+
 #--------------------------------------------------------------------
 # Injection, Prise de sang, perfusion, alimentation gastro, CHimio
 puts "SEED > ADD CARES"

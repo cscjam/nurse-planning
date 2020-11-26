@@ -1,8 +1,21 @@
 class DashboardsController < ApplicationController
   def show
-    @visits = Visit.where(date: Date.today)
-    @visits = @visits.sort {|x, y| x.position <=> y.position}
-    @visitref = @visits.find {|visit| visit.is_done == false }
-    # n'afficher que la première visite dont is_done = false ainsi que le précédente et la suivante
+    @today_visits = Visit.where(date: Date.today)
+    visitref = @today_visits.find { |visit| visit.is_done == false }
+    @current_visits = []
+    case visitref.position
+    when 1
+      @current_visits << visitref
+      @current_visits << Visit.find_by(date: Date.today, position: 2)
+      @current_visits << Visit.find_by(date: Date.today, position: 3)
+    when @today_visits.last.position
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position - 2)
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position - 1)
+      @current_visits << visitref
+    else
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position - 1)
+      @current_visits << visitref
+      @current_visits << Visit.find_by(date: Date.today, position: visitref.position + 1)
+    end
   end
 end
