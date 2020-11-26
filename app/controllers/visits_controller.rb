@@ -1,7 +1,7 @@
 
 
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show, :destroy]
+  before_action :get_visit, only: [:show, :update, :destroy]
 
   def index
     @delay = params[:delay] || Date.today.to_s
@@ -15,6 +15,9 @@ class VisitsController < ApplicationController
   end
 
   def update
+    @visit.is_done ? @visit.is_done = false : @visit.is_done = true
+    @visit.save
+    redirect_to root_path
   end
 
   def destroy

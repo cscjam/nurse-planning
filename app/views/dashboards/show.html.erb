@@ -1,12 +1,35 @@
 <div class="header-home">
   <h1><%= "Hello #{current_user.get_full_name}" %></h1>
-    <p><%= l Time.now, format: :long %></p>
+  <p><%= l Time.now, format: :long %></p>
+  <%= cl_image_tag current_user.avatar.key, class: "avatar bordered"%>
 </div>
 
-<!--Call avatar.attach to attach an avatar to an existing user:-->
-<!--Current.user.avatar.attach(params[:avatar])-->
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+      <% @visits.each do |visit| %>
+        <div class="card-visit">
+          <%= link_to visit_path(visit) do %>
+            <div class="card-visit-info">
+              <h2><%= visit.patient.first_name %> <%= visit.patient.last_name %></h2>
+              <p><%= visit.patient.address %></p>
+              <p><%= visit.patient.compl_address %></p>
+              <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
+              <div>
+                <% visit.cares.each do |care| %>
+                  <i class="<%= care.icon %> m-2"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= link_to visit_path(visit), remote: true, method: :patch do%>
+            <div class="<%= visit.is_done ? 'done' : 'not-done'%>">
+              <i class="fas fa-check"></i>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
-<!--Display avatar with face dectection-->
-<!-- <#%= cl_image_tag("IMAGE_WITH_FACE_ID", width: 150, height: 150, crop: :thumb, gravity: :face) %>-->
-
-
+    </div>
+  </div>
+</div>
