@@ -1,6 +1,18 @@
 .card_care{
+  margin-top: 20px;
   .cares{
     display: flex;
     flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  p {
+    font-size: 14px;
+    padding-right: 10px;
+    margin: 0px;
   }
 }
