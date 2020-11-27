@@ -6,6 +6,7 @@ export const flatPickr = () => {
 flatpickr(".datepicker", {
   "locale": French,
   altInput: true,
-  altFormat: "j F Y"
+  altFormat: "j F Y",
+  disableMobile: "true"
 });
 }
