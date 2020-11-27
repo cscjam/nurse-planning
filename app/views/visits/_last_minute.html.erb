@@ -2,7 +2,9 @@
   <div class="last_minute">
     <h3>Dernier compte-rendu</h3>
     <div class="minute-content background">
-      <%= cl_image_tag visit.user.avatar.key, class: "avatar"%>
+      <%= cl_image_tag(visit.user.avatar.key, :transformation=>[
+      {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
+      ]) %>
       <div>
         <p class="text-center"><%=visit.date%></p>
         <p>Enregistré par <%=visit.user.get_full_name%></p>
