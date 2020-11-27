@@ -1,11 +1,13 @@
 <div class="header-home">
   <h1><%= "Hello #{current_user.get_full_name}" %></h1>
   <p><%= l(Time.now, format: :long) %></p>
-  <%= cl_image_tag current_user.avatar.key, class: "avatar-bordered"%>
+    <%= cl_image_tag(current_user.avatar.key, :transformation=>[
+    {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
+    ]) %>
 </div>
 
 
-<div class="container mt-2">
+<div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
       <% @current_visits.each do |visit| %>
@@ -16,11 +18,11 @@
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
-              <div>
+
                 <% visit.cares.each do |care| %>
                   <i class="<%= care.icon %> m-2"></i>
                 <% end %>
-              </div>
+
             </div>
           <% end %>
           <%= link_to visit_path(visit), remote: true, method: :patch do%>

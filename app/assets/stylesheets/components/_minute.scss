@@ -6,6 +6,11 @@
 .background {
     background-color: $mid-gray;
     padding: 10px;
+    border-radius: 16px;
+    p {
+    font-size: 14px;
+    margin-right: 0px;
+  }
   }
 
 .minute-content{
@@ -15,6 +20,12 @@
   align-items: flex-end;
   p {
     font-size: 14px;
+    margin-right: 0px;
+  }
+  img {
+    width: 40px;
+    border-radius: 50%;
+    margin: 0 16px 16px 0;
   }
   form{
     width: 100%;

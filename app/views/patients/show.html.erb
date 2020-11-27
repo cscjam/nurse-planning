@@ -9,11 +9,11 @@
 </div>
 
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-12 col-md-6 col-lg-4">
       <% @patient.visits.each do |visit| %>
       <div class="minute-history">
-        <p class="text-center"><%= visit.date %></p>
+        <h4 class="text-center"><%= visit.date %></h4>
         <div class="card_care">
           <div class="cares">
             <% visit.cares.each do |care| %>
@@ -23,7 +23,7 @@
         </div>
         <% visit.minutes.each do |minutes| %>
         <p><%=minutes.content%></p>
-        <p><%= visit.user.first_name %> <%= visit.user.last_name %></p>
+        <h4><%= visit.user.first_name %> <%= visit.user.last_name %></h4>
         <% end %>
       </div>
       <% end %>
