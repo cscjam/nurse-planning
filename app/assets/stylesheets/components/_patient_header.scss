@@ -1,6 +1,13 @@
 .patient-header {
   background-color: $orange;
   padding-bottom: 10px;
+  position:fixed;
+  width:100%;
+  top: 0;
+}
+
+.header-margin {
+  margin-top: 162px;
 }
 
 .patient-info {
