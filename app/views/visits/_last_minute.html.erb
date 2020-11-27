@@ -2,7 +2,7 @@
   <div class="last_minute">
     <h3>Dernier compte-rendu</h3>
     <div class="background">
-      <p class="text-center"><%=visit.date%></p>
+      <p class="text-center"><%=visit.created_at.to_formatted_s(:db)%></p>
     <div class="minute-content">
       <%= cl_image_tag(visit.user.avatar.key, :transformation=>[
       {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
