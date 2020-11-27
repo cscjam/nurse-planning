@@ -1,0 +1,66 @@
+.card-visit-home {
+  height: 160px;
+  margin: 10px 0;
+  background-color: $orange;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between
+}
+
+.card-visit-home-info {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+}
+
+.card-visit-home a {
+  text-decoration: none;
+  color: white;
+}
+
+.card-visit-home p {
+  margin: 0;
+  font-size: 14px;
+  font-family: $body-font;
+}
+
+.card-visit-home h2 {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: $body-font;
+}
+
+.done {
+  height: 100%;
+  padding: 0 20px;
+  border-left: solid 1px white;
+  display: flex;
+  justify-content: center;
+  i {
+  align-self: center;
+  }
+}
+
+.not-done {
+  background-color: white;
+  color: $orange;
+  height: 100%;
+  padding: 0 20px;
+  border: solid 1px $orange;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  justify-content: center;
+  i {
+  align-self: center;
+  }
+}
+
+.fa-times-circle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
