@@ -8,10 +8,10 @@
   <%- elsif ['minutes#create', 'visits#show', 'patients#show'].include?("#{controller_name}##{action_name}")%>
     <%= link_to root_path do %><i class="fas fa-home"></i><% end %>
     <%= link_to visits_path do %><i class="fas fa-calendar-day"></i><% end %>
-    <i class="far fa-calendar-plus"></i>
-    <i class="far fa-image"></i>
-    <i class="fas fa-microphone"></i>
+    <%= link_to nil do %><i class="far fa-calendar-plus"></i><% end %>
+    <%= link_to nil do %><i class="far fa-image"></i><% end %>
+    <%= link_to nil do %><i class="fas fa-microphone"></i><% end %>
   <%- else %>
-    <i class="fas fa-user-nurse"></i>
+    <%= link_to nil do %><i class="fas fa-user-nurse"></i><% end %>
   <% end %>
 </div>
