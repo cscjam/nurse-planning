@@ -1,6 +1,13 @@
 .minute-history {
   background-color: $mid-gray;
   border-radius: 16px;
-  padding: 5px;
   margin:  10px 0px;
+  padding: 10px 15px;
+  h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  p {
+    font-size: 14px;
+  }
 }
