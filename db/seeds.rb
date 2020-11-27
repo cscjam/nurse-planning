@@ -79,7 +79,7 @@ delays.each do |day|
   position = 0
   (8..16).to_a.sample.times do
     Visit.create!(
-      date: Date.today - day,
+      date: Date.today + day,
       position: position +=1 ,
       time: nil,
       wish_time: (6..20).to_a.sample,
