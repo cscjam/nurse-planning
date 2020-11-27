@@ -8,28 +8,28 @@
   justify-content: space-between
 }
 
-.card-visit-info {
+.card-visit-home-info {
   height: 100%;
   width: 100%;
   padding: 20px;
   position: relative;
 }
 
-.card-visit a {
+.card-visit-home a {
   text-decoration: none;
   color: white;
 }
 
-.card-visit p {
+.card-visit-home p {
   margin: 0;
   font-size: 14px;
   font-family: $body-font;
 }
 
-.card-visit h2 {
+.card-visit-home h2 {
   margin: 0;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
   font-family: $body-font;
 }
