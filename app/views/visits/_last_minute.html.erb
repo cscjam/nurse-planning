@@ -4,9 +4,11 @@
     <div class="background">
       <p class="text-center"><%=visit.created_at.to_formatted_s(:db)%></p>
     <div class="minute-content">
+      <div class="avatar-rond">
       <%= cl_image_tag(visit.user.avatar.key, :transformation=>[
       {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
-      ]) %>
+      ])%>
+      </div>
       <div>
         <p><%=visit&.minutes&.last.content%></p>
         <p><% visit&.minutes&.last&.photos.each do |photo| %>
