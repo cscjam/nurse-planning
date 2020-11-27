@@ -1,40 +1,39 @@
 .patient-header {
   background-color: $orange;
-  height: 100px;
-  width: 100vw;
-  top: 0;
+  padding-bottom: 10px;
 }
 
 .patient-info {
-  display: flex;
-  position: relative;
-  top: 0px;
-  height: 50px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 10px;
-  color: $white;
-  padding-top: 5px;
-  margin-left: 10px;
+  padding: 20px;
+  p {
+    font-size: 14px;
+    color: $white;
+    margin: 0px;
+  }
+  h2 {
+    font-size: 14px;
+    color: $white;
+    margin: 0px;
+    font-weight: bold;
+  }
 }
 
 .buttons {
   display: flex;
   justify-content: center;
-  margin-top: 18px;
 }
 
 .buttons .button_disabled {
   display: flex;
   justify-content: center;
-  width: 130px;
+  width: 165px;
   text-decoration: none;
-  border:2px solid white;
-  border-radius: 5px;
+  border:1px solid white;
+  font-size: 14px;
   text-align: center;
   font-style: normal;
   font-weight: normal;
-  padding: 1px 20px 1px 20px;
+  padding: 5px 20px 5px 20px;
   color: $orange;
   background-color: white;
 }
@@ -42,14 +41,22 @@
 .buttons .button-active {
   display: flex;
   justify-content: center;
-  width: 130px;
+  width: 165px;
   text-decoration: none;
-  border:2px solid white;
-  border-radius: 5px;
+  border:1px solid white;
+  font-size: 14px;
   text-align: center;
   font-style: normal;
   font-weight: normal;
-  padding: 1px 20px 1px 20px;
+  padding: 5px 20px 5px 20px;
   background-color: $orange;
   color: white;
+}
+
+.buttons .right {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.buttons .left {
+  border-radius: 5px 0px 0px 5px;
 }
