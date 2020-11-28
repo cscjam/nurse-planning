@@ -32,7 +32,7 @@
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p><%= visit.patient.phone %></p>
-              <%= link_to visit_path(visit, delay: visit.date), method: :delete do%>
+              <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
                 <i class="far fa-times-circle"></i>
               <% end %>
             </div>

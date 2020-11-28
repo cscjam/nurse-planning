@@ -1,7 +1,7 @@
 <div class="add_minute">
   <h3>Ajouter un compte-rendu</h3>
   <div class="minute-content">
-    <%= simple_form_for [visit, minute] do |f| %>
+    <%= simple_form_for [visit, minute], remote: true do |f| %>
       <%= f.input :photos, as: :file, input_html: { multiple: true },
         label: "<i class='far fa-image fa-lg'></i>".html_safe %>
       <%= f.input :content, label: false, input_html: { rows: 1, id: "speech"} %>
