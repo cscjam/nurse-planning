@@ -5,12 +5,10 @@
     {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
     ]) %>
 </div>
-
-
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-      <% @current_visits.each do |visit| %>
+      <% @visits.each do |visit| %>
         <div class="card-visit-home">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-home-info">
@@ -18,11 +16,9 @@
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
-
                 <% visit.cares.each do |care| %>
                   <i class="<%= care.icon %> m-2"></i>
                 <% end %>
-
             </div>
           <% end %>
           <%= link_to visit_path(visit), remote: true, method: :patch do%>
@@ -32,7 +28,6 @@
           <% end %>
         </div>
       <% end %>
-
     </div>
   </div>
 </div>

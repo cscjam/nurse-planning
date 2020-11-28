@@ -1,28 +1,23 @@
-.card-visit {
-  height: 120px;
+.card-journey {
+  height: 30px;
   margin: 10px 0;
-  background-color: $orange;
+  background-color: $mid-gray;
+  border: solid $orange 1px;
   border-radius: 10px;
-  color: white;
+  color: $orange;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 
   a {
+    flex-grow: 1;
     text-decoration: none;
-    color: white;
+    color: $orange;
   }
 
-  p {
+   p {
     margin: 0;
     font-size: 14px;
-    font-family: $body-font;
-  }
-
-  h2 {
-    margin: 0;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
     font-family: $body-font;
   }
 
@@ -42,7 +37,7 @@
     color: $orange;
     height: 100%;
     padding: 0 20px;
-    border: solid 1px $orange;
+    border: solid 1px $mid-gray;
     border-radius: 0 10px 10px 0;
     display: flex;
     justify-content: center;
@@ -58,10 +53,10 @@
   }
 }
 
-.card-visit-info {
+.card-journey-info {
   height: 100%;
   width: 100%;
-  padding: 20px;
+  padding: 0;
+  padding-left: 20px;
   position: relative;
 }
-

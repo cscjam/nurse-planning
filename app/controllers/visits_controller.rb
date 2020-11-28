@@ -6,12 +6,13 @@ class VisitsController < ApplicationController
   def index
     @delay = params[:delay] || Date.today.to_s
     delay_integer = @delay.split('-').map { |element| element.to_i }
-
     if params[:query].present?
       @visits = Visit.where(date: params[:query])
     else
       @visits = Visit.where(date: Date.new(delay_integer[0], delay_integer[1], delay_integer[2]))
     end
+    locomotion = params[:locomotion] || :voiture
+    @journeys = Journey::update_journeys(@visits.to_a, locomotion)
   end
 
   def update

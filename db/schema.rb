@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_161144) do
+ActiveRecord::Schema.define(version: 2020_11_27_162546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,23 @@ ActiveRecord::Schema.define(version: 2020_11_27_161144) do
     t.string "icon"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "journeys", force: :cascade do |t|
+    t.bigint "start_user_id_id"
+    t.bigint "start_patient_id_id"
+    t.bigint "end_user_id_id"
+    t.bigint "end_patient_id_id"
+    t.integer "locomotion"
+    t.integer "distance", default: 0
+    t.integer "duration", default: 0
+    t.boolean "is_done", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["end_patient_id_id"], name: "index_journeys_on_end_patient_id_id"
+    t.index ["end_user_id_id"], name: "index_journeys_on_end_user_id_id"
+    t.index ["start_patient_id_id"], name: "index_journeys_on_start_patient_id_id"
+    t.index ["start_user_id_id"], name: "index_journeys_on_start_user_id_id"
   end
 
   create_table "minutes", force: :cascade do |t|
@@ -115,6 +132,10 @@ ActiveRecord::Schema.define(version: 2020_11_27_161144) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "journeys", "patients", column: "end_patient_id_id"
+  add_foreign_key "journeys", "patients", column: "start_patient_id_id"
+  add_foreign_key "journeys", "users", column: "end_user_id_id"
+  add_foreign_key "journeys", "users", column: "start_user_id_id"
   add_foreign_key "minutes", "visits"
   add_foreign_key "patients", "teams"
   add_foreign_key "users", "teams"

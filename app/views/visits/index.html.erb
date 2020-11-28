@@ -1,10 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-
       <div class="header-day">
         <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
-
         <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
           <div class="search-form-control form-group">
             <input class="form-control datepicker" type="text" name="query"/>
@@ -13,7 +11,6 @@
             </button>
           </div>
         <% end %>
-
       <div class="week">
           <% (Date.today..Date.today + 4).to_a.each do |d| %>
             <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d.to_s && params[:query].present? == false}" do %>
@@ -23,8 +20,11 @@
           <% end %>
         </div>
       </div>
-
-      <% @visits.each do |visit| %>
+      <%= render 'journeys/show' , journey: @journeys.first %>
+      <% @visits.each_with_index do |visit, position| %>
+        <% if position != 0 %>
+          <%= render 'journeys/show' , journey: @journeys[position + 1] %>
+        <% end  %>
         <div class="card-visit">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-info">
@@ -42,7 +42,7 @@
           </div>
         </div>
       <% end %>
-
+      <%= render 'journeys/show' , journey: @journeys.last %>
     </div>
   </div>
 </div>

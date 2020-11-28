@@ -17,56 +17,56 @@ file = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/Nur
 jackie.avatar.attach(io: file, filename: 'Nurse Jackie', content_type: 'image/png')
 jackie.save!
 serge = User.new(
-  first_name: "Serge",
-  last_name: "BLANCO",
-  email: "sblanco@mail.com",
+  first_name: "Mildred",
+  last_name: "RATCHED",
+  email: "mracthed@mail.com",
   password: "nurseplan",
   address: "rue du Vélodrome 33200 Bordeaux",
   team: parc_bordelais)
-file = URI.open('https://i.pinimg.com/236x/bd/5e/31/bd5e31d61b3cb58ed315e46ef257eb30--ballon-rugby.jpg')
+file = URI.open('https://tetu.com/wp-content/uploads/2020/09/ratched-1-1280x720.jpg')
 serge.avatar.attach(io: file, filename: 'Serge Blanco', content_type: 'image/png')
 serge.save!
  #--------------------------------------------------------------------
 puts "SEED > ADD PATIENTS"
 alain = Patient.create!(
-  first_name: "Alain",
-  last_name: "JUPPE",
+  first_name: "Paul",
+  last_name: "PAUL",
   address: "34 rue du Parc 33200 Bordeaux ",
   compl_address: "Appeler avant de sonner",
   phone: "+33666666666",
   team: parc_bordelais)
 pierre = Patient.create!(
   first_name: "Pierre",
-  last_name: "HURMIC",
+  last_name: "PIERRE",
   address: "12 rue Falquet 33200 Bordeaux ",
   compl_address: "Chien méchant",
   phone: "06 66 66 66 66",
   team: parc_bordelais)
 nicolas = Patient.create!(
   first_name: "Nicolas",
-  last_name: "FLORIAN",
+  last_name: "NICOLAS",
   address: "3 rue Pasteur 33200 Bordeaux ",
   compl_address: "",
   phone: "0666666666",
   team: parc_bordelais)
 hugues = Patient.create!(
   first_name: "Hugues",
-  last_name: "MARTIN",
+  last_name: "HUGUES",
   address: "401 avenue de la Libération 33200 Bordeaux",
   compl_address: "",
   phone: "06.66.66.66.66",
   team: parc_bordelais)
 jacques = Patient.create!(
   first_name: "Jacques ",
-  last_name: "CHABAN DELMAS",
+  last_name: "JACQUES",
   address: "172 rue de l'École Normale 33200 Bordeaux",
   compl_address: "",
   phone: "06.66.66.66.66",
   team: parc_bordelais)
 fernand = Patient.create!(
   first_name: "Fernand ",
-  last_name: "AUDEGUIL",
-  address: "Villa Primerose 33200 Bordeaux",
+  last_name: "FERNAND",
+  address: "158 rue Jules Ferry 33200 Bordeaux",
   compl_address: "",
   phone: "06 666 666 66",
   team: parc_bordelais)
