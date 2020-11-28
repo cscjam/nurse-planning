@@ -1,16 +1,15 @@
 class DashboardsController < ApplicationController
   def show
-    @today_visits = Visit.where(date: Date.today)
-    @today_visits.sort{|a, b| a<=>b}
+    @today_visits = Visit.includes(:patient, :cares).where(date: Date.today).order(:position)
     @visits = [@today_visits.find { |visit| !visit.is_done }]
-    position = @visits.first&.position || 0
-    case position
-    when @today_visits.first.position
-      @visits.push(@today_visits[position+1], @today_visits[position+2])
-    when @today_visits.last.position
-      @visits.unshift(@today_visits[position-2], @today_visits[position-1])
+    index = @today_visits.index(@visits.first)
+    case index
+    when 0
+      @visits.push(@today_visits[index+1], @today_visits[index+2])
+    when @today_visits.length - 1
+      @visits.unshift(@today_visits[index-2], @today_visits[index-1])
     else
-      @visits.unshift(@today_visits[position-1]).push(@today_visits[position+1])
+      @visits.unshift(@today_visits[index-1]).push(@today_visits[index+1])
     end
     @visits.compact!
   end

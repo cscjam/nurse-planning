@@ -12,7 +12,7 @@
         <div class="card-visit-home">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-home-info">
-              <h2><%= visit.patient.first_name %> <%= visit.patient.last_name %></h2>
+              <h2><%= visit.patient.first_name %> <%= visit.patient.last_name %> (<%= visit.position %>)</h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
