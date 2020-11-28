@@ -33,9 +33,37 @@ class Journey < ApplicationRecord
   end
 
   def self.get_one_journey_infos(pair_points, locomotion)
+    journeys = retrieve_one_journey(pair_points, locomotion)
+    return journeys.first unless journeys.none?
+
+    create_one_journey(pair_points, locomotion)
+  end
+
+  def self.retrieve_one_journey(pair_points, locomotion)
+    # Dans le DB locomotion est un entier 0, 1, 2
+    params = {locomotion: Journey.locomotions.keys.index(locomotion.to_s)}
+    start_key = "start_patient"
+    if pair_points.first.is_a? User
+      start_key = "start_user"
+      params[:start_user] = pair_points.first.id
+    else
+      params[:start_patient] = pair_points.first.id
+    end
+    end_key = "end_patient"
+    if pair_points.last.is_a? User
+      end_key = "end_user"
+      params[:end_user] = pair_points.last.id
+    else
+      params[:end_patient] = pair_points.last.id
+    end
+    Journey.where("#{start_key}_id = :#{start_key} AND #{end_key}_id = :#{end_key} AND locomotion = :locomotion", params)
+  end
+
+  def self.create_one_journey(pair_points, locomotion)
+    # Dans l'api locomotion est une string driving, cycling, byking
     locomotion = Journey.locomotions[locomotion] unless locomotion.is_a? String
-    pair_points.map!{|point|{"longitude" => point.longitude, "latitude" => point.latitude}}
-    travel_infos = Mapbox::Directions.directions(pair_points, locomotion)[0]
+    pair_coords = pair_points.map{|point|{"longitude" => point.longitude, "latitude" => point.latitude}}
+    travel_infos = Mapbox::Directions.directions(pair_coords, locomotion)[0]
     if travel_infos["code"] == "Ok"
       return Journey.create(map_api(pair_points, locomotion, travel_infos))
     end

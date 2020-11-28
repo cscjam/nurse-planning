@@ -2,7 +2,10 @@
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
       <div class="header-day">
-        <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
+        <div class="d-flex justify-content-between">
+          <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
+          <p><%= select_tag "locomotion", options_for_select(Journey.locomotions) %></p>
+        </div>
         <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
           <div class="search-form-control form-group">
             <input class="form-control datepicker" type="text" name="query"/>

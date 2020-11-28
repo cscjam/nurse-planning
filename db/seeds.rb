@@ -1,5 +1,5 @@
 puts "SEED > CLEAN DB"
-[VisitCare, Care, Minute, Visit, User, Patient, Team].each(&:delete_all)
+[VisitCare, Care, Minute, Visit, User, Patient, Journey, Team].each(&:delete_all)
 #--------------------------------------------------------------------
 puts "SEED > ADD TEAMS"
 parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
