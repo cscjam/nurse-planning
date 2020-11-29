@@ -28,7 +28,7 @@
         <% if position != 0 %>
           <%= render 'journeys/show' , journey: @journeys[position + 1] %>
         <% end  %>
-        <div class="card-visit">
+        <div class="card-visit" id="visit-<%=visit.id%>">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-info">
               <h2><%= visit.patient.get_full_name %></h2>
@@ -40,7 +40,7 @@
               <% end %>
             </div>
           <% end %>
-          <div class="not-done">
+          <div class="<%= visit.is_done ? 'done' : 'not-done'%>">
             <i class="fas fa-check"></i>
           </div>
         </div>

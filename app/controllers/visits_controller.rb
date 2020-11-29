@@ -14,6 +14,10 @@ class VisitsController < ApplicationController
     end
     locomotion = params[:locomotion] || :voiture
     @journeys = Journey::update_journeys(@visits.to_a, locomotion)
+    respond_to do |format|
+      format.html
+      format.json { render json: { journeys: @journeys } }
+    end
   end
 
   def update

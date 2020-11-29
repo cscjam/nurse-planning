@@ -24,7 +24,8 @@
   .done {
     height: 100%;
     padding: 0 20px;
-    border-left: solid 1px white;
+    border: none;
+    border-left: solid 1px $orange;
     display: flex;
     justify-content: center;
     i {
@@ -37,7 +38,8 @@
     color: $orange;
     height: 100%;
     padding: 0 20px;
-    border: solid 1px $mid-gray;
+    border: none;
+    border-left: solid 1px $orange;
     border-radius: 0 10px 10px 0;
     display: flex;
     justify-content: center;

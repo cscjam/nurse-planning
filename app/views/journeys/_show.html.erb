@@ -1,7 +1,8 @@
 
-<div class="card-journey">
+<% pp journey %>
+<div class="card-journey" id="journey-<%=journey.id%>">
   <%= link_to nil do %>
-    <div class="card-journey-info">
+    <div class="card-journey-info"
       <p>Trajet
       <%= " depuis domicile" unless journey.start_user.nil? %>
       <%= " vers domicile" unless journey.end_user.nil? %>
@@ -9,7 +10,7 @@
       </p>
     </div>
   <% end %>
-  <div class="not-done">
+  <div class="<%= journey.is_done ? 'done' : 'not-done'%>">
     <i class="fas fa-check"></i>
   </div>
 </div>

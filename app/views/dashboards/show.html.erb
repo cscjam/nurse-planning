@@ -8,11 +8,11 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-      <% @visits.each do |visit| %>
-        <div class="card-visit-home">
+      <% @visits.each_with_index do |visit, index| %>
+        <div class="card-visit-home"  id="visit-<%=visit.id%>">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-home-info">
-              <h2><%= visit.patient.get_full_name %></h2>
+              <h2><%= index + 1 %>/<%= @today_visits.length %> : <%= visit.patient.get_full_name %></h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
