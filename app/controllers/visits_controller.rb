@@ -12,6 +12,9 @@ class VisitsController < ApplicationController
       date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
       @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
     end
+    # Si changemrnt : mise @jour de l'utilisateur
+    # current_user.update({locomotion: params[:locomotion]}) if params[:locomotion]
+    # Mise à jour des trajets
     locomotion = params[:locomotion] || :voiture
     @journeys = Journey::update_journeys(@visits.to_a, locomotion)
     respond_to do |format|

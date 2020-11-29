@@ -17,11 +17,9 @@ const getPrettyInfos = (journey) => {
 }
 
 const updateJourneysCards = (journeysJson) => {
-  console.log(journeysJson)
   if(journeysJson) {
     for(let index = 0; index < journeysJson.length; index++){
       const journeyElt = document.querySelector(`#journey-${index} .card-journey-info p`);
-      console.log(journeyElt);
       if(journeyElt) {
         journeyElt.innerText = getPrettyInfos(journeysJson[index])
       }

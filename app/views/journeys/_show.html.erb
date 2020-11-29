@@ -4,7 +4,7 @@
   <%= link_to nil do %>
     <div class="card-journey-info">
       <p>Trajet
-      <%= " depuis domicile" unless journey.start_user.nil? %>
+      <%= " depuis domicile" unless journey.start_user.nil?  %>
       <%= " vers domicile" unless journey.end_user.nil? %>
       : <%= journey.get_pretty_infos %>
       </p>
