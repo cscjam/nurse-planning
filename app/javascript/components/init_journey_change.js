@@ -1,11 +1,11 @@
 const getPrettyInfos = (journey) => {
   let mins = journey["duration"];
-  let hours = mins / 60
+  let hours = Math.trunc(mins / 60)
   let duration = "";
   if ( hours > 0){
     duration += `${hours}h`;
   }
-  duration += `${mins % 60}m`;
+  duration += `${Math.trunc(mins % 60)}min`;
   let specificJourney = "";
   if(null != journey["start_user_id"]){
     specificJourney = "depuis domicile "
@@ -13,20 +13,19 @@ const getPrettyInfos = (journey) => {
   if(null != journey["end_user_id"]){
     specificJourney = "vers domicile "
   }
-  return "Trajet " + specificJourney + ": " duration + " - " + journey["distance"];
+  return "Trajet " + specificJourney + ": " + duration + " - " + journey["distance"] + "m";
 }
 
 const updateJourneysCards = (journeysJson) => {
   console.log(journeysJson)
   if(journeysJson) {
-    journeysJson.forEach(journeyJson => {
-      console.log(`journey-${journeyJson["id"]}`)
-      const journeyElt = document.getElementById(`journey-${journeyJson["id"]}`);
+    for(let index = 0; index < journeysJson.length; index++){
+      const journeyElt = document.querySelector(`#journey-${index} .card-journey-info p`);
       console.log(journeyElt);
       if(journeyElt) {
-        journeyElt.innerText = getPrettyInfos(journeyJson)
+        journeyElt.innerText = getPrettyInfos(journeysJson[index])
       }
-    });
+    };
   };
 };
 
@@ -39,6 +38,7 @@ export const initJourneyChange = () => {
       fetch(url, { headers: { accept: "application/json" } })
       .then(response => response.json())
       .then((data) => {
+        console.log(data);
         updateJourneysCards(data["journeys"])
       });
     });

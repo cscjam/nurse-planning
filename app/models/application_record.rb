@@ -7,6 +7,6 @@ class ApplicationRecord < ActiveRecord::Base
 
   def get_pretty_duration(duration_min)
     hour = duration_min / 60
-   "#{hour if hour > 0}#{"h" if hour > 0}#{duration_min % 60}m"
+   "#{hour if hour > 0}#{"h" if hour > 0}#{duration_min % 60}min"
   end
 end

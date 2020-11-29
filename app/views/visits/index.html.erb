@@ -23,11 +23,8 @@
           <% end %>
         </div>
       </div>
-      <%= render 'journeys/show' , journey: @journeys.first %>
       <% @visits.each_with_index do |visit, position| %>
-        <% if position != 0 %>
-          <%= render 'journeys/show' , journey: @journeys[position + 1] %>
-        <% end  %>
+        <%= render 'journeys/show' , journey: @journeys[position + 1], position: position %>
         <div class="card-visit" id="visit-<%=visit.id%>">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-info">
@@ -45,7 +42,7 @@
           </div>
         </div>
       <% end %>
-      <%= render 'journeys/show' , journey: @journeys.last %>
+      <%= render 'journeys/show' , journey: @journeys.last, position: @visits.count  %>
     </div>
   </div>
 </div>
