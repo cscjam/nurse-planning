@@ -2,6 +2,12 @@ class PatientsController < ApplicationController
   before_action :get_patient, only: [:show]
 
   def index
+    if params[:search].present?
+      sql_search = "first_name ILIKE :search OR last_name ILIKE :search"
+      @patients = Patient.where(sql_search, search: "%#{params[:search]}%")
+    else
+      @patients = Patient.all
+    end
   end
 
   def show

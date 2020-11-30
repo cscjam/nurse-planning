@@ -12,11 +12,13 @@ import "bootstrap";
 import Sortable from 'sortablejs';
 
 // Internal imports
-import { initJourneyChange } from '../components/init_journey_change.js'
+import { initJourneyChange } from '../components/init_journey_change.js';
 import { initMinuteCreation } from '../components/init_minute_creation.js';
 import { initSpeechApi } from "../components/init_speech_api.js";
+<<<<<<< HEAD
 import { flatPickr } from "../plugins/flatpickr";
 import { initSortable} from '../plugins/init_sortable.js';
+import { toggleDone } from "../components/toggle_done";
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -25,6 +27,7 @@ document.addEventListener('turbolinks:load', () => {
   initMinuteCreation();
   flatPickr();
   initSortable();
+  toggleDone();
 });
 
 

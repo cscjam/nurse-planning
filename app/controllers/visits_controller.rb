@@ -1,7 +1,8 @@
 
 
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show, :update, :destroy, :move]
+  before_action :get_visit, only: [:show, :update, :destroy, :mark_as_done, :move]
+
 
   def index
     @delay = params[:delay] || Date.today.to_s
@@ -25,9 +26,14 @@ class VisitsController < ApplicationController
   end
 
   def update
-    @visit.is_done ? @visit.is_done = false : @visit.is_done = true
+  end
+
+  def mark_as_done
+    @visit.is_done = !@visit.is_done
     @visit.save
-    redirect_to root_path
+    if params["format"] == "dashboards"
+      redirect_to root_path
+    end
   end
 
   def destroy
