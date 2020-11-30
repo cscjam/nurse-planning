@@ -10,3 +10,4 @@ flatpickr(".datepicker", {
   disableMobile: "true"
 });
 }
+

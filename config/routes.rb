@@ -6,5 +6,11 @@ Rails.application.routes.draw do
   resources :visits, only: [ :index, :update, :destroy, :show ]  do
     resources :minutes, only: [ :create ]
   end
+
+  resources :visits do
+    member do
+      patch :move
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
