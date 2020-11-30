@@ -5,6 +5,7 @@ class PatientsController < ApplicationController
   end
 
   def show
+    @visits = @patient.visits.order(:date)
   end
 
   def new
