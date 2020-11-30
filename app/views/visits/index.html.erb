@@ -32,17 +32,24 @@
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p><%= visit.patient.phone %></p>
+              <p><%= visit.wish_time %></p>
               <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
                 <i class="far fa-times-circle"></i>
               <% end %>
             </div>
           <% end %>
-          <div class="<%= visit.is_done ? 'done' : 'not-done'%>">
-            <i class="fas fa-check"></i>
-          </div>
+          <%= link_to mark_as_done_visit_path(visit), remote: true, method: :patch do%>
+            <div class=" toggle <%= visit.is_done ? 'done' : 'not-done'%>">
+              <i class="fas fa-check"></i>
+            </div>
+          <% end %>
         </div>
       <% end %>
       <%= render 'journeys/show' , journey: @journeys.last, position: @visits.count  %>
     </div>
   </div>
 </div>
+
+
+
+
