@@ -16,21 +16,21 @@ jackie = User.new(
 file = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
 jackie.avatar.attach(io: file, filename: 'Nurse Jackie', content_type: 'image/png')
 jackie.save!
-serge = User.new(
+mildred = User.new(
   first_name: "Mildred",
   last_name: "RATCHED",
-  email: "mracthed@mail.com",
+  email: "mratched@mail.com",
   password: "nurseplan",
   address: "rue du Vélodrome 33200 Bordeaux",
   team: parc_bordelais)
 file = URI.open('https://tetu.com/wp-content/uploads/2020/09/ratched-1-1280x720.jpg')
-serge.avatar.attach(io: file, filename: 'Serge Blanco', content_type: 'image/png')
-serge.save!
+mildred.avatar.attach(io: file, filename: 'Mildred RATCHED', content_type: 'image/png')
+mildred.save!
  #--------------------------------------------------------------------
 puts "SEED > ADD PATIENTS"
 alain = Patient.create!(
-  first_name: "Paul",
-  last_name: "PAUL",
+  first_name: "Alain",
+  last_name: "ALAIN",
   address: "34 rue du Parc 33200 Bordeaux ",
   compl_address: "Appeler avant de sonner",
   phone: "+33666666666",
@@ -72,7 +72,6 @@ fernand = Patient.create!(
   team: parc_bordelais)
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
-
 patients = Patient.all
 delays = (-2..-1).to_a + (1..5).to_a
 delays.each do |day|
@@ -88,7 +87,6 @@ delays.each do |day|
       is_done: true)
   end
 end
-
 position = 0
 Visit.create!(
   date: Date.today,
@@ -186,7 +184,6 @@ Visit.create!(
   user: jackie,
   patient: fernand,
   is_done: false)
-
 #--------------------------------------------------------------------
 # Injection, Prise de sang, perfusion, alimentation gastro, CHimio
 puts "SEED > ADD CARES"
