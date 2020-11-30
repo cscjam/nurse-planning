@@ -6,11 +6,20 @@ class VisitsController < ApplicationController
   def index
     @delay = params[:delay] || Date.today.to_s
     delay_integer = @delay.split('-').map { |element| element.to_i }
-
     if params[:query].present?
-      @visits = Visit.where(date: params[:query])
+      @visits = Visit.includes(:patient, :cares).where(date: params[:query]).order(:position)
     else
-      @visits = Visit.where(date: Date.new(delay_integer[0], delay_integer[1], delay_integer[2]))
+      date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
+      @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
+    end
+    # Si changemrnt : mise @jour de l'utilisateur
+    # current_user.update({locomotion: params[:locomotion]}) if params[:locomotion]
+    # Mise à jour des trajets
+    locomotion = params[:locomotion] || :voiture
+    @journeys = Journey::update_journeys(@visits.to_a, locomotion)
+    respond_to do |format|
+      format.html
+      format.json { render json: { journeys: @journeys } }
     end
   end
 
@@ -38,4 +47,5 @@ class VisitsController < ApplicationController
   def visit_params
     params[:visit].permit(:date, :position, :time, :wish_time, :is_done)
   end
+
 end

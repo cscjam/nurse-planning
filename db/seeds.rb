@@ -1,5 +1,5 @@
 puts "SEED > CLEAN DB"
-[VisitCare, Care, Minute, Visit, User, Patient, Team].each(&:delete_all)
+[VisitCare, Care, Minute, Visit, Journey, User, Patient, Team].each(&:delete_all)
 #--------------------------------------------------------------------
 puts "SEED > ADD TEAMS"
 parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
@@ -72,7 +72,6 @@ fernand = Patient.create!(
   team: parc_bordelais)
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
-
 patients = Patient.all
 delays = (-2..-1).to_a + (1..5).to_a
 delays.each do |day|
@@ -88,7 +87,6 @@ delays.each do |day|
       is_done: true)
   end
 end
-
 position = 0
 Visit.create!(
   date: Date.today,
@@ -186,7 +184,6 @@ Visit.create!(
   user: jackie,
   patient: fernand,
   is_done: false)
-
 #--------------------------------------------------------------------
 # Injection, Prise de sang, perfusion, alimentation gastro, CHimio
 puts "SEED > ADD CARES"
