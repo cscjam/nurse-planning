@@ -6,6 +6,9 @@ const initSortable = () => {
   var sortable = Sortable.create(list, {
     animation: 150,
     onEnd: (event) => {
+      console.dir(event)
+      console.dir(event.item)
+      console.dir(event.item.dataset)
       const url = `/visits/${event.item.dataset.id}/move?old=${event.oldIndex}&new=${event.newIndex}`;
       fetchWithToken(url, {
       headers: {
