@@ -21,7 +21,7 @@
                 <% end %>
             </div>
           <% end %>
-          <%= link_to mark_as_done_visit_path(visit, format:"dashboards"), method: :patch do%>
+          <%= link_to mark_as_done_visit_path(visit, format:"dashboards"), remote: true, method: :patch do%>
             <div class="<%= visit.is_done ? 'done' : 'not-done'%>">
               <i class="fas fa-check"></i>
             </div>

@@ -31,8 +31,6 @@ class VisitsController < ApplicationController
     @visit.save
     if params["format"] == "dashboards"
       redirect_to root_path
-    # else
-    #   redirect_to visits_path
     end
   end
 
