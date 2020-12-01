@@ -15,7 +15,7 @@
               <h2><%= index + 1 %>/<%= @today_visits.length %> : <%= visit.patient.get_full_name %></h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
-              <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
+              <p>RDV : <strong><%=visit.get_wish_time%></strong></p>
                 <% visit.cares.each do |care| %>
                   <i class="<%= care.icon %> m-2"></i>
                 <% end %>

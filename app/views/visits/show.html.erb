@@ -7,12 +7,11 @@
   </div>
   <%= render '/shared/patientheader' %>
 </div>
-
 <div class="container">
   <div class="row header-margin">
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card_care">
-        <p>Horaire souhaité : <%=@visit.wish_time%>h-<%=@visit.wish_time+1%>h</p>
+        <p>Horaire souhaité : <%=@visit.get_wish_time%></p>
         <h3>Liste des soins</h3>
         <div class="cares">
           <% @visit.cares.each do |care| %>

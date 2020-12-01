@@ -1,7 +1,6 @@
 class VisitsController < ApplicationController
   before_action :get_visit, only: [:show, :update, :destroy, :mark_as_done, :move]
 
-
   def index
     @delay = params[:delay] || Date.today.to_s
     delay_integer = @delay.split('-').map { |element| element.to_i }
@@ -38,12 +37,13 @@ class VisitsController < ApplicationController
   end
 
   def destroy
+    date = @visit.date
     @visit.destroy
+    shift(date)
     redirect_to visits_path(delay: params[:delay])
   end
 
   def move
-    @visit.update(position: params[:new])
     @visits = Visit.where(date: @visit.date).order(:position)
     if params[:old].to_i < params[:new].to_i
       for i in params[:old].to_i+1..params[:new].to_i
@@ -51,11 +51,12 @@ class VisitsController < ApplicationController
         @visits[i].update(position: position - 1)
       end
     else
-      for i in params[:new].to_i..params[:old].to_i+1
+      for i in params[:new].to_i..params[:old].to_i-1
         position = @visits[i].position
-        @visits[i].update(position: position - 1)
+        @visits[i].update(position: position + 1)
       end
     end
+    @visit.update(position: params[:new])
   end
 
   def show
@@ -73,7 +74,7 @@ class VisitsController < ApplicationController
   end
 
   def shift(date)
-    @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
+    @visits = Visit.where(date: date).order(:position)
     @visits.each_with_index do |visit, index|
       visit.update(position: index)
     end

@@ -1,20 +1,22 @@
-<div class="card-journey" id="journey-<%=position%>">
-  <%= link_to nil do %>
-    <div class="card-journey-info">
-      <p>Trajet
-      <%= " depuis domicile" unless journey.start_user.nil?  %>
-      <%= " vers domicile" unless journey.end_user.nil? %>
-      : <%= journey.get_pretty_infos %>
-      </p>
+<div>
+  <div class="card-journey" id="journey-<%=position%>">
+    <%= link_to nil do %>
+      <div class="card-journey-info">
+        <p>Trajet
+        <%= " depuis domicile" unless journey.start_user.nil?  %>
+        <%= " vers domicile" unless journey.end_user.nil? %>
+        : <%= journey.get_pretty_infos %>
+        </p>
+      </div>
+    <% end %>
+    <div class="<%= journey.is_done ? 'done' : 'not-done'%>">
+      <i class="fas fa-check"></i>
     </div>
-  <% end %>
-  <div class="<%= journey.is_done ? 'done' : 'not-done'%>">
-    <i class="fas fa-check"></i>
   </div>
-</div>
-<div class="map"  id="map-<%=position%>"
-    data-journey-id="<%=journey.id%>"
-    style="width: 100%; height: 140px;"
-    data-markers="<%=journey.get_markers.to_json%>"
-    data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  <div class="map"  id="map-<%=position%>"
+      data-journey-id="<%=journey.id%>"
+      style="width: 100%; height: 140px;"
+      data-markers="<%=journey.get_markers.to_json%>"
+      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>
