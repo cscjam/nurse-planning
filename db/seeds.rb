@@ -110,7 +110,7 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: jackie,
-  patient: Alain,
+  patient: alain,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -118,7 +118,7 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: jackie,
-  patient: Pierre,
+  patient: pierre,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -126,7 +126,7 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: jackie,
-  patient: Nicolas,
+  patient: nicolas,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -142,7 +142,7 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: jackie,
-  patient: Jacques,
+  patient: jacques,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -150,7 +150,7 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: jackie,
-  patient: Fernand,
+  patient: fernand,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -158,7 +158,7 @@ Visit.create!(
   time: nil,
   wish_time: 17,
   user: jackie,
-  patient: Alain,
+  patient: alain,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -166,7 +166,7 @@ Visit.create!(
   time: nil,
   wish_time: 17,
   user: jackie,
-  patient: Pierre,
+  patient: pierre,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -174,7 +174,7 @@ Visit.create!(
   time: nil,
   wish_time: 18,
   user: jackie,
-  patient: Nicolas,
+  patient: nicolas,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -182,7 +182,7 @@ Visit.create!(
   time: nil,
   wish_time: 18,
   user: jackie,
-  patient: Hugues,
+  patient: hugues,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -190,7 +190,7 @@ Visit.create!(
   time: nil,
   wish_time: 19,
   user: jackie,
-  patient: Jacques,
+  patient: jacques,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -198,7 +198,7 @@ Visit.create!(
   time: nil,
   wish_time: 19,
   user: jackie,
-  patient: Fernand,
+  patient: fernand,
   is_done: false)
 #--------------------------------------------------------------------
 # Injection, Prise de sang, perfusion, alimentation gastro, CHimio
