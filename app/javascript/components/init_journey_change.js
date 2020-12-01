@@ -46,8 +46,10 @@ export const initJourneyChange = () => {
 const fitMapToMarkers = (mapGui, markers, geometry) => {
   const bounds = new mapboxgl.LngLatBounds();
   markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
-  geometry.forEach(point => bounds.extend(point));
-  mapGui.fitBounds(bounds, { padding: 20, maxZoom: 15, duration: 0 });
+  if (geometry) {
+    geometry.forEach(point => bounds.extend(point));
+  }
+  mapGui.fitBounds(bounds, { padding: 40, maxZoom: 15, duration: 0 });
 };
 
 const addMarkerFlag = (mapGui, markers) => {
@@ -67,7 +69,7 @@ const addMarkerFlag = (mapGui, markers) => {
   });
 }
 
-const addAndFitMarkers = (mapGui, mapElt) => {
+const addMarkers = (mapGui, mapElt) => {
   const markers = JSON.parse(mapElt.dataset.markers);
   markers.forEach((marker) => {
     new mapboxgl.Marker()
@@ -80,7 +82,6 @@ const addAndFitMarkers = (mapGui, mapElt) => {
 
 const addGeometryJson = (mapGui, mapElt, markers) => {
   fetch(`/journeys/${mapElt.dataset.journeyId}/geometry `)
-    // .then(response => {
     .then(response => response.json())
     .then((data) => {
       mapGui.addSource('lines', {
@@ -117,8 +118,8 @@ export const initMapboxes = () => {
         style: 'mapbox://styles/mapbox/streets-v10'
       })
       mapGui.on('load', function () {
-        const markers = addAndFitMarkers(mapGui, mapElt);
-        const geometry = addGeometryJson(mapGui, mapElt, markers);
+        const markers = addMarkers(mapGui, mapElt);
+        addGeometryJson(mapGui, mapElt, markers);
       })
     };
   })
