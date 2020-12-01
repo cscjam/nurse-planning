@@ -3,12 +3,28 @@
   height: 141px;
 }
 
+.header-home h2 {
+  position: absolute;
+  width: 240px;
+  height: 28px;
+  left: 30px;
+  top: 20px;
+
+  font-family: $headers-font;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 28px;
+
+  color: white;
+}
+
 .header-home h1 {
   position: absolute;
   width: 240px;
   height: 28px;
   left: 30px;
-  top: 40px;
+  top: 48px;
 
   font-family: $headers-font;
   font-style: normal;
@@ -24,7 +40,7 @@
   width: 240px;
   height: 16px;
   left: 30px;
-  top: 72px;
+  top: 96px;
 
   font-family: $headers-font;
   font-style: normal;
