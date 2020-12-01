@@ -3,19 +3,23 @@
 }
 .mapboxgl-popup {
   max-width: 100px;
+
   .mapboxgl-popup-content {
     padding: 0;
     margin-bottom: 0;
     h2{
       margin-bottom: 0;
-      padding-right: 20px;
+      padding: 5px;
       border-radius: 5px;
-      border: 1px solid $orange;
       text-align: center;
       font-family: 'Open Sans', sans-serif;
-      font-size: 1rem !important;
-      color: $orange;
+      font-size: 14px !important;
+      color: $gray;
     }
+  }
+
+  .mapboxgl-popup-close-button {
+    display: none !important;
   }
 }
 
