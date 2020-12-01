@@ -6,9 +6,11 @@ export const toggleDone = () => {
       if (element.classList.contains("done")) {
         element.classList.remove("done")
         element.classList.add("not-done")
+        element.innerHTML="<i class='far fa-circle'></i>"
       } else {
         element.classList.remove("not-done")
         element.classList.add("done")
+        element.innerHTML="<i class='far fa-check-circle'></i>"
       }
       let id = element.dataset.id
       const url = `/visits/${id}/mark_as_done`
