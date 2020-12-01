@@ -2,8 +2,8 @@
   <div class="patient-info">
     <h2><%=@visit.patient.first_name%> <%=@visit.patient.last_name%></h2>
     <p><%=@visit.patient.address%></p>
-    <p><%=@visit.patient.phone%></p>
     <p><%=@visit.patient.compl_address%></p>
+    <a href="tel:<%= @visit.patient.phone %>"><i class="fas fa-mobile-alt mt-1"></i> <%= @visit.patient.phone %></a>
   </div>
   <%= render '/shared/patientheader' %>
 </div>
