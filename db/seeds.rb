@@ -73,7 +73,7 @@ fernand = Patient.create!(
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
 patients = Patient.all
-delays = (-2..-1).to_a + (1..5).to_a
+delays = (-2..-1).to_a
 delays.each do |day|
   position = 0
   (8..16).to_a.sample.times do
@@ -87,6 +87,22 @@ delays.each do |day|
       is_done: true)
   end
 end
+patients = Patient.all
+delays = (1..5).to_a
+delays.each do |day|
+  position = 0
+  (8..16).to_a.sample.times do
+    Visit.create!(
+      date: Date.today + day,
+      position: position +=1 ,
+      time: nil,
+      wish_time: (6..20).to_a.sample,
+      user: jackie,
+      patient: patients.sample,
+      is_done: false)
+  end
+end
+
 position = 0
 Visit.create!(
   date: Date.today,
@@ -95,7 +111,7 @@ Visit.create!(
   wish_time: 8,
   user: jackie,
   patient: alain,
-  is_done: true)
+  is_done: false)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -103,7 +119,7 @@ Visit.create!(
   wish_time: 8,
   user: jackie,
   patient: pierre,
-  is_done: true)
+  is_done: false)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -111,7 +127,7 @@ Visit.create!(
   wish_time: 9,
   user: jackie,
   patient: nicolas,
-  is_done: true)
+  is_done: false)
 Visit.create!(
   date: Date.today,
   position: position += 1,
