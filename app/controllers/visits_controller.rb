@@ -1,23 +1,38 @@
-
-
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show, :update, :destroy]
+  before_action :get_visit, only: [:show, :update, :destroy, :mark_as_done]
 
   def index
     @delay = params[:delay] || Date.today.to_s
     delay_integer = @delay.split('-').map { |element| element.to_i }
-
     if params[:query].present?
-      @visits = Visit.where(date: params[:query])
+      @visits = Visit.includes(:patient, :cares).where(date: params[:query]).order(:position)
     else
-      @visits = Visit.where(date: Date.new(delay_integer[0], delay_integer[1], delay_integer[2]))
+      date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
+      @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
+    end
+    @locomotion = current_user.current_locomotion || 0
+    # Si changement : mise @jour de l'utilisateur
+    if params[:locomotion].present?
+      @locomotion = Journey.locomotions.values.index(params[:locomotion])
+      current_user.update({current_locomotion: @locomotion})
+    end
+    # Mise à jour des trajets
+    @journeys = Journey::update_journeys(@visits.to_a, @locomotion)
+    respond_to do |format|
+      format.html
+      format.json { render json: { journeys: @journeys } }
     end
   end
 
   def update
-    @visit.is_done ? @visit.is_done = false : @visit.is_done = true
+  end
+
+  def mark_as_done
+    @visit.is_done = !@visit.is_done
     @visit.save
-    redirect_to root_path
+    if params["format"] == "dashboards"
+      redirect_to root_path
+    end
   end
 
   def destroy
@@ -38,4 +53,5 @@ class VisitsController < ApplicationController
   def visit_params
     params[:visit].permit(:date, :position, :time, :wish_time, :is_done)
   end
+
 end

@@ -8,4 +8,8 @@ class Visit < ApplicationRecord
   validates :position, presence: true, numericality: { only_integer: true, greater_or_equal_than: 0}
   validates :wish_time, presence: true, inclusion: { in: (0..23).to_a }
   validates :is_done, inclusion: { in: [true, false] }
+
+  def self.print_positions(label, visits)
+    puts visits&.map{|v|v.nil? ? 0 : "#{v.position}:#{v.is_done}"}.join("-")
+  end
 end

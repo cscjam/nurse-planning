@@ -21,7 +21,6 @@ class DashboardsController < ApplicationController
       @visits << visitref
       @visits << @today_visits[index + 1]
     end
-
     @visits.compact!
   end
 end

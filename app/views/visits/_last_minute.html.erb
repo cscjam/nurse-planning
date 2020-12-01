@@ -1,16 +1,21 @@
 <% if visit&.minutes.last %>
   <div class="last_minute">
     <h3>Dernier compte-rendu</h3>
-    <div class="minute-content background">
-      <%= cl_image_tag visit.user.avatar.key, class: "avatar"%>
+    <div class="background">
+      <p class="text-center"><%=visit.created_at.to_formatted_s(:db)%></p>
+    <div class="minute-content">
+      <div class="avatar-rond">
+        <%= cl_image_tag(visit.user.avatar.key, :transformation=>[
+        {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
+        ])%>
+      </div>
       <div>
-        <p class="text-center"><%=visit.date%></p>
-        <p>Enregistré par <%=visit.user.get_full_name%></p>
-        <p><%=visit&.minutes&.last.content%></p>
+        <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=visit&.minutes&.last.content%></p>
         <p><% visit&.minutes&.last&.photos.each do |photo| %>
             <%= cl_image_tag(photo.key, size: '40x40', crop: :thumb) %>
         <% end %></p>
       </div>
+    </div>
     </div>
   </div>
 <% end %>

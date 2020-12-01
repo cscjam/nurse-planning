@@ -6,7 +6,18 @@
 .background {
     background-color: $mid-gray;
     padding: 10px;
+    border-radius: 16px;
+    p {
+    font-size: 14px;
+    margin-right: 0px;
   }
+  }
+
+.avatar-rond img {
+    width: 40px;
+    border-radius: 50%;
+    margin: 0 16px 16px 0;
+}
 
 .minute-content{
   color: $black;
@@ -15,6 +26,14 @@
   align-items: flex-end;
   p {
     font-size: 14px;
+    margin-right: 0px;
+  }
+  i{
+    color: $orange;
+    padding: 10px 10px 10px 0px;
+    &:hover{
+      color: $orange;
+    }
   }
   form{
     width: 100%;
@@ -25,13 +44,6 @@
     div.text{
       flex-grow: 1;
       margin: 0;
-    }
-    i{
-      color: $orange;
-      padding: 10px 10px 10px 0px;
-      &:hover{
-        color: $orange;
-      }
     }
     [type="file"] {
       border: 0;

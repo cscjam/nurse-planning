@@ -1,10 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-
       <div class="header-day">
-        <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
-
+        <div class="d-flex justify-content-between">
+          <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
+          <p><%= select_tag "locomotion", options_for_select(Journey.locomotions, Journey.locomotions.values[@locomotion]) %></p>
+        </div>
         <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
           <div class="search-form-control form-group">
             <input class="form-control datepicker" type="text" name="query"/>
@@ -13,7 +14,6 @@
             </button>
           </div>
         <% end %>
-
       <div class="week">
           <% (Date.today..Date.today + 4).to_a.each do |d| %>
             <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d.to_s && params[:query].present? == false}" do %>
@@ -23,26 +23,31 @@
           <% end %>
         </div>
       </div>
-
-      <% @visits.each do |visit| %>
-        <div class="card-visit">
+      <% @visits.each_with_index do |visit, position| %>
+        <%= render 'journeys/show' , journey: @journeys[position], position: position %>
+        <div class="card-visit" id="visit-<%=visit.id%>">
           <%= link_to visit_path(visit) do %>
             <div class="card-visit-info">
               <h2><%= visit.patient.get_full_name %></h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
               <p><%= visit.patient.phone %></p>
-              <%= link_to visit_path(visit, delay: visit.date), method: :delete do%>
+              <p><%= visit.wish_time %></p>
+              <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
                 <i class="far fa-times-circle"></i>
               <% end %>
             </div>
           <% end %>
-          <div class="not-done">
+          <div class=" toggle <%= visit.is_done ? 'done' : 'not-done'%>" data-id="<%=visit.id%>">
             <i class="fas fa-check"></i>
           </div>
         </div>
       <% end %>
-
+      <%= render 'journeys/show' , journey: @journeys.last, position: @visits.count  %>
     </div>
   </div>
 </div>
+
+
+
+

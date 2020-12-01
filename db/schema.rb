@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_150236) do
+ActiveRecord::Schema.define(version: 2020_11_30_162519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,24 @@ ActiveRecord::Schema.define(version: 2020_11_24_150236) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "journeys", force: :cascade do |t|
+    t.bigint "start_user_id"
+    t.bigint "start_patient_id"
+    t.bigint "end_user_id"
+    t.bigint "end_patient_id"
+    t.integer "locomotion"
+    t.integer "distance", default: 0
+    t.integer "duration", default: 0
+    t.boolean "is_done", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "lines_json", default: ""
+    t.index ["end_patient_id"], name: "index_journeys_on_end_patient_id"
+    t.index ["end_user_id"], name: "index_journeys_on_end_user_id"
+    t.index ["start_patient_id"], name: "index_journeys_on_start_patient_id"
+    t.index ["start_user_id"], name: "index_journeys_on_start_user_id"
+  end
+
   create_table "minutes", force: :cascade do |t|
     t.text "content"
     t.bigint "visit_id", null: false
@@ -61,6 +79,8 @@ ActiveRecord::Schema.define(version: 2020_11_24_150236) do
     t.bigint "team_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["team_id"], name: "index_patients_on_team_id"
   end
 
@@ -82,6 +102,9 @@ ActiveRecord::Schema.define(version: 2020_11_24_150236) do
     t.string "last_name"
     t.string "address"
     t.bigint "team_id", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "current_locomotion", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
@@ -111,6 +134,10 @@ ActiveRecord::Schema.define(version: 2020_11_24_150236) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "journeys", "patients", column: "end_patient_id"
+  add_foreign_key "journeys", "patients", column: "start_patient_id"
+  add_foreign_key "journeys", "users", column: "end_user_id"
+  add_foreign_key "journeys", "users", column: "start_user_id"
   add_foreign_key "minutes", "visits"
   add_foreign_key "patients", "teams"
   add_foreign_key "users", "teams"
