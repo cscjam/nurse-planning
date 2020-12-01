@@ -3,7 +3,10 @@
   <p><%= l(Time.now, format: :long) %></p>
     <%= cl_image_tag(current_user.avatar.key, :transformation=>[
     {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
-    ]) %>
+    ], id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+      <%= link_to "Déconnexion", destroy_user_session_path, class: "dropdown-item", method:"delete" %>
+    </div>
 </div>
 <div class="container">
   <div class="row">
