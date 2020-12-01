@@ -4,7 +4,7 @@
       <div class="header-day">
         <div class="d-flex justify-content-between">
           <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
-          <p><%= select_tag "locomotion", options_for_select(Journey.locomotions) %></p>
+          <p><%= select_tag "locomotion", options_for_select(Journey.locomotions, Journey.locomotions.values[@locomotion]) %></p>
         </div>
         <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
           <div class="search-form-control form-group">
