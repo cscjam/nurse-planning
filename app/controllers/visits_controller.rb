@@ -42,19 +42,29 @@ class VisitsController < ApplicationController
   end
 
   def move
-    @visit.update(position: params[:new])
+    shift(@visit.date)
     @visits = Visit.where(date: @visit.date).order(:position)
+    Visit.print_id_positions("<"*15, @visits)
+    p params
+    @visit.update(position: params[:new])
+    p @visit
+    Visit.print_id_positions("-"*15, Visit.where(date: @visit.date).order(:position))
     if params[:old].to_i < params[:new].to_i
       for i in params[:old].to_i+1..params[:new].to_i
         position = @visits[i].position
+        p @visits[i]
         @visits[i].update(position: position - 1)
+        p i
+        p position
+        p @visits[i]
       end
     else
-      for i in params[:new].to_i..params[:old].to_i+1
+      for i in params[:new].to_i..params[:old].to_i-1
         position = @visits[i].position
-        @visits[i].update(position: position - 1)
+        @visits[i].update(position: position + 1)
       end
     end
+    Visit.print_id_positions("="*15, @visits)
   end
 
   def show

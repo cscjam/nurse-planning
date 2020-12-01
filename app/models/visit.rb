@@ -11,6 +11,10 @@ class Visit < ApplicationRecord
 
 
   def self.print_positions(label, visits)
-    puts visits.map{|v|"#{v.position}:#{v.is_done}"}.join("-")
+    puts label+visits.map{|v|"#{v.position}:#{v.is_done}"}.join("-")
+  end
+
+  def self.print_id_positions(label, visits)
+    puts label+visits&.map{|v|v.nil? ? 0 : "#{v.id}:#{v.position}"}.join("-")
   end
 end
