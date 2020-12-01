@@ -1,5 +1,3 @@
-
-
 class VisitsController < ApplicationController
   before_action :get_visit, only: [:show, :update, :destroy]
 
@@ -16,7 +14,9 @@ class VisitsController < ApplicationController
     # current_user.update({locomotion: params[:locomotion]}) if params[:locomotion]
     # Mise à jour des trajets
     locomotion = params[:locomotion] || :voiture
+    puts "\nVISITS :: #{@visits.count}\n"
     @journeys = Journey::update_journeys(@visits.to_a, locomotion)
+    puts "\nJOURNEY :: #{@journeys.count}\n"
     respond_to do |format|
       format.html
       format.json { render json: { journeys: @journeys } }

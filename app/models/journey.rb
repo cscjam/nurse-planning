@@ -14,12 +14,48 @@ class Journey < ApplicationRecord
   end
 
   def self.update_journeys(visits, locomotion)
+    pp visits.length
     unless(visits&.empty?)
       # # Ajout de l'infirmier en début&fin de tournée
       # # Passage de visite à patient
       points = [visits.first.user] + visits.map{|p| p.patient} + [visits.last.user]
+      pp points.length
       get_each_journey_infos(points, locomotion)
     end
+  end
+
+
+  def get_markers()
+    markers = []
+    if(self.start_user)
+      markers << {
+        lat: self.start_user.latitude,
+        lng: self.start_user.longitude,
+        infoWindow: JourneysController.new().render_to_string(partial: "marker_info", locals: { point: self.start_user })
+      }
+    end
+    if(self.start_patient)
+      markers << {
+        lat: self.start_patient.latitude,
+        lng: self.start_patient.longitude,
+        infoWindow: JourneysController.new().render_to_string(partial: "marker_info", locals: { point: self.start_patient })
+      }
+    end
+    if(self.end_user)
+      markers << {
+        lat: self.end_user.latitude,
+        lng: self.end_user.longitude,
+        infoWindow: JourneysController.new().render_to_string(partial: "marker_info", locals: { point: self.end_user })
+      }
+    end
+    if(self.end_patient)
+      markers << {
+        lat: self.end_patient.latitude,
+        lng: self.end_patient.longitude,
+        infoWindow: JourneysController.new().render_to_string(partial: "marker_info", locals: { point: self.end_patient })
+      }
+    end
+    return markers
   end
 
   private
@@ -63,7 +99,7 @@ class Journey < ApplicationRecord
     # Dans l'api locomotion est une string driving, cycling, byking
     locomotion = Journey.locomotions[locomotion] unless locomotion.is_a? String
     pair_coords = pair_points.map{|point|{"longitude" => point.longitude, "latitude" => point.latitude}}
-    travel_infos = Mapbox::Directions.directions(pair_coords, locomotion)[0]
+    travel_infos = Mapbox::Directions.directions(pair_coords, locomotion, {geometries: "geojson"})[0]
     if travel_infos["code"] == "Ok"
       return Journey.create(map_api(pair_points, locomotion, travel_infos))
     end
@@ -73,7 +109,8 @@ class Journey < ApplicationRecord
     map_api= {
       locomotion: locomotion,
       distance: travel_infos["routes"][0]["distance"].to_i,
-      duration: travel_infos["routes"][0]["duration"].to_i / 60
+      duration: travel_infos["routes"][0]["duration"].to_i / 60,
+      lines_json: JSON.generate(travel_infos["routes"][0]["geometry"])
     }
     map_api[:start_user] = pair_points.first if pair_points.first.is_a? User
     map_api[:start_patient] = pair_points.first if pair_points.first.is_a? Patient
