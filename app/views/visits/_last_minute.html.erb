@@ -12,10 +12,15 @@
       <div>
         <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=visit&.minutes&.last.content%></p>
         <p><% visit&.minutes&.last&.photos.each do |photo| %>
-            <%= cl_image_tag(photo.key, size: '40x40', crop: :thumb) %>
+            <%= cl_image_tag(photo.key, crop: :thumb, id: "myImg") %>
         <% end %></p>
       </div>
     </div>
     </div>
   </div>
 <% end %>
+
+<div id="myModal" class="modal">
+<span class="close">&times;</span>
+<img class="modal-content" id="img01">
+</div>

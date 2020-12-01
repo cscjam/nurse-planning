@@ -13,6 +13,7 @@ import { initSpeechApi } from "../components/init_speech_api.js";
 import { flatPickr } from "../plugins/flatpickr"
 import { toggleDone } from "../components/toggle_done"
 import { toggleMap } from "../components/toggle_map"
+import { modal } from "../components/modal"
 
 document.addEventListener('turbolinks:load', () => {
   initJourneyChange();
@@ -22,7 +23,5 @@ document.addEventListener('turbolinks:load', () => {
   flatPickr();
   toggleDone();
   toggleMap();
+  modal();
 });
-
-
-
