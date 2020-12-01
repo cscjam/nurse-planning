@@ -10,6 +10,6 @@ class Visit < ApplicationRecord
   validates :is_done, inclusion: { in: [true, false] }
 
   def self.print_positions(label, visits)
-    puts visits.map{|v|"#{v.position}:#{v.is_done}"}.join("-")
+    puts visits&.map{|v|v.nil? ? 0 : "#{v.position}:#{v.is_done}"}.join("-")
   end
 end

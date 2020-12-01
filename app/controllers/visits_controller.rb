@@ -1,5 +1,3 @@
-
-
 class VisitsController < ApplicationController
   before_action :get_visit, only: [:show, :update, :destroy, :mark_as_done]
 
