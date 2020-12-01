@@ -29,27 +29,14 @@ const updateJourneysCards = (journeysJson) => {
   };
 };
 
-export const initJourneyChange = () => {
-  const locomotionElt = document.getElementById("locomotion");
-  if (locomotionElt) {
-    locomotionElt.addEventListener("change", event => {
-      let url = `/visits?locomotion=${locomotionElt.value}`
-      fetch(url, { headers: { accept: "application/json" } })
-      .then(response => response.json())
-      .then((data) => {
-        updateJourneysCards(data["journeys"])
-      });
-    });
-  }
-};
 
 const fitMapToMarkers = (mapGui, markers, geometry) => {
   const bounds = new mapboxgl.LngLatBounds();
   markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
-  if (geometry) {
-    geometry.forEach(point => bounds.extend(point));
-  }
-  mapGui.fitBounds(bounds, { padding: 40, maxZoom: 15, duration: 0 });
+  // if (geometry) {
+  //   geometry.forEach(point => bounds.extend(point));
+  // }
+  mapGui.fitBounds(bounds, { padding: 20, maxZoom: 20, duration: 0 });
 };
 
 const addMarkerFlag = (mapGui, markers) => {
@@ -80,8 +67,8 @@ const addMarkers = (mapGui, mapElt) => {
   return markers;
 }
 
-const addGeometryJson = (mapGui, mapElt, markers) => {
-  fetch(`/journeys/${mapElt.dataset.journeyId}/geometry `)
+const addGeometryJson = (mapGui, journeyId, markers) => {
+  fetch(`/journeys/${journeyId}/geometry `)
     .then(response => response.json())
     .then((data) => {
       mapGui.addSource('lines', {
@@ -107,6 +94,20 @@ const addGeometryJson = (mapGui, mapElt, markers) => {
     })
 };
 
+export const initLocomotionChange = () => {
+  const locomotionElt = document.getElementById("locomotion");
+  if (locomotionElt) {
+    locomotionElt.addEventListener("change", event => {
+      let url = `/visits?locomotion=${locomotionElt.value}`
+      fetch(url, { headers: { accept: "application/json" } })
+      .then(response => response.json())
+      .then((data) => {
+        updateJourneysCards(data["journeys"])
+      });
+    });
+  }
+};
+
 export const initMapboxes = () => {
   const mapElts = document.querySelectorAll('.map ');
   mapElts.forEach(mapElt => {
@@ -119,7 +120,7 @@ export const initMapboxes = () => {
       })
       mapGui.on('load', function () {
         const markers = addMarkers(mapGui, mapElt);
-        addGeometryJson(mapGui, mapElt, markers);
+        addGeometryJson(mapGui, mapElt.dataset.journeyId, markers);
       })
     };
   })
