@@ -21,8 +21,10 @@
             </div>
           </div>
           <% visit.minutes.order(created_at: :desc).each do |minute| %>
-            <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=minute.content%></p>
-            <h4><%= visit.user.get_full_name %></h4>
+            <% unless minute.content == "" %>
+              <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=minute.content%></p>
+              <h4><%= visit.user.get_full_name %></h4>
+            <% end %>
           <% end %>
         </div>
       <% end %>
