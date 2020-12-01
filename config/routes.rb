@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :visits, only: [ :index, :update, :destroy, :show ]  do
     member do
       patch :mark_as_done
+      patch :move
     end
     resources :minutes, only: [ :create ]
   end
