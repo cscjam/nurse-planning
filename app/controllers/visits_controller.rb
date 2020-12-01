@@ -17,8 +17,7 @@ class VisitsController < ApplicationController
       current_user.update({current_locomotion: @locomotion})
     end
     # Mise à jour des trajets
-    locomotion = params[:locomotion] || :voiture
-    @journeys = Journey::update_journeys(@visits.to_a, locomotion)
+    @journeys = Journey::update_journeys(@visits.to_a, @locomotion)
     respond_to do |format|
       format.html
       format.json { render json: { journeys: @journeys } }
