@@ -10,7 +10,9 @@
         ])%>
       </div>
       <div>
-        <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=visit&.minutes&.last.content%></p>
+        <% unless visit&.minutes&.last.content == "" %>
+          <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=visit&.minutes&.last.content%></p>
+        <% end %>
         <p><% visit&.minutes&.last&.photos.each do |photo| %>
             <%= cl_image_tag(photo.key, crop: :thumb, id: "myImg") %>
         <% end %></p>

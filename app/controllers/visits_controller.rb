@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-  before_action :get_visit, only: [:show, :update, :destroy, :mark_as_done]
+  before_action :get_visit, only: [:show, :update, :destroy, :mark_as_done, :move]
 
   def index
     @delay = params[:delay] || Date.today.to_s
@@ -8,6 +8,7 @@ class VisitsController < ApplicationController
       @visits = Visit.includes(:patient, :cares).where(date: params[:query]).order(:position)
     else
       date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
+      shift(date)
       @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
     end
     @locomotion = current_user.current_locomotion || 0
@@ -36,8 +37,26 @@ class VisitsController < ApplicationController
   end
 
   def destroy
+    date = @visit.date
     @visit.destroy
+    shift(date)
     redirect_to visits_path(delay: params[:delay])
+  end
+
+  def move
+    @visits = Visit.where(date: @visit.date).order(:position)
+    if params[:old].to_i < params[:new].to_i
+      for i in params[:old].to_i+1..params[:new].to_i
+        position = @visits[i].position
+        @visits[i].update(position: position - 1)
+      end
+    else
+      for i in params[:new].to_i..params[:old].to_i-1
+        position = @visits[i].position
+        @visits[i].update(position: position + 1)
+      end
+    end
+    @visit.update(position: params[:new])
   end
 
   def show
@@ -54,4 +73,10 @@ class VisitsController < ApplicationController
     params[:visit].permit(:date, :position, :time, :wish_time, :is_done)
   end
 
+  def shift(date)
+    @visits = Visit.where(date: date).order(:position)
+    @visits.each_with_index do |visit, index|
+      visit.update(position: index)
+    end
+  end
 end

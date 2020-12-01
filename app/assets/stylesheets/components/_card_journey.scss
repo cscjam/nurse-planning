@@ -1,18 +1,11 @@
 .card-journey {
-  height: 30px;
   margin: 10px 0;
-  background-color: $mid-gray;
-  border: solid $orange 1px;
-  border-radius: 10px;
-  color: $orange;
   display: flex;
-  justify-content: center;
   align-items: center;
 
   a {
-    flex-grow: 1;
     text-decoration: none;
-    color: $orange;
+    color: $gray;
   }
 
    p {
@@ -21,37 +14,9 @@
     font-family: $body-font;
   }
 
-  .done {
-    height: 100%;
-    padding: 0 20px;
-    border: none;
-    border-left: solid 1px $orange;
-    display: flex;
-    justify-content: center;
-    i {
-    align-self: center;
-    }
-  }
-
-  .not-done {
-    background-color: white;
-    color: $orange;
-    height: 100%;
-    padding: 0 20px;
-    border: none;
-    border-left: solid 1px $orange;
-    border-radius: 0 10px 10px 0;
-    display: flex;
-    justify-content: center;
-    i {
-    align-self: center;
-    }
-  }
-
-  .fa-times-circle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  i {
+    margin-left: 10px;
+    color: $gray;
   }
 }
 
@@ -59,6 +24,5 @@
   height: 100%;
   width: 100%;
   padding: 0;
-  padding-left: 20px;
-  position: relative;
+  padding-left: 5px;
 }

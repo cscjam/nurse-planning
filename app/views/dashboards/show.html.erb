@@ -1,9 +1,13 @@
 <div class="header-home">
-  <h1><%= "Hello #{current_user.get_full_name}" %></h1>
+  <h2>Bonjour</h2>
+  <h1><%= current_user.get_full_name %></h1>
   <p><%= l(Time.now, format: :long) %></p>
     <%= cl_image_tag(current_user.avatar.key, :transformation=>[
     {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
-    ]) %>
+    ], id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+      <%= link_to "Déconnexion", destroy_user_session_path, class: "dropdown-item", method:"delete" %>
+    </div>
 </div>
 <div class="container">
   <div class="row">
@@ -15,7 +19,7 @@
               <h2><%= visit.position + 1 %>/<%= @today_visits.length %> : <%= visit.patient.get_full_name %></h2>
               <p><%= visit.patient.address %></p>
               <p><%= visit.patient.compl_address %></p>
-              <p>RDV : <strong><%=visit.wish_time%>h-<%=visit.wish_time+1%>h</strong></p>
+              <p>RDV : <strong><%=visit.get_wish_time%></strong></p>
                 <% visit.cares.each do |care| %>
                   <i class="<%= care.icon %> m-2"></i>
                 <% end %>
