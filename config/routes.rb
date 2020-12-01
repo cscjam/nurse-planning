@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root to: 'dashboards#show'
   resources :patients, only: [ :index, :show, :new, :create]
   resources :visits, only: [ :index, :update, :destroy, :show ]  do
+    member do
+      patch :mark_as_done
+    end
     resources :minutes, only: [ :create ]
   end
   resources :journeys, only: [:update]  do

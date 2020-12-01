@@ -2,7 +2,6 @@ export const initSpeechApi = () => {
   const synthesisElts = document.querySelectorAll("#minute-content");
   const speechElt = document.getElementById("speech");
   const recordBtn = document.querySelector(".fa-microphone");
-  const pushBtn = document.getElementById ("minute-submit");
 
   // Voice Synthesis
   if(synthesisElts){
@@ -15,7 +14,8 @@ export const initSpeechApi = () => {
     });
   }
   // Voice Record
-  if(speechElt && recordBtn && pushBtn) {
+  if(speechElt && recordBtn ) {
+    let recognizingStarted = false;
     const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = 'fr-FR';
@@ -29,17 +29,26 @@ export const initSpeechApi = () => {
 
     recognition.onresult = function(event) {
       console.debug("Record Save");
-      speechElt.innerText = event.results[0][0].transcript;
-      pushBtn.click();
+      document.getElementById("speech").innerText = event.results[0][0].transcript;
+      if(document.getElementById ("minute-submit")){
+        document.getElementById("minute-submit").click();
+      }
     };
     recordBtn.addEventListener("mousedown", event => {
+      console.clear();
       console.debug("Record Mouse Down");
       speechElt.innerText = "";
+      if (recognizingStarted){
+        console.debug("Stop previous record");
+        recognition.stop();
+      }
+      recognizingStarted = true
       recognition.start();
     });
     recordBtn.addEventListener("mouseup", event => {
       console.debug("Record Mouse Up");
       recognition.stop();
+      recognizingStarted = false;
     });
   }
 };
