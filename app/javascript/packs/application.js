@@ -15,10 +15,9 @@ import Sortable from 'sortablejs';
 import { initMapboxes, initJourneyChange } from '../components/init_journey_change.js'
 import { initMinuteCreation } from '../components/init_minute_creation.js';
 import { initSpeechApi } from "../components/init_speech_api.js";
-
-import { flatPickr } from "../plugins/flatpickr";
-import { initSortable} from '../plugins/init_sortable.js';
-import { toggleDone } from "../components/toggle_done";
+import { flatPickr } from "../plugins/flatpickr"
+import { toggleDone } from "../components/toggle_done"
+import { toggleMap } from "../components/toggle_map"
 import { modal } from "../components/modal"
 
 document.addEventListener('turbolinks:load', () => {
@@ -29,5 +28,6 @@ document.addEventListener('turbolinks:load', () => {
   flatPickr();
   initSortable();
   toggleDone();
+  toggleMap();
   modal();
 });

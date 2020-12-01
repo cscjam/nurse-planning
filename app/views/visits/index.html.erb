@@ -26,27 +26,27 @@
       <div id='card-list'>
 
       <% @visits.each_with_index do |visit, position| %>
-      <%= render 'journeys/show' , journey: @journeys[position + 1], position: position %>
-        <div class="card-visit" id="visit-<%=visit.id%>" data-id="<%=visit.id%>">
-          <div class="up">
+        <div class="journey-card-visit">
+          <%= render 'journeys/show' , journey: @journeys[position], position: position %>
+          <div class="card-visit" id="visit-<%=visit.id%>">
             <%= link_to visit_path(visit) do %>
-              <div class="card-visit-info" >
+              <div class="card-visit-info">
                 <h2><%= visit.patient.get_full_name %></h2>
                 <p><%= visit.patient.address %></p>
                 <p><%= visit.patient.compl_address %></p>
-                <p> Position : <%= visit.position %> </p>
-                <p><%= visit.get_wish_time%></p>
+                <p><%= visit.patient.phone %></p>
+                <p><%= visit.wish_time %></p>
                 <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
                   <i class="far fa-times-circle"></i>
                 <% end %>
               </div>
+            <% end %>
+            <div class=" toggle <%= visit.is_done ? 'done' : 'not-done'%>" data-id="<%=visit.id%>">
+              <i class="fas fa-check"></i>
             </div>
-          <% end %>
-          <div class=" toggle <%= visit.is_done ? 'done' : 'not-done'%>" data-id="<%=visit.id%>">
-            <i class="fas fa-check"></i>
           </div>
-      </div>
-      <% end %>
+         </div>
+        <% end %>
       </div>
     </div>
   </div>
