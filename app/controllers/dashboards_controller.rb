@@ -1,7 +1,7 @@
 class DashboardsController < ApplicationController
   def show
     @today_visits = Visit.includes(:patient, :cares).where(date: Date.today).order(:position)
-    visitref = @today_visits.find { |visit| !visit.is_done}
+    visitref = @today_visits.find { |visit| !visit.is_done} || @today_visits.first
     index = @today_visits.index(visitref) || 0
     @visits = []
     case index
