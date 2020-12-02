@@ -5,10 +5,12 @@ export const toggleDone = () => {
     element.addEventListener("click", (event) => {
       if (element.classList.contains("done")) {
         element.classList.remove("done")
+        element.classList.remove("fa-check-circle")
         element.classList.add("not-done")
         element.innerHTML="<i class='far fa-circle'></i>"
       } else {
         element.classList.remove("not-done")
+        element.classList.remove("fa-circle")
         element.classList.add("done")
         element.innerHTML="<i class='far fa-check-circle'></i>"
       }

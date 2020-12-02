@@ -51,12 +51,22 @@
     }
   }
 
-  .fa-times-circle {
+  .fa-trash-alt {
     position: absolute;
     top: 10px;
     right: 10px;
   }
+
+  .fa-check-circle{
+    font-size: 20px;
+  }
+
+  .fa-circle{
+    font-size: 20px;
+  }
 }
+
+
 
 .card-visit-info {
   height: 100%;
@@ -65,7 +75,3 @@
   position: relative;
 }
 
-#tasks-list {
-  list-style: none;
-  padding-left: 0;
-}

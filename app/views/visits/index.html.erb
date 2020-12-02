@@ -36,16 +36,11 @@
                   <p><%= visit.patient.phone %></p>
                   <p><%= visit.wish_time %></p>
                   <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
-                  <i class="far fa-times-circle"></i>
+                  <i class="far fa-trash-alt"></i>
                   <% end %>
                 </div>
               <% end %>
-              <div class=" toggle <%= visit.is_done ? 'done' : 'not-done'%>" data-id="<%=visit.id%>">
-                <% if visit.is_done? %>
-                <i class="far fa-check-circle"></i>
-                <% else %>
-                <i class="far fa-circle"></i>
-                <% end %>
+              <div class=" toggle <%= visit.is_done ? 'done far fa-check-circle' : 'not-done far fa-circle'%>" data-id="<%=visit.id%>">
               </div>
             </div>
           </div>
@@ -54,7 +49,3 @@
     </div>
   </div>
 </div>
-
-
-
-
