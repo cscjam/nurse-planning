@@ -103,7 +103,7 @@ delays.each do |day|
   end
 end
 
-position = 0
+position = -1
 Visit.create!(
   date: Date.today,
   position: position += 1,

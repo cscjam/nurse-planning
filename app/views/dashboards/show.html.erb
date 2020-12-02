@@ -12,23 +12,35 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
+      <% time_array = [] %>
       <% @visits.each_with_index do |visit, index| %>
-        <div class="card-visit-home"  id="visit-<%=visit.id%>">
-          <%= link_to visit_path(visit) do %>
-            <div class="card-visit-home-info">
-              <h2><%= visit.position %>/<%= @today_visits.length %> : <%= visit.patient.get_full_name %></h2>
-              <p><%= visit.patient.address %></p>
-              <p><%= visit.patient.compl_address %></p>
-              <p>RDV : <strong><%=visit.get_wish_time%></strong></p>
-                <% visit.cares.each do |care| %>
-                  <i class="<%= care.icon %> m-2"></i>
-                <% end %>
-            </div>
-          <% end %>
-          <%= link_to mark_as_done_visit_path(visit, format:"dashboards"), remote: true, method: :patch do%>
-            <div class="<%= visit.is_done ? 'done far fa-check-circle' : 'not-done far fa-circle'%>">
-            </div>
-          <% end %>
+        <div class="time-line-card">
+          <div class= "timeline">
+            <% if !time_array.include? visit.get_wish_time %>
+              <p><%= visit.get_wish_time %></p>
+              <% time_array << visit.get_wish_time %>
+              <div class= "line-80"></div>
+            <% else %>
+              <div class= "line-110"></div>
+            <% end %>
+          </div>
+          <div class="card-visit-home"  id="visit-<%=visit.id%>">
+            <%= link_to visit_path(visit) do %>
+              <div class="card-visit-home-info">
+                <h2><%= visit.position %>/<%= @today_visits.length %> : <%= visit.patient.get_full_name %></h2>
+                <p><%= visit.patient.address %></p>
+                <p><%= visit.patient.compl_address %></p>
+                <p>RDV : <strong><%=visit.get_wish_time%></strong></p>
+                  <% visit.cares.each do |care| %>
+                    <i class="<%= care.icon %> m-2"></i>
+                  <% end %>
+              </div>
+            <% end %>
+            <%= link_to mark_as_done_visit_path(visit, format:"dashboards"), remote: true, method: :patch do%>
+              <div class="<%= visit.is_done ? 'done far fa-check-circle' : 'not-done far fa-circle'%>">
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
