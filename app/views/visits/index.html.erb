@@ -30,22 +30,20 @@
     <div class="col-12 col-md-6 col-lg-4">
       <div id='card-list'>
         <% @visits.each_with_index do |visit, position| %>
-          <div class="journey-card-visit">
+          <div class="journey-card-visit" data-id="<%=visit.id%>">
             <%= render 'journeys/show' , journey: @journeys[position], position: position %>
             <div class="card-visit" id="visit-<%=visit.id%>">
               <%= link_to visit_path(visit) do %>
                 <div class="card-visit-info">
                   <h2><%= visit.patient.get_full_name %></h2>
                   <p><%= visit.patient.address %></p>
-                  <p><%= visit.patient.compl_address %></p>
-                  <p><%= visit.patient.phone %></p>
+                  <p>Horaire souhaité : <%= visit.wish_time %>h</p>
                   <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
-                    <i class="far fa-times-circle"></i>
+                  <i class="far fa-trash-alt"></i>
                   <% end %>
                 </div>
               <% end %>
-              <div class=" toggle <%= visit.is_done ? 'done' : 'not-done'%>" data-id="<%=visit.id%>">
-                <i class="fas fa-check"></i>
+              <div class=" toggle <%= visit.is_done ? 'done far fa-check-circle' : 'not-done far fa-circle'%>" data-id="<%=visit.id%>">
               </div>
             </div>
           </div>
@@ -54,7 +52,3 @@
     </div>
   </div>
 </div>
-
-
-
-

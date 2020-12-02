@@ -3,12 +3,12 @@ export const toggleMap = () => {
 
   chevronMaps.forEach((content) => {
     const map = content.querySelector(".map");
-    const icon = content.querySelector(".fa-chevron-down");
-    icon.addEventListener("click", (event) => {
+    const iconDw = content.querySelector(".fa-chevron-down");
+    iconDw.addEventListener("click", (event) => {
       event.preventDefault();
       map.classList.toggle("d-none");
-      icon.classList.toggle("fa-chevron-down");
-      icon.classList.toggle("fa-chevron-up");
+      iconDw.classList.toggle("fa-chevron-down");
+      iconDw.classList.toggle("fa-chevron-up");
     });
   });
 }
