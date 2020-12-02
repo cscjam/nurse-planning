@@ -25,7 +25,7 @@
       </div>
       <div id='card-list'>
         <% @visits.each_with_index do |visit, position| %>
-          <div class="journey-card-visit">
+          <div class="journey-card-visit" data-id="<%=visit.id%>">
             <%= render 'journeys/show' , journey: @journeys[position], position: position %>
             <div class="card-visit" id="visit-<%=visit.id%>">
               <%= link_to visit_path(visit) do %>
