@@ -4,15 +4,11 @@ export const toggleDone = () => {
   document.querySelectorAll(".toggle").forEach(element => {
     element.addEventListener("click", (event) => {
       if (element.classList.contains("done")) {
-        element.classList.remove("done")
-        element.classList.remove("fa-check-circle")
-        element.classList.add("not-done")
-        element.innerHTML="<i class='far fa-circle'></i>"
+        element.classList.replace("done", "not-done")
+        element.classList.replace("fa-check-circle", "fa-circle")
       } else {
-        element.classList.remove("not-done")
-        element.classList.remove("fa-circle")
-        element.classList.add("done")
-        element.innerHTML="<i class='far fa-check-circle'></i>"
+        element.classList.replace("not-done", "done")
+        element.classList.replace("fa-circle", "fa-check-circle" )
       }
       let id = element.dataset.id
       const url = `/visits/${id}/mark_as_done`
@@ -30,3 +26,10 @@ export const toggleDone = () => {
 }
 
 
+      // if (element.classList.contains("done")) {
+      //   element.classList.replace("done", "not-done")
+      //   element.classList.replace("fa-check-circle", "fa-circle")
+      // } else {
+      //   element.classList.replace("not-done", "done")
+      //   element.classList.replace("fa-circle", "fa-check-circle" )
+      // }
