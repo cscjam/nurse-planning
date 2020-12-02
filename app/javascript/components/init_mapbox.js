@@ -1,5 +1,17 @@
 import mapboxgl from 'mapbox-gl';
 
+const getPrettyInfos = (journey) => {
+  let mins = journey["duration"];
+  let hours = Math.trunc(mins / 60)
+  let duration = "";
+  if ( hours > 0){
+    duration += `${hours}h`;
+  }
+  duration += `${Math.trunc(mins % 60)}min`;
+  let specificJourney = "";
+  return "Trajet " + specificJourney + ": " + duration + " - " + journey["distance"] + "m";
+}
+
 const fitResizedScreen= (mapGui, mapElt, bounds) => {
     // _sw: SouthWest - _ne: NorthWest
     const padding = 10;
@@ -7,9 +19,11 @@ const fitResizedScreen= (mapGui, mapElt, bounds) => {
     const heightSquare = mapElt.querySelector("canvas").height;
     const widthRect = parseInt(mapElt.querySelector("canvas").style.width);
     const heightRect = parseInt(mapElt.querySelector("canvas").style.width);
-    const p0 = [0, 0];
-    const p1 = [widthSquare, heightSquare];
-    mapGui.fitScreenCoordinates(p0, p1, mapGui.getBearing(),{ padding: 10});
+    if(Math.abs(widthSquare - widthRect) < 10  || Math.abs(heightSquare != heightRect) < 10){
+      const p0 = [0, 0];
+      const p1 = [widthRect, heightRect];
+      mapGui.fitScreenCoordinates(p0, p1, mapGui.getBearing(),{ padding: padding});
+    }
 }
 
 const fitMapToMarkers = (mapGui, mapElt, markers, geometry) => {
@@ -18,8 +32,7 @@ const fitMapToMarkers = (mapGui, mapElt, markers, geometry) => {
   if (geometry) {
     geometry.forEach(point => bounds.extend(point));
   }
-  mapGui.fitBounds(bounds, { padding: 5, maxZoom: 15, duration: 0 });
-  fitResizedScreen(mapGui, mapElt, bounds);
+  mapGui.fitBounds(bounds, { padding: 10, maxZoom: 15, duration: 0 });
 };
 
 const addMarkerFlag = (mapGui, markers) => {
@@ -73,7 +86,6 @@ const addGeometryJson = (mapGui, mapElt, markers) => {
       fitMapToMarkers(mapGui, mapElt, markers, data["geometry"]["coordinates"]);
     })
 };
-
 const createMap = (mapElt) =>  {
   mapboxgl.accessToken = mapElt.dataset.mapboxApiKey;
   const mapGui = new mapboxgl.Map({
@@ -88,20 +100,55 @@ const createMap = (mapElt) =>  {
   return mapGui;
 };
 
-export const refreshMapboxes = () => {
-  const mapElts = document.querySelectorAll('.map');
-  mapElts.forEach(mapElt => {
-    const mapGui = createMap(mapElt);
-  })
+export const updateJourneysCards = (data) => {
+  if(data) {
+    const journeysJson = data["journeys"];
+    if(journeysJson) {
+      for(let index = 0; index < journeysJson.length; index++){
+        const journeyElt = document.querySelector(`#journey-${index} .card-journey-info p`);
+        if(journeyElt) {
+          let chevronIcon = "";
+          let test = journeyElt.innerHTML;
+          const chevronIndex = journeyElt.innerHTML.indexOf("<");
+          if(chevronIndex != -1) {
+            chevronIcon = journeyElt.innerHTML.substr(chevronIndex);
+          }
+          chevronIcon = journeyElt.innerHTML.substr(chevronIndex);
+          journeyElt.innerHTML = getPrettyInfos(journeysJson[index]) + chevronIcon;
+        }
+      }
+    }
+  }
 };
-// Mise à jour mapElt.dataset.markers = f(journey) => sort
 
-export const initMapboxes = () => {
-  const mapElts = document.querySelectorAll('.map ');
-  mapElts.forEach(mapElt => {
+export const updateMapElts = (data) => {
+  if(data) {
+    const journeysJson = data["journeys"];
+    if(journeysJson) {
+      for(let index = 0; index < journeysJson.length; index++){
+        const mapElt = document.querySelector(`#map-${index}`);
+        if(mapElt) {
+          mapElt.dataset.journeyId = journeysJson[index]["id"];
+          createMap(mapElt);
+        }
+      }
+    }
+  }
+}
+
+export const initMapboxes = (mapId) => {
+  if(mapId){
+    const mapElt = document.querySelector(`#${mapId}`);
     if (mapElt) {
       createMap(mapElt);
     }
-  })
+  }else{
+    const mapElts = document.querySelectorAll('.map ');
+    mapElts.forEach(mapElt => {
+      if (mapElt) {
+        createMap(mapElt);
+      }
+    })
+  }
 };
 
