@@ -4,8 +4,8 @@
     <%= link_to nil do %>
       <div class="card-journey-info">
         <p>Trajet
-        <%= " depuis domicile" unless journey.start_user.nil?  %>
-        <%= " vers domicile" unless journey.end_user.nil? %>
+        <%#= " depuis domicile" unless journey.start_user.nil?  %>
+        <%#= " vers domicile" unless journey.end_user.nil? %>
         : <%= journey.get_pretty_infos %>
         <i class="fas fa-chevron-down"></i>
         </p>
@@ -13,8 +13,9 @@
     <% end %>
   </div>
   <div class="map d-none" id="map-<%=position%>"
-      data-journey-id="<%=journey.id%>"
       style="width: 100%; height: 140px;"
+      data-journey-id="<%=journey.id%>"
+      data-position="<%=position%>"
       data-markers="<%=journey.get_markers.to_json%>"
       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
