@@ -51,7 +51,7 @@ nicolas = Patient.create!(
   team: parc_bordelais)
 hugues = Patient.create!(
   first_name: "Hugues",
-  last_name: "CAPES",
+  last_name: "CAPET",
   address: "401 avenue de la Libération 33200 Bordeaux",
   compl_address: "Sonner au 403",
   phone: "06 04 28 93 23",
