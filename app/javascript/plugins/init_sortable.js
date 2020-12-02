@@ -14,7 +14,8 @@ const sortMapinfos = () => {
 
 export const initSortable = () => {
   var list = document.querySelector('#card-list');
-  Sortable.create(list, {
+  if (list){
+    Sortable.create(list, {
     animation: 150,
     onEnd: (event) => {
       const url = `/visits/${event.item.dataset.id}/move?old=${event.oldIndex}&new=${event.newIndex}`;

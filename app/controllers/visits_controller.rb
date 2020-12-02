@@ -61,16 +61,25 @@ class VisitsController < ApplicationController
 
   def show
     @minute = Minute.new
+    @current_patient = @visit.patient
   end
 
   def new
-    @visit = Visit.new
+    if params[:patient_id].present?
+      @visit = Visit.new(patient_id: params[:patient_id])
+    else
+      @visit = Visit.new
+    end
   end
 
   def create
     @visit = Visit.new(visit_params)
     @visit.user = current_user
+    @visit.position = 1000
+    @visit.is_done = false
     if @visit.save
+      # Si reorder avant le save, il va faire un update sur une visit non sauvegarde
+      reorder_by_wishtime(@visit.date)
       redirect_to visit_path(@visit)
     else
       render :new
@@ -84,7 +93,14 @@ class VisitsController < ApplicationController
   end
 
   def visit_params
-    params[:visit].permit(:date, :position, :time, :wish_time, :is_done)
+    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :patient_id, care_ids: [])
+  end
+
+  def reorder_by_wishtime(date)
+    @visits = Visit.where(date: date).order(:wish_time, :position)
+    @visits.each_with_index do |visit, index|
+      visit.update(position: index)
+    end
   end
 
   def shift(date)

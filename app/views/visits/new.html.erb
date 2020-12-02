@@ -3,9 +3,10 @@
     <div class="col-12 col-md-6 col-lg-4">
       <h2>Ajouter un nouveau rendez-vous</h2>
       <%= simple_form_for(@visit) do |f| %>
-        <%= f.input :date %>
+        <%= f.input :date,  as: :string, required: false, input_html: {class: "datepicker"}%>
         <%= f.input :wish_time %>
-        <%= f.input :patient , collection: Patient.all %>
+        <%= f.association :patient, label_method: :get_full_name, value_method: :id, include_blank: false %>
+        <%= f.association :cares, multiple: true, label_method: :name, include_blank: false, value_method: :id %>
         <%= f.submit "Ajouter", class: "btn button" %>
       <% end %>
     </div>
