@@ -5,7 +5,7 @@
       <%= simple_form_for(@visit) do |f| %>
         <%= f.input :date %>
         <%= f.input :wish_time %>
-        <%= f.input :patient , collection: Patient.all %>
+        <%= f.association :patient, label_method: :get_full_name, value_method: :id, include_blank: false %>
         <%= f.submit "Ajouter", class: "btn button" %>
       <% end %>
     </div>

@@ -61,18 +61,26 @@ class VisitsController < ApplicationController
 
   def show
     @minute = Minute.new
+    @current_patient = @visit.patient
   end
 
   def new
-    @visit = Visit.new
+    if params[:patient_id].present?
+      @visit = Visit.new(patient_id: params[:patient_id])
+    else
+      @visit = Visit.new
+    end
   end
 
   def create
     @visit = Visit.new(visit_params)
     @visit.user = current_user
+    @visit.position = 0
+    @visit.is_done = false
     if @visit.save
       redirect_to visit_path(@visit)
     else
+      raise
       render :new
     end
   end
@@ -84,7 +92,7 @@ class VisitsController < ApplicationController
   end
 
   def visit_params
-    params[:visit].permit(:date, :position, :time, :wish_time, :is_done)
+    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :patient_id)
   end
 
   def shift(date)
