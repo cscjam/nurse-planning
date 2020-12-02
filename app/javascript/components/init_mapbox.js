@@ -1,13 +1,15 @@
 import mapboxgl from 'mapbox-gl';
 
-const customFitMapToMarkers = (mapGui, mapElt, bounds) => {
-    const rectHeight = 140;
-    const squareHeight = mapElt.querySelector("canvas").height;
+const fitResizedScreen= (mapGui, mapElt, bounds) => {
     // _sw: SouthWest - _ne: NorthWest
-    const up = bounds["_ne"]['lng']
-    const dw = bounds["_sw"]['lng']
-    const r = (squareHeight / rectHeight);
-    bounds["_sw"]['lng'] = up + ( dw - dw) * r;
+    const padding = 10;
+    const widthSquare = mapElt.querySelector("canvas").width;
+    const heightSquare = mapElt.querySelector("canvas").height;
+    const widthRect = parseInt(mapElt.querySelector("canvas").style.width);
+    const heightRect = parseInt(mapElt.querySelector("canvas").style.width);
+    const p0 = [0, 0];
+    const p1 = [widthSquare, heightSquare];
+    mapGui.fitScreenCoordinates(p0, p1, mapGui.getBearing(),{ padding: 10});
 }
 
 const fitMapToMarkers = (mapGui, mapElt, markers, geometry) => {
@@ -16,8 +18,8 @@ const fitMapToMarkers = (mapGui, mapElt, markers, geometry) => {
   if (geometry) {
     geometry.forEach(point => bounds.extend(point));
   }
-  // customFitMapToMarkers(mapGui, mapElt, bounds)
-  mapGui.fitBounds(bounds, { padding: 20, maxZoom: 15, duration: 0 });
+  mapGui.fitBounds(bounds, { padding: 5, maxZoom: 15, duration: 0 });
+  fitResizedScreen(mapGui, mapElt, bounds);
 };
 
 const addMarkerFlag = (mapGui, markers) => {
