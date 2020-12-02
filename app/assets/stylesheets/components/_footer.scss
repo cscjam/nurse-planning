@@ -8,13 +8,16 @@
   margin-top: 2px;
   background-color: $light-gray;
   text-decoration: none;
+  a {
+    color: #333333;
+  }
   i:link, a:visited {
-  text-decoration: none;
-  font-size: 18px;
-  color: #333333;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333333;
   }
   a:hover, {
-  color: $orange;
+    color: $orange;
   }
 }
 
