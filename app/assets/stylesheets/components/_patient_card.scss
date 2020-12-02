@@ -13,7 +13,14 @@
   i{
     color: $white;
     &:hover{
-      color: $orange;
+      color: $white;
     }
   }
+}
+
+#minute-content i {
+  color: $orange;
+    &:hover{
+      color: $orange;
+    }
 }
