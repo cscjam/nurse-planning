@@ -63,6 +63,20 @@ class VisitsController < ApplicationController
     @minute = Minute.new
   end
 
+  def new
+    @visit = Visit.new
+  end
+
+  def create
+    @visit = Visit.new(visit_params)
+    @visit.user = current_user
+    if @visit.save
+      redirect_to visit_path(@visit)
+    else
+      render :new
+    end
+  end
+
   private
 
   def get_visit
