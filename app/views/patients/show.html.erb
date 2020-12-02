@@ -1,0 +1,33 @@
+<div class="patient-header fixed-top">
+  <div class="patient-info">
+    <h2><%=@patient.first_name%> <%=@patient.last_name%></h2>
+    <p><%=@patient.address%></p>
+    <p><%=@patient.compl_address%></p>
+    <a href="tel:<%= @patient.phone %>"><i class="fas fa-mobile-alt mt-1"></i> <%= @patient.phone %></a>
+  </div>
+  <%= render '/shared/patientheader' %>
+</div>
+<div class="container header-margin">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+      <% @visits.each do |visit| %>
+        <div class="minute-history">
+          <h4 class="text-center"><%= visit.date %></h4>
+          <div class="card_care">
+            <div class="cares">
+              <% visit.cares.each do |care| %>
+              <%= render '/cares/show', care: care %>
+              <% end %>
+            </div>
+          </div>
+          <% visit.minutes.order(created_at: :desc).each do |minute| %>
+            <% unless minute.content == "" %>
+              <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=minute.content%></p>
+              <h4><%= visit.user.get_full_name %></h4>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
