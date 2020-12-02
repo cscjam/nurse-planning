@@ -1,26 +1,25 @@
 
 <div class="chevron-map">
-  <div class="card-journey" id="journey-<%=position%>">
+  <div class="card-journey" id="journey-<%=journey.id%>">
     <%= link_to nil do %>
       <div class="card-journey-info">
         <p>Trajet
         <%#= " depuis domicile" unless journey.start_user.nil?  %>
         <%#= " vers domicile" unless journey.end_user.nil? %>
         : <%= journey.get_pretty_infos %>
-        <i  data-map-id="map-<%=position%>" class="fas fa-chevron-down"></i>
+        <i  data-map-id="map-<%=journey.id%>" class="fas fa-chevron-down"></i>
         </p>
       </div>
     <% end %>
   </div>
   <div class="map d-none"
-      data-position="<%=position%>"
       <%# Mis à jour par le changment de locomotion %>
       <%# Utilisé pour fetcher le trajetdans init_mapbox %>
       data-journey-id="<%=journey.id%>"
       <%# inclut les markers en json dans init_locomotion_change %>
-      data-markers="<%=journey.get_markers.to_json%>"
+      data-markers="<%=journey.get_markers_json%>"
       <%# Utilisé pour lier au ième journey dans init_locomotion_change%>
-      id="map-<%=position%>"
+      id="map-<%=journey.id%>"
       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 </div>

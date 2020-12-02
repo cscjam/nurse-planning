@@ -16,16 +16,14 @@ class Journey < ApplicationRecord
   def self.update_journeys(visits, locomotion)
     pp visits.length
     unless(visits&.empty?)
-      # # Ajout de l'infirmier en début&fin de tournée
-      # # Passage de visite à patient
-      points = [visits.first.user] + visits.map{|p| p.patient} + [visits.last.user]
-      pp points.length
+      # Ajout de l'infirmier en début&fin de tournée
+      # Passage de visite à patient
+      points = [visits.first.user] + visits.map{|p| p.patient}# + [visits.last.user]
       get_each_journey_infos(points, locomotion)
     end
   end
 
-
-  def get_markers()
+  def get_markers_json()
     markers = []
     if(self.start_user)
       markers << {
@@ -55,7 +53,7 @@ class Journey < ApplicationRecord
         infoWindow: JourneysController.new().render_to_string(partial: "marker_info", locals: { point: self.end_patient })
       }
     end
-    return markers
+    return markers.to_json
   end
 
   private

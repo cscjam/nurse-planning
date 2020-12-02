@@ -12,6 +12,7 @@ class PatientsController < ApplicationController
 
   def show
     @visits = @patient.visits.order(:date)
+    @current_patient = @patient
   end
 
   def new
