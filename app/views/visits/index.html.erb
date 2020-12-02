@@ -32,9 +32,7 @@
                 <div class="card-visit-info">
                   <h2><%= visit.patient.get_full_name %></h2>
                   <p><%= visit.patient.address %></p>
-                  <p><%= visit.patient.compl_address %></p>
-                  <p><%= visit.patient.phone %></p>
-                  <p><%= visit.wish_time %></p>
+                  <p>Horaire souhaité : <%= visit.wish_time %>h</p>
                   <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
                   <i class="far fa-trash-alt"></i>
                   <% end %>
