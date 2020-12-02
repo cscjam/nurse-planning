@@ -263,22 +263,32 @@ visits.each do |visit|
 end
 #--------------------------------------------------------------------
 puts "SEED > ADD MNINUTES"
-cr = [
-  "La cicatrisation du patient se fait normalement, un suivi est à faire jusqu'à la date de fin.",
-  "Le patient montre des signes d'instabilité. Il faut joindre le medecin traitant.",
-  "Le traitement semble parfaitement adapté aprés l'ajustement fait avec le medecin traitant.",
-  "La cicatrice du patient est gonflée. Si cela ne s'améliore pas d'ici la prochaine visite, il faudra prévoir une hospitalisation.",
-  "La tension du patient est basse, il faut continuer de la prendre et alerter la famille si cela se dégrade.",
-  "Le patient n'a plus d'ordonnance, nous n'avons pas pu facturer. Penser à metter à jours l'ordo et le logiciel.",
-  "La visite du jour n'a pas été faite, le patient n'était pas à son domicile.",
-  "Le patient n'est plus cohérent, le maintient à domicile est difficile. Alerter la famille et le medecin pour un placement.",
-  "Dernière visite avec le patient pour le pansement. Aucune action nécéssaire.",
-  "Le pillulier a été refait pour la semaine. Le traitement principal nécéssite un renouvellement",
-  "L'insuline n'a pas été nécéssaire, car le patient presentait des taux satisfaisant. Pousuivre le control",
+cr =   ["La cicatrisation du patient se fait normalement, les fils sont à enlever à J12.",
+  "Le patient montre des signes d’instabilité. Il faut joindre le medecin traitant." ,
+  "Le traitement semble parfaitement adapté aprés l’ajustement fait avec le medecin traitant." ,
+  "La cicatrice du patient est gonflée. Si cela ne s’améliore pas d’ici la prochaine visite, il faudra prévoir une hospitalisation." ,
+  "La tension du patient est basse, il faut continuer de la prendre et alerter la famille si cela se dégrade." ,
+  "Le patient n’a plus d’ordonnance, nous n’avons pas pu facturer. Penser à metter à jours l’ordo et le logiciel." ,
+  "La visite du jour n’a pas été faite, le patient n’était pas à son domicile.",
+  "Le patient n’est plus cohérent, le maintient à domicile est difficile. Alerter la famille et le medecin pour un placement." ,
+  "Dernière visite avec le patient pour le pansement. Aucune action nécéssaire." ,
+  "Le pillulier a été refait pour la semaine. Le traitement principal nécessite un renouvellement",
+  "L'insuline pas été nécessaire, car le patient présentait des taux satisfaisant. Pousuivre le control",
   "Une toilette au lit a été réalisée. Prévoir une douche à la prochaine visite",
-  "Le service de dépôt de repas n'etait pas passé, j'ai dû prévenir la famille. Alerte glycémique",
-  "La cicatrice de l'abdominoplastie est douloureuse pour le patient. A surveiller.",
-]
+  "Le service de dépôt de repas n’etait pas passé, j’ai dû prévenir la famille. Alerte glycémique",
+  "La cicatrice de l’abdominoplastie est douloureuse pour le patient. A surveiller.",
+  "Bilan sang fait ce jour, INR1.98, poursuite des sous-cutanées.",
+  "Regime alimentaire non suivi par le patient, augmentation de l’insuline lente du soir.",
+  "Allergie au pansement de type allevyn, medecin prévenu pour prevision consultation.",
+  "Ecoulement et inflammation aprés l’ablation d’agraphe. Pose d’un steristrip à surveiller.",
+  "Le medecin traitant est passé pour modification du traitement mensuel. Ajout d’un anti-hypertenseur.",
+  "Patient angoissé lors du passage ce jour, psy contacté pour planification consultation.",
+  "Le patient vient de passer un scanner qui révèle un cancer du colon.",
+  "Changement de socle+poche de colostomie ce jour, demain ne changer que la poche.",
+  "Retrait de la chimiothérapie ce jour, point de ponction propre prochaine chimio le 02Fev.",
+  "Patiente opérée d’une prothèse de hanche suite à une chute. Faire les sous-cut de lovenox pendant 1mois et control des plaquettes hebdo.",
+ ]
+
 visits = Visit.where(is_done: true)
 visits.each do |visit|
   Minute.create!(
