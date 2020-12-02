@@ -1,28 +1,33 @@
-<div class="container">
+<div class="header-day fixed-top">
+  <div class="d-flex justify-content-between">
+    <% if params[:query].present? %>
+      <h3><%= l(params[:query].to_date , format: "%A %e %B %Y").capitalize %></h3>
+    <% else %>
+      <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
+    <% end %>
+    <p><%= select_tag "locomotion", options_for_select(Journey.locomotions, Journey.locomotions.values[@locomotion]) %></p>
+  </div>
+  <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
+    <div class="search-form-control form-group">
+      <input class="form-control datepicker" type="text" name="query"/>
+      <button name="button" type="submit" class="btn btn-flat">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  <% end %>
+  <div class="week">
+    <% (Date.today..Date.today + 4).to_a.each do |d| %>
+      <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d.to_s && params[:query].present? == false}" do %>
+        <p><%= l(d, format: '%a').first(2).capitalize %></p>
+        <p><%= d.day %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container header-margin-visit-index">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="header-day">
-        <div class="d-flex justify-content-between">
-          <h3>S <%= l(Date.today, format: "%W") %> - <%= l(Date.today, format: "%B").capitalize %></h3>
-          <p><%= select_tag "locomotion", options_for_select(Journey.locomotions, Journey.locomotions.values[@locomotion]) %></p>
-        </div>
-        <%= simple_form_for :search, url: visits_path, method: :get do |f| %>
-          <div class="search-form-control form-group">
-            <input class="form-control datepicker" type="text" name="query"/>
-            <button name="button" type="submit" class="btn btn-flat">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        <% end %>
-        <div class="week">
-          <% (Date.today..Date.today + 4).to_a.each do |d| %>
-            <%= link_to visits_path(params: {delay: d}), class: "day #{"active" if @delay == d.to_s && params[:query].present? == false}" do %>
-              <p><%= l(d, format: '%a').first(2).capitalize %></p>
-              <p><%= d.day %></p>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
       <div id='card-list'>
         <% @visits.each_with_index do |visit, position| %>
           <div class="journey-card-visit" data-id="<%=visit.id%>">
