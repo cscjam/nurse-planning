@@ -12,7 +12,7 @@ export const toggleMap = () => {
       map.classList.toggle("d-none");
       icon.classList.toggle("fa-chevron-down");
       icon.classList.toggle("fa-chevron-up");
-      if(!icon.classList.contains("d-none")){
+      if(!map.classList.contains("d-none")){
         initMapboxes(icon.dataset.mapId);
       }
     });
