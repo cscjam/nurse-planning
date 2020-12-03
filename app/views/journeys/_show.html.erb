@@ -7,7 +7,7 @@
         <%#= " depuis domicile" unless journey.start_user.nil?  %>
         <%#= " vers domicile" unless journey.end_user.nil? %>
         : <%= journey.get_pretty_infos %>
-        <i  data-map-id="map-<%=journey.id%>" class="fas fa-chevron-down"></i>
+        <i data-map-id="map-<%=journey.id%>" class="fas fa-chevron fa-chevron-down"></i>
         </p>
       </div>
     <% end %>

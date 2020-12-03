@@ -126,6 +126,7 @@ export const updateJourneysAbstractAndMaps = (data) => {
     const markers = data.markers;
     const journeysElts = document.querySelectorAll(".card-journey")
     const mapElts = document.querySelectorAll(".map")
+    const togleElts = document.querySelectorAll(".fa-chevron")
     if(journeysJson && markers && mapElts && journeysElts) {
       for(let index = 0; index < journeysJson.length; index++){
         const journeyElt = journeysElts[index]
@@ -147,6 +148,10 @@ export const updateJourneysAbstractAndMaps = (data) => {
         mapElt.id = `map-${journeysJson[index]["id"]}`
         mapElt.dataset.markers = markers[index];
         mapElt.dataset.journeyId = journeysJson[index]["id"];
+        const toggleElt = togleElts[index]
+        if(toggleElt) {
+          toggleElt.dataset.mapId = `map-${journeysJson[index]["id"]}`
+        }
       }
     }
     return mapElts

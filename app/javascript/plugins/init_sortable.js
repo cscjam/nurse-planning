@@ -1,13 +1,18 @@
 import Sortable from 'sortablejs';
 import {fetchWithToken} from '../middleware/fetch_with_token';
-import {updateJourneysAbstractAndMaps} from '../components/init_mapbox';
+import {createMap, updateJourneysAbstractAndMaps} from '../components/init_mapbox';
 
 const sortMapinfos = () => {
   const url = `/visits`
   fetch(url, { headers: { accept: "application/json" } })
   .then(response => response.json())
   .then((data) => {
-    createMap(updateJourneysAbstractAndMaps(data));
+    const mapElts = updateJourneysAbstractAndMaps(data);
+      if(mapElts) {
+        mapElts.forEach((mapElt)=> {
+          createMap(mapElt)
+        })
+      }
   });
 };
 
