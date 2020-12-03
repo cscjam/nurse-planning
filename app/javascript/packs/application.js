@@ -9,7 +9,6 @@ import "bootstrap";
 
 // Internal imports
 import { initLocomotionChange } from '../components/init_locomotion_change.js'
-import { initMapboxes } from '../components/init_mapbox.js'
 import { initMinuteCreation } from '../components/init_minute_creation.js';
 import { initSpeechApi } from "../components/init_speech_api.js";
 import { initSortable } from "../plugins/init_sortable";
@@ -20,7 +19,6 @@ import { modal } from "../components/modal"
 
 document.addEventListener('turbolinks:load', () => {
   initLocomotionChange();
-  initMapboxes();
   initSpeechApi();
   initMinuteCreation();
   flatPickr();

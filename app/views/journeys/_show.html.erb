@@ -7,15 +7,20 @@
         <%#= " depuis domicile" unless journey.start_user.nil?  %>
         <%#= " vers domicile" unless journey.end_user.nil? %>
         : <%= journey.get_pretty_infos %>
-        <i class="fas fa-chevron-down"></i>
+        <i  data-map-id="map-<%=position%>" class="fas fa-chevron-down"></i>
         </p>
       </div>
     <% end %>
   </div>
-  <div class="map d-none" id="map-<%=position%>"
-      data-journey-id="<%=journey.id%>"
+  <div class="map d-none"
       data-position="<%=position%>"
+      <%# Mis à jour par le changment de locomotion %>
+      <%# Utilisé pour fetcher le trajetdans init_mapbox %>
+      data-journey-id="<%=journey.id%>"
+      <%# inclut les markers en json dans init_locomotion_change %>
       data-markers="<%=journey.get_markers.to_json%>"
+      <%# Utilisé pour lier au ième journey dans init_locomotion_change%>
+      id="map-<%=position%>"
       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
 </div>
