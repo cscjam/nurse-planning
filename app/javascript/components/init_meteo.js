@@ -6,7 +6,7 @@ export const initMeteoInfo = () => {
     url += `lat=${meteoInfoElt.dataset.lat}&`
     url += `lon=${meteoInfoElt.dataset.lng}&`
     url += `appid=b8c099dc37d2a5363fa8b8abf0568822`
-    // url += `appid=${process.env.OPENWEATHER_API_KEY}`
+
     fetch(url)
       .then(response => response.json())
       .then((data) => {
