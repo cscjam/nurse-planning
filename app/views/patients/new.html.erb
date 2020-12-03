@@ -3,11 +3,11 @@
     <div class="col-12 col-md-6 col-lg-4">
       <h2>Ajouter un nouveau patient</h2>
       <%= simple_form_for(@patient) do |f| %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-        <%= f.input :address %>
-        <%= f.input :compl_address %>
-        <%= f.input :phone %>
+        <%= f.input :first_name, label: "Prénom" %>
+        <%= f.input :last_name, label: "NOM" %>
+        <%= f.input :address, label: "Adresse" %>
+        <%= f.input :compl_address, label: "Compléments d'information" %>
+        <%= f.input :phone, label: "Téléphone" %>
         <%= f.submit "Ajouter", class: "btn button" %>
       <% end %>
     </div>

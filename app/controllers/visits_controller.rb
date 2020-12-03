@@ -18,13 +18,16 @@ class VisitsController < ApplicationController
       current_user.update({current_locomotion: @locomotion})
     end
     # Mise à jour des trajets
-    @visits_planning = Visit.where('date BETWEEN ? AND ?', Date.today, Date.today + 1.week)
-                            .order(:date, :wish_time)
     @journeys = Journey::update_journeys(@visits.to_a, @locomotion)
     respond_to do |format|
-      format.csv
-      format.json { render json: { journeys: @journeys } }
+      format.csv { @visits_planning = Visit.where('date BETWEEN ? AND ?', Date.today, Date.today + 1.week)
+                                           .order(:date, :wish_time)
+        }
       format.html
+      format.json {
+        @markers = @journeys.map(&:get_markers_json)
+        render json: { journeys: @journeys, markers: @markers}
+      }
     end
   end
 

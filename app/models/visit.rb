@@ -30,4 +30,8 @@ class Visit < ApplicationRecord
       end
     end
   end
+  
+  def care_duration
+    self.cares.map(&:duration).sum
+  end
 end
