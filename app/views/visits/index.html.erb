@@ -37,6 +37,7 @@
                   <h2><%= visit.patient.get_full_name %></h2>
                   <p><%= visit.patient.address %></p>
                   <p>Horaire souhaité : <%= visit.wish_time %>h</p>
+                  <i class="fas fa-stopwatch"><%= visit.care_duration %></i>
                   <%= link_to visit_path(visit, delay: visit.date), remote: true, method: :delete do%>
                   <i class="far fa-trash-alt"></i>
                   <% end %>

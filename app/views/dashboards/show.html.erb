@@ -36,6 +36,7 @@
                   <% visit.cares.each do |care| %>
                     <i class="<%= care.icon %> m-2"></i>
                   <% end %>
+                  <i class="fas fa-stopwatch"><%= visit.care_duration %></i>
               </div>
             <% end %>
             <%= link_to mark_as_done_visit_path(visit, format:"dashboards"), remote: true, method: :patch do%>
