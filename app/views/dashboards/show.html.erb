@@ -33,9 +33,12 @@
                 <p><%= visit.patient.address %></p>
                 <p><%= visit.patient.compl_address %></p>
                 <p>RDV : <strong><%=visit.get_wish_time%></strong></p>
+                <% care_duration = 0 %>
                   <% visit.cares.each do |care| %>
                     <i class="<%= care.icon %> m-2"></i>
+                    <% care_duration += care.duration %>
                   <% end %>
+                  <%= care_duration %>
               </div>
             <% end %>
             <%= link_to mark_as_done_visit_path(visit, format:"dashboards"), remote: true, method: :patch do%>
