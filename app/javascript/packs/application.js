@@ -3,13 +3,12 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-
 // External imports
 import "bootstrap";
 
 // Internal imports
+import { initMeteoInfo } from "../components/init_meteo"
 import { initLocomotionChange } from '../components/init_locomotion_change.js'
-import { initMapboxes } from '../components/init_mapbox.js'
 import { initMinuteCreation } from '../components/init_minute_creation.js';
 import { initSpeechApi } from "../components/init_speech_api.js";
 import { initSortable } from "../plugins/init_sortable";
@@ -19,12 +18,12 @@ import { toggleMap } from "../components/toggle_map"
 import { modal } from "../components/modal"
 
 document.addEventListener('turbolinks:load', () => {
+  initMeteoInfo();
   initLocomotionChange();
-  initMapboxes();
-  initSpeechApi();
   initMinuteCreation();
-  flatPickr();
+  initSpeechApi();
   initSortable();
+  flatPickr();
   toggleDone();
   toggleMap();
   modal();
