@@ -21,4 +21,9 @@ class Visit < ApplicationRecord
   def self.print_id_positions(label, visits)
     puts label+visits&.map{|v|v.nil? ? 0 : "#{v.id}:#{v.position}"}.join("-")
   end
+
+  def care_duration
+    self.cares.map(&:duration).sum
+  end
+
 end
