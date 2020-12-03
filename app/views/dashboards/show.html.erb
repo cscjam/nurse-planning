@@ -20,7 +20,7 @@
       <% time_array = [] %>
       <% @visits.each_with_index do |visit, index| %>
         <div class="time-line-card">
-          <div class= "timeline"
+          <div class= "timeline">
             <% if !time_array.include? visit.wish_time %>
               <p><%= visit.wish_time %>h</p>
               <% time_array << visit.wish_time %>
