@@ -21,7 +21,10 @@ class VisitsController < ApplicationController
     @journeys = Journey::update_journeys(@visits.to_a, @locomotion)
     respond_to do |format|
       format.html
-      format.json { render json: { journeys: @journeys } }
+      format.json {
+        @markers = @journeys.map(&:get_markers_json)
+        render json: { journeys: @journeys, markers: @markers}
+      }
     end
   end
 

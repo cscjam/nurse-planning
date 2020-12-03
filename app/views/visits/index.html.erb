@@ -24,14 +24,13 @@
     <% end %>
   </div>
 </div>
-
-<div class="container header-margin-visit-index">
+<div class="container header-margin-visit-index footer-margin">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
       <div id='card-list'>
         <% @visits.each_with_index do |visit, position| %>
           <div class="journey-card-visit" data-id="<%=visit.id%>">
-            <%= render 'journeys/show' , journey: @journeys[position], position: position %>
+            <%= render 'journeys/show' , journey: @journeys[position] %>
             <div class="card-visit" id="visit-<%=visit.id%>">
               <%= link_to visit_path(visit) do %>
                 <div class="card-visit-info">

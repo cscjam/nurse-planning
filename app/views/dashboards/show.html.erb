@@ -1,7 +1,9 @@
 <div class="header-home">
   <h2>Bonjour</h2>
   <h1><%= current_user.get_full_name %></h1>
-  <p><%= l(Time.now, format: :long) %></p>
+    <p><%= l(Time.now, format: :long) %></p>
+    <p id="meteo-infos" data-lng="<%=current_user.longitude%>" data-lat="<%=current_user.latitude%>"></p>
+    <img  id="meteo-icon" src="" alt="Weather Icon" id="icon">
     <%= cl_image_tag(current_user.avatar.key, :transformation=>[
     {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
     ], id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
