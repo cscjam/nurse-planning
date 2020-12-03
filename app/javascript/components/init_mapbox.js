@@ -69,8 +69,7 @@ export const addGeometryJson = (mapGui, mapElt) => {
     .then(response => response.json())
     .then((data) => {
       let geometry = data.geometry
-      let toto = mapGui.getSource('trace')
-      if(toto) {
+      if(mapGui.getSource('trace')) {
         mapGui.removeLayer('trace')
         mapGui.removeSource('trace')
       }
