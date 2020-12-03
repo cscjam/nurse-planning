@@ -4,7 +4,7 @@ var g_padding = 30;
 var g_maps = new Map();
 
 const getPrettyInfos = (journey) => {
-  let mins = journey["duration"];
+  let mins = journey.duration;
   let hours = Math.trunc(mins / 60)
   let duration = "";
   if ( hours > 0){
@@ -12,7 +12,7 @@ const getPrettyInfos = (journey) => {
   }
   duration += `${Math.trunc(mins % 60)}min`;
   let specificJourney = "";
-  return "Trajet " + specificJourney + ": " + duration + " - " + journey["distance"] + "m";
+  return "Trajet " + specificJourney + ": " + duration + " - " + journey.distance + "m";
 }
 
 const fitResizedScreen = (mapGui, mapElt, bounds) => {
@@ -31,10 +31,11 @@ const fitResizedScreen = (mapGui, mapElt, bounds) => {
 const fitMapToMarkers = (mapGui, mapElt, markers, geometry) => {
   const bounds = new mapboxgl.LngLatBounds();
   markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
-  if (geometry) {
-    geometry.forEach(point => bounds.extend(point));
+  if (geometry.coordinates) {
+    geometry.coordinates.forEach(point => bounds.extend(point));
   }
   mapGui.fitBounds(bounds, { padding: g_padding, maxZoom: 15, duration: 0 });
+  return geometry;
 };
 
 const addMarkerFlag = (mapGui, markers) => {
@@ -51,7 +52,7 @@ const addMarkerFlag = (mapGui, markers) => {
   });
 }
 
-const addMarkers = (mapGui, mapElt) => {
+const addMarkers = (mapGui, mapElt, geometry) => {
   const markers = JSON.parse(mapElt.dataset.markers);
   markers.forEach((marker) => {
     new mapboxgl.Marker()
@@ -59,32 +60,42 @@ const addMarkers = (mapGui, mapElt) => {
       .addTo(mapGui);
   });
   addMarkerFlag(mapGui, markers);
-  return markers;
+  return [markers, geometry];
 }
 
-const addGeometryJson = (mapGui, mapElt, markers) => {
+const addGeometryJson = (mapGui, mapElt) => {
   fetch(`/journeys/${mapElt.dataset.journeyId}/geometry `)
     .then(response => response.json())
     .then((data) => {
-      mapGui.addSource('trace', { type: 'geojson', data: null});
+      let geometry = data.geometry
+      mapGui.addSource('trace', { type: 'geojson', data: null   });
       mapGui.addLayer({
         'id': 'trace',  'type': 'line', 'source': 'trace',
         'paint': {'line-color': '#FF9F74', 'line-opacity': 0.75, 'line-width': 5 } });
-      const coordinates = data.geometry.coordinates;
-      data.geometry.coordinates = [];
+      return geometry;
+    })
+    .then((geometry) => {
+      return addMarkers(mapGui, mapElt, geometry)
+    })
+    .then((data) => {
+      return fitMapToMarkers(mapGui, mapElt, data[0], data[1])
+    })
+    .then((geometry) => {
+      const coordinates = geometry.coordinates;
+      geometry.coordinates = [];
       var i = 0;
       var timer = window.setInterval(function () {
         if (i < coordinates.length) {
-          data.geometry.coordinates.push(coordinates[i]);
-          mapGui.getSource('trace').setData(data.geometry);
+          geometry.coordinates.push(coordinates[i]);
+          mapGui.getSource('trace').setData(geometry);
           i++;
         } else {
           window.clearInterval(timer);
         }
       }, 150);
-      fitMapToMarkers(mapGui, mapElt, markers, data["geometry"]["coordinates"]);
     })
 };
+
 const createMap = (mapElt) =>  {
   mapboxgl.accessToken = mapElt.dataset.mapboxApiKey;
   const mapGui = new mapboxgl.Map({
@@ -93,15 +104,14 @@ const createMap = (mapElt) =>  {
     style: 'mapbox://styles/mapbox/streets-v10'
   })
   mapGui.on('load', function () {
-    const markers = addMarkers(mapGui, mapElt);
-    addGeometryJson(mapGui, mapElt, markers);
+    addGeometryJson(mapGui, mapElt);
   })
 };
 
 export const updateJourneysAbstractAndMaps = (data) => {
   if(data) {
-    const journeysJson = data["journeys"];
-    const markers = data["markers"];
+    const journeysJson = data.journeys;
+    const markers = data.markers;
     const journeysElts = document.querySelectorAll(".card-journey")
     const mapElts = document.querySelectorAll(".map")
     if(journeysJson && markers && mapElts && journeysElts) {
