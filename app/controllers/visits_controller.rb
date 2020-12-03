@@ -64,6 +64,7 @@ class VisitsController < ApplicationController
 
   def show
     @minute = Minute.new
+    @last_visit_done = Visit.where(is_done: true).last
     @current_patient = @visit.patient
   end
 
