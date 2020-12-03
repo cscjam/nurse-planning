@@ -6,6 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require File.expand_path('../boot', __FILE__)
+
+require 'csv'
+
 module NursePlanning
   class Application < Rails::Application
     config.action_view.embed_authenticity_token_in_remote_forms = true

@@ -18,10 +18,13 @@ class VisitsController < ApplicationController
       current_user.update({current_locomotion: @locomotion})
     end
     # Mise à jour des trajets
+    @visits_planning = Visit.where('date BETWEEN ? AND ?', Date.today, Date.today + 1.week)
+                            .order(:date, :wish_time)
     @journeys = Journey::update_journeys(@visits.to_a, @locomotion)
     respond_to do |format|
-      format.html
+      format.csv
       format.json { render json: { journeys: @journeys } }
+      format.html
     end
   end
 
