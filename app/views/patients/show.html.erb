@@ -11,21 +11,27 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-6 col-lg-4">
       <% @visits.each do |visit| %>
-        <div class="minute-history">
-          <h4 class="text-center"><%= visit.date %></h4>
-          <div class="card_care">
-            <div class="cares">
-              <% visit.cares.each do |care| %>
-              <%= render '/cares/show', care: care %>
-              <% end %>
+        <% if visit = @last_visit_done %>
+          <div id="last-visit-done-<%= @last_visit_done %>">
+        <% else %>
+          <div>
+        <% end %>
+          <div class="minute-history">
+            <h4 class="text-center"><%= visit.date %></h4>
+            <div class="card_care">
+              <div class="cares">
+                <% visit.cares.each do |care| %>
+                <%= render '/cares/show', care: care %>
+                <% end %>
+              </div>
             </div>
-          </div>
-          <% visit.minutes.order(created_at: :desc).each do |minute| %>
-            <% unless minute.content == "" %>
-              <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=minute.content%></p>
-              <h4><%= visit.user.get_full_name %></h4>
+            <% visit.minutes.order(created_at: :desc).each do |minute| %>
+              <% unless minute.content == "" %>
+                <p id="minute-content"> <i class="fas fa-phone-volume"></i> <%=minute.content%></p>
+                <h4><%= visit.user.get_full_name %></h4>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       <% end %>
     </div>

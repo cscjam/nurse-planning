@@ -10,6 +10,6 @@
     <% else %>
     <%= link_to "Visite", nil, class: "button-active left"%>
     <% end %>
-    <%= link_to "Détails", patient_path, class: "button_disabled right"%>
+    <%= link_to "Détails", patient_path, anchor: "last-visit-done-#{@last_visit_done}", class: "button_disabled right"%>
   <% end %>
 </div>
