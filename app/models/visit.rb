@@ -22,8 +22,16 @@ class Visit < ApplicationRecord
     puts label+visits&.map{|v|v.nil? ? 0 : "#{v.id}:#{v.position}"}.join("-")
   end
 
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << ["Date", "Heure", "Patient", "Adresse", "Complement", "Téléphone"]
+      all.each do |visit|
+        csv << [visit.date, visit.wish_time, visit.patient.get_full_name, visit.patient.address, visit.patient.compl_address, visit.patient.phone]
+      end
+    end
+  end
+  
   def care_duration
     self.cares.map(&:duration).sum
   end
-
 end
