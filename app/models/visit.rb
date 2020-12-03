@@ -24,7 +24,7 @@ class Visit < ApplicationRecord
 
   def self.to_csv(options = {col_sep: ';', force_quotes: true, quote_char: '"' })
     CSV.generate(options) do |csv|
-      csv << ["Date", "Heure", "Patient", "Adresse", "Complement", "Téléphone", "Soins"]
+      csv << ["Date", "Heure", "Patient", "Adresse", "Complement", "Téléphone", "Soin"]
       all.each do |visit|
         csv << [visit.date, visit.wish_time, visit.patient.get_full_name, visit.patient.address, visit.patient.compl_address, visit.patient.phone] + visit.cares.map(&:name)
       end
