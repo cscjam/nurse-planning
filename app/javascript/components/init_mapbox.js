@@ -63,11 +63,17 @@ const addMarkers = (mapGui, mapElt, geometry) => {
   return [markers, geometry];
 }
 
-const addGeometryJson = (mapGui, mapElt) => {
+export const addGeometryJson = (mapGui, mapElt) => {
+
   fetch(`/journeys/${mapElt.dataset.journeyId}/geometry `)
     .then(response => response.json())
     .then((data) => {
       let geometry = data.geometry
+      let toto = mapGui.getSource('trace')
+      if(toto) {
+        mapGui.removeLayer('trace')
+        mapGui.removeSource('trace')
+      }
       mapGui.addSource('trace', { type: 'geojson', data: null   });
       mapGui.addLayer({
         'id': 'trace',  'type': 'line', 'source': 'trace',
@@ -96,16 +102,23 @@ const addGeometryJson = (mapGui, mapElt) => {
     })
 };
 
-const createMap = (mapElt) =>  {
+export const  createMap = (mapElt) =>  {
   mapboxgl.accessToken = mapElt.dataset.mapboxApiKey;
   const mapGui = new mapboxgl.Map({
     container: mapElt.id,
     attributionControl: false,
     style: 'mapbox://styles/mapbox/streets-v10'
   })
+  if(!g_maps.has(mapElt.id)) {
+    g_maps.set(mapElt.id, mapGui);
+  }
   mapGui.on('load', function () {
     addGeometryJson(mapGui, mapElt);
   })
+};
+
+export const  getMap = (mapElt) =>  {
+    return g_maps.get(mapElt.id);
 };
 
 export const updateJourneysAbstractAndMaps = (data) => {
@@ -129,12 +142,15 @@ export const updateJourneysAbstractAndMaps = (data) => {
           journeyInfoElt.innerHTML = getPrettyInfos(journeysJson[index]) + chevronIcon;
         }
         const mapElt = mapElts[index]
+        if(g_maps.has(mapElt.id )){
+          g_maps.set(`map-${journeysJson[index]["id"]}`, g_maps.get(mapElt.id ))
+        }
         mapElt.id = `map-${journeysJson[index]["id"]}`
         mapElt.dataset.markers = markers[index];
         mapElt.dataset.journeyId = journeysJson[index]["id"];
-        createMap(mapElt);
       }
     }
+    return mapElts
   }
 };
 

@@ -7,7 +7,7 @@ const sortMapinfos = () => {
   fetch(url, { headers: { accept: "application/json" } })
   .then(response => response.json())
   .then((data) => {
-    updateJourneysAbstractAndMaps(data);
+    createMap(updateJourneysAbstractAndMaps(data));
   });
 };
 
