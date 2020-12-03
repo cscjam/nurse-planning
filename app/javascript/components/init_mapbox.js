@@ -1,6 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 
-var global_padding = 30;
+var g_padding = 30;
+var g_maps = new Map();
 
 const getPrettyInfos = (journey) => {
   let mins = journey["duration"];
@@ -23,7 +24,7 @@ const fitResizedScreen = (mapGui, mapElt, bounds) => {
     if(Math.abs(widthSquare - widthRect) < 10  || Math.abs(heightSquare != heightRect) < 10){
       const p0 = [0, 0];
       const p1 = [widthRect, heightRect];
-      mapGui.fitScreenCoordinates(p0, p1, mapGui.getBearing(),{ padding: global_padding});
+      mapGui.fitScreenCoordinates(p0, p1, mapGui.getBearing(),{ padding: g_padding});
     }
 }
 
@@ -33,7 +34,7 @@ const fitMapToMarkers = (mapGui, mapElt, markers, geometry) => {
   if (geometry) {
     geometry.forEach(point => bounds.extend(point));
   }
-  mapGui.fitBounds(bounds, { padding: global_padding, maxZoom: 15, duration: 0 });
+  mapGui.fitBounds(bounds, { padding: g_padding, maxZoom: 15, duration: 0 });
 };
 
 const addMarkerFlag = (mapGui, markers) => {
@@ -65,25 +66,22 @@ const addGeometryJson = (mapGui, mapElt, markers) => {
   fetch(`/journeys/${mapElt.dataset.journeyId}/geometry `)
     .then(response => response.json())
     .then((data) => {
-      mapGui.addSource('lines', {
-        'type': 'geojson',
-        'data': {
-          'type': 'FeatureCollection',
-          'features': [
-          {
-            'type': 'Feature',
-            'properties': {
-              'color': '#FF9F74'
-            },
-            'geometry': data["geometry"]
-          }]
-        }
-      });
+      mapGui.addSource('trace', { type: 'geojson', data: null});
       mapGui.addLayer({
-        'id': 'lines', 'type': 'line', 'source': 'lines', 'paint': { 'line-width': 3,
-        'line-color': ['get', 'color']
+        'id': 'trace',  'type': 'line', 'source': 'trace',
+        'paint': {'line-color': '#FF9F74', 'line-opacity': 0.75, 'line-width': 5 } });
+      const coordinates = data.geometry.coordinates;
+      data.geometry.coordinates = [];
+      var i = 0;
+      var timer = window.setInterval(function () {
+        if (i < coordinates.length) {
+          data.geometry.coordinates.push(coordinates[i]);
+          mapGui.getSource('trace').setData(data.geometry);
+          i++;
+        } else {
+          window.clearInterval(timer);
         }
-      });
+      }, 150);
       fitMapToMarkers(mapGui, mapElt, markers, data["geometry"]["coordinates"]);
     })
 };
