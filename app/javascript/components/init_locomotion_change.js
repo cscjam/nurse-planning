@@ -1,4 +1,4 @@
-import { updateJourneysCards, updateMapElts}  from './init_mapbox.js'
+import { updateJourneysAbstractAndMaps }  from './init_mapbox.js'
 
 export const initLocomotionChange = () => {
   const locomotionElt = document.getElementById("locomotion");
@@ -8,8 +8,7 @@ export const initLocomotionChange = () => {
       fetch(url, { headers: { accept: "application/json" } })
       .then(response => response.json())
       .then((data) => {
-        updateJourneysCards(data);
-        updateMapElts(data);
+        updateJourneysAbstractAndMaps(data);
       });
     });
   }
