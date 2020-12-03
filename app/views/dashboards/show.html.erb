@@ -2,11 +2,14 @@
   <h2>Bonjour</h2>
   <h1><%= current_user.get_full_name %></h1>
     <p><%= l(Time.now, format: :long) %></p>
-    <p id="meteo-infos" data-lng="<%=current_user.longitude%>" data-lat="<%=current_user.latitude%>"></p>
-    <img  id="meteo-icon" src="" alt="Weather Icon" id="icon">
+    <div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: <%=@progress%>%;" aria-valuenow="<%=@progress%>" aria-valuemin="0" aria-valuemax="100"><%=@progress%>%</div>
+    </div>
+    <img  id="meteo-icon" src="https://openweathermap.org/img/w/01d.png" alt="Weather Icon" id="icon">
     <%= cl_image_tag(current_user.avatar.key, :transformation=>[
     {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}
     ], id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+    <p id="meteo-infos" data-lng="<%=current_user.longitude%>" data-lat="<%=current_user.latitude%>"></p>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
       <%= link_to "Déconnexion", destroy_user_session_path, class: "dropdown-item", method:"delete" %>
     </div>
@@ -17,7 +20,7 @@
       <% time_array = [] %>
       <% @visits.each_with_index do |visit, index| %>
         <div class="time-line-card">
-          <div class= "timeline">
+          <div class= "timeline"
             <% if !time_array.include? visit.wish_time %>
               <p><%= visit.wish_time %>h</p>
               <% time_array << visit.wish_time %>

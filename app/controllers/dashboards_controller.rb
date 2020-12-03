@@ -27,5 +27,9 @@ class DashboardsController < ApplicationController
       @visits << @today_visits[index + 1]
     end
     @visits.compact!
+    @progress = 100
+    if @today_visits.length > 0 && index!=nil
+      @progress = visitref.position*100/@today_visits.length
+    end
   end
 end
