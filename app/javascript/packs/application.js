@@ -16,6 +16,7 @@ import { flatPickr } from "../plugins/flatpickr"
 import { toggleDone } from "../components/toggle_done"
 import { toggleMap } from "../components/toggle_map"
 import { modal } from "../components/modal"
+import { scrollVisitDown } from "../components/scroll_visit_down.js"
 
 document.addEventListener('turbolinks:load', () => {
   initMeteoInfo();
@@ -27,4 +28,5 @@ document.addEventListener('turbolinks:load', () => {
   toggleDone();
   toggleMap();
   modal();
+  scrollVisitDown();
 });

@@ -12,6 +12,7 @@ class PatientsController < ApplicationController
 
   def show
     @visits = @patient.visits.order(:date)
+    @last_visit_done = @visits.where(is_done: true).last
     @current_patient = @patient
   end
 
