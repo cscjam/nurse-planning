@@ -1,8 +1,8 @@
 
 <div class="chevron-map">
   <div class="card-journey" id="journey-<%=journey.id%>">
-    <%= link_to nil do %>
-      <div class="card-journey-info">
+    <%# <%= link_to nil do %>
+      <div class="card-journey-info" style="user-select: none">
         <p>Trajet
         <%#= " depuis domicile" unless journey.start_user.nil?  %>
         <%#= " vers domicile" unless journey.end_user.nil? %>
@@ -10,7 +10,7 @@
         <i data-map-id="map-<%=journey.id%>" class="fas fa-chevron fa-chevron-down"></i>
         </p>
       </div>
-    <% end %>
+    <%# <% end %>
   </div>
   <div class="map d-none"
       <%# Mis à jour par le changment de locomotion %>
