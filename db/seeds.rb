@@ -66,21 +66,21 @@ jacques = Patient.create!(
 fernand = Patient.create!(
   first_name: "Fernand ",
   last_name: "DELL",
-  address: "158 rue Jules Ferry 33200 Bordeaux",
+  address: "27 rue Voltaire 33110 Bordeaux",
   compl_address: "",
   phone: "07 34 93 23 46",
   team: parc_bordelais)
 roger = Patient.create!(
   first_name: "Roger ",
   last_name: "NAIN",
-  address: "198 rue Jules Ferry 33200 Bordeaux",
+  address: "10 rue Ferbeyre 33200 Bordeaux",
   compl_address: "Code porte 3572A",
   phone: "07 00 93 23 67",
   team: parc_bordelais)
 monique = Patient.create!(
   first_name: "Monique ",
   last_name: "RANOUX",
-  address: "135 rue Jules Ferry 33200 Bordeaux",
+  address: "1 place du 14 juillet 33200 Bordeaux",
   compl_address: "Sonner à DURAND",
   phone: "06 34 12 23 46",
   team: parc_bordelais)
@@ -127,7 +127,7 @@ Visit.create!(
   wish_time: 8,
   user: sabatier,
   patient: fernand,
-  is_done: false)
+  is_done: true)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -135,7 +135,7 @@ Visit.create!(
   wish_time: 8,
   user: sabatier,
   patient: roger,
-  is_done: false)
+  is_done: true)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -143,7 +143,7 @@ Visit.create!(
   wish_time: 9,
   user: sabatier,
   patient: monique,
-  is_done: false)
+  is_done: true)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -151,7 +151,7 @@ Visit.create!(
   wish_time: 9,
   user: sabatier,
   patient: hugues,
-  is_done: false)
+  is_done: true)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -159,7 +159,7 @@ Visit.create!(
   wish_time: 10,
   user: sabatier,
   patient: jacques,
-  is_done: false)
+  is_done: true)
 Visit.create!(
   date: Date.today,
   position: position += 1,
@@ -167,7 +167,7 @@ Visit.create!(
   wish_time: 10,
   user: sabatier,
   patient: fernand,
-  is_done: false)
+  is_done: true)
 Visit.create!(
   date: Date.today,
   position: position += 1,
