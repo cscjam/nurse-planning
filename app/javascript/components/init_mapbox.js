@@ -87,6 +87,7 @@ export const addGeometryJson = (mapGui, mapElt) => {
     })
     .then((geometry) => {
       const coordinates = geometry.coordinates;
+      const delay = Math.max(2000 / coordinates.length, 150)
       geometry.coordinates = [];
       var i = 0;
       var timer = window.setInterval(function () {
@@ -97,7 +98,7 @@ export const addGeometryJson = (mapGui, mapElt) => {
         } else {
           window.clearInterval(timer);
         }
-      }, 150);
+      }, delay);
     })
 };
 
@@ -130,27 +131,31 @@ export const updateJourneysAbstractAndMaps = (data) => {
     if(journeysJson && markers && mapElts && journeysElts) {
       for(let index = 0; index < journeysJson.length; index++){
         const journeyElt = journeysElts[index]
-        journeyElt.id = `journey-${journeysJson[index]["id"]}`
-        const journeyInfoElt = journeyElt.querySelector("p")
-        if(journeyInfoElt) {
-          let chevronIcon = "";
-          const chevronIndex = journeyInfoElt.innerHTML.indexOf("<");
-          if(chevronIndex != -1) {
+        if(journeyElt){
+          journeyElt.id = `journey-${journeysJson[index]["id"]}`
+          const journeyInfoElt = journeyElt.querySelector("p")
+          if(journeyInfoElt) {
+            let chevronIcon = "";
+            const chevronIndex = journeyInfoElt.innerHTML.indexOf("<");
+            if(chevronIndex != -1) {
+              chevronIcon = journeyInfoElt.innerHTML.substr(chevronIndex);
+            }
             chevronIcon = journeyInfoElt.innerHTML.substr(chevronIndex);
+            journeyInfoElt.innerHTML = getPrettyInfos(journeysJson[index]) + chevronIcon;
           }
-          chevronIcon = journeyInfoElt.innerHTML.substr(chevronIndex);
-          journeyInfoElt.innerHTML = getPrettyInfos(journeysJson[index]) + chevronIcon;
-        }
-        const mapElt = mapElts[index]
-        if(g_maps.has(mapElt.id )){
-          g_maps.set(`map-${journeysJson[index]["id"]}`, g_maps.get(mapElt.id ))
-        }
-        mapElt.id = `map-${journeysJson[index]["id"]}`
-        mapElt.dataset.markers = markers[index];
-        mapElt.dataset.journeyId = journeysJson[index]["id"];
-        const toggleElt = togleElts[index]
-        if(toggleElt) {
-          toggleElt.dataset.mapId = `map-${journeysJson[index]["id"]}`
+          const mapElt = mapElts[index]
+          if(mapElt) {
+            if(g_maps.has(mapElt.id )){
+              g_maps.set(`map-${journeysJson[index]["id"]}`, g_maps.get(mapElt.id ))
+            }
+            mapElt.id = `map-${journeysJson[index]["id"]}`
+            mapElt.dataset.markers = markers[index];
+            mapElt.dataset.journeyId = journeysJson[index]["id"];
+          }
+          const toggleElt = togleElts[index]
+          if(toggleElt) {
+            toggleElt.dataset.mapId = `map-${journeysJson[index]["id"]}`
+          }
         }
       }
     }
