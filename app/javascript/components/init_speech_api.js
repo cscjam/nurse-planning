@@ -7,7 +7,6 @@ export const initSpeechApi = () => {
   if(synthesisElts){
     synthesisElts.forEach(synthesisElt => {
       synthesisElt.addEventListener("click", event => {
-        console.debug("Synthesis Click")
         let text = new SpeechSynthesisUtterance(synthesisElt.innerText);
         speechSynthesis.speak(text);
       });
@@ -28,25 +27,20 @@ export const initSpeechApi = () => {
     recognition.maxAlternatives = 1;
 
     recognition.onresult = function(event) {
-      console.debug("Record Save");
       document.getElementById("speech").innerText = event.results[0][0].transcript;
       if(document.getElementById ("minute-submit")){
         document.getElementById("minute-submit").click();
       }
     };
     recordBtn.addEventListener("mousedown", event => {
-      console.clear();
-      console.debug("Record Mouse Down");
       speechElt.innerText = "";
       if (recognizingStarted){
-        console.debug("Stop previous record");
         recognition.stop();
       }
       recognizingStarted = true
       recognition.start();
     });
     recordBtn.addEventListener("mouseup", event => {
-      console.debug("Record Mouse Up");
       recognition.stop();
       recognizingStarted = false;
     });
