@@ -1,0 +1,15 @@
+<h1>Prescriptions#show</h1>
+<p>Find me in app/views/prescriptions/show.html.erb</p>
+
+
+   <li>Title : <%= @prescription.title %></li>
+   <li>Début : <%= @prescription.start_at %></li>
+   <li>Fin : <%= @prescription.end_at %></li>
+   <li>Récurrence : <%= @prescription.schedule %></li><br>
+   <BR>____________________________</BR>
+
+Liste des visites liées :<br>
+<%= @prescription.visit_ids %>
+
+
+

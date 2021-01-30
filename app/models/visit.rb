@@ -1,6 +1,7 @@
 class Visit < ApplicationRecord
   belongs_to :user
   belongs_to :patient
+  belongs_to :prescription
   has_many :visit_cares, dependent: :destroy
   has_many :cares, through: :visit_cares
   has_many :minutes, dependent: :destroy

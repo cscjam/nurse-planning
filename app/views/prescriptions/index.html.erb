@@ -1,0 +1,34 @@
+<h1>Prescriptions#index</h1>
+
+<p>Find me in app/views/prescriptions/index.html.erb</p>
+
+  <div class="patient-card">
+    <% @prescriptions.each do |prescription| %>
+      <%= link_to prescription_path(prescription) do %>
+        <div class="patient-card-info">
+          <li>Title : <%= prescription.title %></li>
+          <li>Début : <%= prescription.start_at %></li>
+          <li>Fin : <%= prescription.end_at %></li>
+          <li>Récurrence : <%= prescription.schedule %></li><br>
+           <br>____________________________
+        </div>
+        <br>____________________________
+      <% end %>
+    <% end %>
+  </div>
+<ul>
+  <% @prescriptions.each do |prescription| %>
+   <li>Title : <%= prescription.title %></li>
+   <li>Début : <%= prescription.start_at %></li>
+   <li>Fin : <%= prescription.end_at %></li>
+   <li>Récurrence : <%= prescription.schedule %></li><br>
+   <br>____________________________
+  <% end %>
+</ul>
+
+<% @visits.each do |visit| %>
+  <li>VisitID: <%= visit.id %> - PrescripID:<%= visit.prescription.id %></li><br>
+  _____________________________
+<% end %>
+
+

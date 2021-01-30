@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'prescriptions/index'
+  get 'prescriptions/:id', to: 'prescriptions#show', as: :prescription
+  get 'prescriptions/create'
+  get 'prescriptions/new'
+  get 'prescriptions/create'
+  get 'prescriptions/update'
+  get 'prescriptions/delete'
   devise_for :users
   root to: 'dashboards#show'
   resources :patients, only: [ :index, :show, :new, :create] do
