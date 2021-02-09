@@ -10,6 +10,11 @@ class Visit < ApplicationRecord
   validates :wish_time, presence: true, inclusion: { in: (0..23).to_a }
   validates :is_done, inclusion: { in: [true, false] }
 
+  def new
+    @prescription = Prescription.find(params[:prescription_id])
+    @visit = Visit.new
+  end
+
   def get_wish_time
     "#{self.wish_time}-#{self.wish_time+1}h"
   end

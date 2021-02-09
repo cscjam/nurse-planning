@@ -1,16 +1,22 @@
 <div class="footer fixed-bottom">
-  <%- if ['dashboards#show', 'patients#index', 'patients#new', 'visits#index', 'visits#new'].include?("#{controller_name}##{action_name}")%>
+  <%- if ['dashboards#show', 'patients#index', 'patients#new', 'visits#index', 'visits#new', 'prescriptions#index', 'prescriptions#show', 'prescriptions#new', 'prescriptions#update' ].include?("#{controller_name}##{action_name}")%>
     <%= link_to root_path do %><i class="fas fa-home"></i><% end %>
     <%= link_to visits_path do %><i class="fas fa-calendar-day"></i><% end %>
     <%= link_to new_patient_path do %><i class="fas fa-user-plus"></i><% end %>
     <%= link_to patients_path do %><i class="fas fa-search"></i><% end %>
     <%= link_to visits_path(format: "csv") do %><i class="fas fa-file-download"></i><% end %>
-  <%- elsif ['visits#show', 'patients#show'].include?("#{controller_name}##{action_name}")%>
+  <%- elsif ['visits#show'].include?("#{controller_name}##{action_name}")%>
     <%= link_to root_path do %><i class="fas fa-home"></i><% end %>
     <%= link_to visits_path do %><i class="fas fa-calendar-day"></i><% end %>
     <%= link_to new_patient_path do %><i class="fas fa-user-plus"></i><% end %>
     <%= link_to new_patient_visit_path(@current_patient) do %><i class="far fa-calendar-plus"></i><% end %>
     <%= link_to nil do %><i class="fas fa-microphone"></i><% end %>
+  <%- elsif ['patients#show', 'prescriptions#update'].include?("#{controller_name}##{action_name}")%>
+    <%= link_to root_path do %><i class="fas fa-home"></i><% end %>
+    <%= link_to visits_path do %><i class="fas fa-calendar-day"></i><% end %>
+    <%= link_to new_patient_path do %><i class="fas fa-user-plus"></i><% end %>
+    <%= link_to new_patient_visit_path(@current_patient) do %><i class="far fa-calendar-plus"></i><% end %>
+    <%= link_to new_patient_prescription_path(@current_patient) do %><i class="fas fa-file-medical"></i><% end %>
   <%- else %>
     <%= link_to nil do %><i class="fas fa-user-nurse"></i><% end %>
   <% end %>
