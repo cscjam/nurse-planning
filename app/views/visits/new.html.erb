@@ -6,7 +6,9 @@
         <%= f.input :date,  as: :string, required: false, input_html: {class: "datepicker"}%>
         <%= f.input :wish_time, label: "Heure souhaitée" %>
         <%= f.association :patient, label_method: :get_full_name, value_method: :id, include_blank: false %>
-        <%= f.association :cares, label: "Soin(s) à réaliser", multiple: true, label_method: :name, include_blank: false, value_method: :id %>
+        <%= f.association :cares, label: "Soin(s) à réaliser",as: :check_boxes, multiple: true, label_method: :name, include_blank: false, value_method: :id %>
+        <%= f.association :prescription, label: "prescription", value_method: :id, include_blank: false %>
+<!--        <%= f.association :prescription, collection: Prescription.where(patient_id: params)%>-->
         <%= f.submit "Ajouter", class: "btn button" %>
       <% end %>
     </div>

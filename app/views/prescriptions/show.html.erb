@@ -1,0 +1,42 @@
+<div class="patient-header fixed-top">
+  <div class="patient-info">
+    <h2>Title : <%= @prescription.title %></h2>
+    <h2>Patient : <%= @prescription.patient.first_name %> <%= @prescription.patient.last_name %></h2>
+    <p>Début : <%= @prescription.start_at %></p>
+    <p>Fin : <%= @prescription.end_at %></p>
+    <p>Récurrence : <%= @prescription.schedule %></p>
+  </div>
+  <%= render '/shared/patientheader' %>
+</div>
+<br><br><br><br><br><br>
+<div class="d-flex justify-content-center">
+  <%= link_to 'Modifier ', edit_prescription_path(@prescription) %> |
+  <%= link_to ' Retour ', prescriptions_path %> |
+</div>
+<div class="d-flex justify-content-center">
+____________________________<br>
+</div>
+<div class="d-flex justify-content-center">
+  <%= link_to 'Ajouter une visite liée', new_prescription_visit_path(@prescription) %>
+</div>
+<div class="d-flex justify-content-center">
+____________________________<br>
+</div>
+<br> Liste des visites liées :<br>
+<br>
+<% @prescription.visits.each do |prescr| %>
+  <%= link_to visit_path(prescr.id) do %>
+    <%= [prescr.id] %> : <%= prescr.date %>
+  <% end %>
+  <br>
+<% end %>
+____________________________</BR>
+
+<div class="d-flex justify-content-center">
+  <div class="alert alert-danger" role="alert">
+    <%= link_to 'Supprimer',
+          prescription_path(@prescription),
+          method: :delete,
+          data: { confirm: "êtes-vous certain de vouloir supprimer cette prescription et toutes ses visites et CR liées?" } %>
+  </div>
+</div>

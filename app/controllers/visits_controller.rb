@@ -101,7 +101,7 @@ class VisitsController < ApplicationController
   end
 
   def visit_params
-    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :patient_id, care_ids: [])
+    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :patient_id, :prescription_id, care_ids: [])
   end
 
   def reorder_by_wishtime(date)
