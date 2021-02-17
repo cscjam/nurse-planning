@@ -2,7 +2,7 @@
   <%= f.input :title, label: "titre" %>
   <%= f.input :start_at, label: "Date de début", as: :string, required: false, input_html: {class: "datepicker"}%>
   <%= f.input :end_at, label: "Date de fin", as: :string, required: false, input_html: {class: "datepicker"}%>
-  <%= f.input :schedule, label: "Recurrence", as: :string%>
+  <%= f.input :schedule, label: "Recurrence", as: :string, required: false%>
   <%= f.association :patient, label_method: :get_full_name, value_method: :id, include_blank: false%>
   <%= f.submit "Ajouter", class: "btn button" %>
 <% end %>

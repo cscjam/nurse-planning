@@ -5,6 +5,8 @@
     <p>Début : <%= @prescription.start_at %></p>
     <p>Fin : <%= @prescription.end_at %></p>
     <p>Récurrence : <%= @prescription.schedule %></p>
+    <%= @results %>
+
   </div>
   <%= render '/shared/patientheader' %>
 </div>
@@ -39,4 +41,5 @@ ____________________________</BR>
           method: :delete,
           data: { confirm: "êtes-vous certain de vouloir supprimer cette prescription et toutes ses visites et CR liées?" } %>
   </div>
+
 </div>

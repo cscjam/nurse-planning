@@ -1,6 +1,6 @@
 class PrescriptionsController < ApplicationController
   before_action :set_prescription, only: [:show, :edit, :update, :destroy]
-  before_action :prescription_params, only: [:create]
+  before_action :prescription_params, only: [:create, :update]
 
   def index
     @prescriptions = Prescription.all
@@ -8,28 +8,35 @@ class PrescriptionsController < ApplicationController
   end
 
   def show
-    if params[:id] != "new"
-    @visits = Visit.where(params[:id])
-    else
-    @prescription = Prescription.all
-    end
+    @prescription = Prescription.find(params[:id])
   end
 
   def new
-    #if params[:patient_id].present?
-      #@prescription = Prescription.new(patient_id: prescription_params)
-    #else
-      @prescription = Prescription.new
-    #end
+    @prescription = Prescription.new
+    if params[:patient_id].present?
+      @prescription.patient = Patient.find(params[:patient_id])
+    end
   end
 
   def create
+    @my_days = []
     @prescription = Prescription.new(prescription_params)
-      if @prescription.save
+    case @prescription.schedule
+    when @prescription.schedule.include?('lundi')
+      @my_days << 1
+    when @prescription.schedule.include?('mardi')
+      @my_days << 2
+    end
+    @results = (@prescription.start_at..@prescription.end_at).to_a.select { |k| @my_days.include?(k.wday) }
+
+    if @prescription.save
         redirect_to prescription_path(@prescription)
       else
         render :new
       end
+    # results.each do |result|
+    #   Visit.new(date: result)
+    # end
   end
 
   def update

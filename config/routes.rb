@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'dashboards#show'
   resources :patients, only: [:index, :show, :new, :create] do
-    resources :visits, only: [:new]
-    resources :prescriptions, only: [:new]
+    resources :prescriptions, only: [:new, :create]
   end
   resources :prescriptions do
     resources :visits, only: [:new, :create]
