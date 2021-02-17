@@ -148,43 +148,40 @@ pres8 = Prescription.create!(
 puts "SEED > PRESCRIPTIONS ENDED"
 puts Prescription.ids
 #--------------------------------------------------------------------
-# puts "SEED > ADD VISITES"
-# patients = Patient.all
-# prescriptions = Prescription.all
-# delays = (-5..-1).to_a
-# delays.each do |day|
-#   position = 0
-#   wish_time = 5
-#   (8..16).to_a.sample.times do
-#     Visit.create!(
-#       date: Date.today + day,
-#       position: position +=1,
-#       time: nil,
-#       wish_time: wish_time += 1,
-#       user: jackie,
-#       patient: patients.sample,
-#       prescription: prescriptions.sample,
-#       is_done: true)
-#   end
-# end
-# patients = Patient.all
-# prescriptions = Prescription.all
-# delays = (1..5).to_a
-# delays.each do |day|
-#   position = 0
-#   wish_time = 5
-#   (8..16).to_a.sample.times do
-#     Visit.create!(
-#       date: Date.today + day,
-#       position: position +=1 ,
-#       time: nil,
-#       wish_time: wish_time += 1,
-#       user: sabatier,
-#       patient: patients.sample,
-#       prescription: prescriptions.sample,
-#       is_done: false)
-#   end
-# end
+puts "SEED > ADD VISITES"
+prescriptions = Prescription.all
+delays = (-5..-1).to_a
+delays.each do |day|
+  position = 0
+  wish_time = 5
+  (8..16).to_a.sample.times do
+    Visit.create!(
+      date: Date.today + day,
+      position: position +=1,
+      time: nil,
+      wish_time: wish_time += 1,
+      user: jackie,
+      prescription: prescriptions.sample,
+      is_done: true)
+  end
+end
+prescriptions = Prescription.all
+delays = (1..5).to_a
+delays.each do |day|
+  position = 0
+  wish_time = 5
+  (8..16).to_a.sample.times do
+    Visit.create!(
+      date: Date.today + day,
+      position: position +=1 ,
+      time: nil,
+      wish_time: wish_time += 1,
+      user: sabatier,
+      prescription: prescriptions.sample,
+      is_done: false)
+  end
+end
+#-------------------------------------------------------------------
 puts "SEED > ADD VISITES"
 position = -1
 prescriptions = Prescription.all
