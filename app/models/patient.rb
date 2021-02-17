@@ -1,7 +1,7 @@
 class Patient < ApplicationRecord
   belongs_to :team
-  has_many :visits, dependent: :destroy
   has_many :prescriptions, dependent: :destroy
+  has_many :visits, through: :prescriptions
   has_many :start_journeys, :class_name => "Journey", :foreign_key => "start_patient_id"
   has_many :end_journeys, :class_name => "Journey", :foreign_key => "end_patient_id"
   geocoded_by :address

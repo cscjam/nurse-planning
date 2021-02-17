@@ -194,7 +194,6 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: sabatier,
-  patient: alain,
   prescription: pres1,
   is_done: true)
 Visit.create!(
@@ -203,7 +202,6 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: sabatier,
-  patient: pierre,
   prescription: pres2,
   is_done: true)
 Visit.create!(
@@ -212,7 +210,6 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: sabatier,
-  patient: nicolas,
   prescription: pres3,
   is_done: true)
 Visit.create!(
@@ -221,7 +218,6 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: sabatier,
-  patient: hugues,
   prescription: pres4,
   is_done: true)
 Visit.create!(
@@ -230,7 +226,6 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: sabatier,
-  patient: jacques,
   prescription: pres5,
   is_done: true)
 Visit.create!(
@@ -239,7 +234,6 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: sabatier,
-  patient: fernand,
   prescription: pres6,
   is_done: true)
 Visit.create!(
@@ -248,7 +242,6 @@ Visit.create!(
   time: nil,
   wish_time: 11,
   user: sabatier,
-  patient: roger,
   prescription: pres7,
   is_done: false)
 Visit.create!(
@@ -257,7 +250,6 @@ Visit.create!(
   time: nil,
   wish_time: 11,
   user: sabatier,
-  patient: monique,
   prescription: pres8,
   is_done: false)
 Visit.create!(
@@ -266,7 +258,6 @@ Visit.create!(
   time: nil,
   wish_time: 12,
   user: sabatier,
-  patient: alain,
   prescription: pres1,
   is_done: false)
 Visit.create!(
@@ -275,7 +266,6 @@ Visit.create!(
   time: nil,
   wish_time: 12,
   user: sabatier,
-  patient: pierre,
   prescription: pres2,
   is_done: false)
 Visit.create!(
@@ -284,7 +274,6 @@ Visit.create!(
   time: nil,
   wish_time: 14,
   user: sabatier,
-  patient: nicolas,
   prescription: pres3,
   is_done: false)
 Visit.create!(
@@ -293,7 +282,6 @@ Visit.create!(
   time: nil,
   wish_time: 14,
   user: sabatier,
-  patient: hugues,
   prescription: pres4,
   is_done: false)
 #--------------------------------------------------------------------
