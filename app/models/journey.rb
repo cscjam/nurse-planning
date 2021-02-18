@@ -18,7 +18,7 @@ class Journey < ApplicationRecord
     unless(visits&.empty?)
       # Ajout de l'infirmier en début&fin de tournée
       # Passage de visite à patient
-      points = [visits.first.user] + visits.map{|p| p.patient}# + [visits.last.user]
+      points = [visits.first.user] + visits.map{|p| p.prescription.patient}# + [visits.last.user]
       get_each_journey_infos(points, locomotion)
     end
   end

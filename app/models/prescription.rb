@@ -1,6 +1,6 @@
 class Prescription < ApplicationRecord
-  has_many :visits, dependent: :destroy
   belongs_to :patient
+  has_many :visits, dependent: :destroy
   validates :title, presence: true
   validates :schedule,  presence: true
   validates :start_at,  presence: true

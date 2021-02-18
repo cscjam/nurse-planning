@@ -5,11 +5,11 @@ class VisitsController < ApplicationController
     @delay = params[:delay] || Date.today.to_s
     delay_integer = @delay.split('-').map { |element| element.to_i }
     if params[:query].present?
-      @visits = Visit.includes(:patient, :cares).where(date: params[:query]).order(:position)
+      @visits = Visit.includes(:prescription, :cares).where(date: params[:query]).order(:position)
     else
       date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
       shift(date)
-      @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
+      @visits = Visit.includes(:prescription, :cares).where(date: date).order(:position)
     end
     @locomotion = current_user.current_locomotion || 0
     # Si changement : mise @jour de l'utilisateur
@@ -68,14 +68,16 @@ class VisitsController < ApplicationController
 
   def show
     @minute = Minute.new
-    @current_patient = @visit.patient
+    @current_patient = @visit.prescription.patient
     @last_visit_done = @current_patient.visits.where(is_done: true).last
   end
 
   def new
+    @current_prescription = Prescription.find(params[:prescription_id])
+    @current_patient = @current_prescription.patient
     @visit = Visit.new
     if params[:patient_id].present?
-      @visit.patient = Patient.find(params[:patient_id])
+      @visit.prescription.patient = Patient.find(params[:patient_id])
     end
     if params[:prescription_id].present?
       @visit.prescription = Prescription.find(params[:prescription_id])
@@ -103,7 +105,7 @@ class VisitsController < ApplicationController
   end
 
   def visit_params
-    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :patient_id, :prescription_id, care_ids: [])
+    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :prescription_id, care_ids: [])
   end
 
   def reorder_by_wishtime(date)

@@ -1,9 +1,9 @@
 <div class="patient-header fixed-top">
   <div class="patient-info">
-    <h2><%=@visit.patient.first_name%> <%=@visit.patient.last_name%></h2>
-    <p><%=@visit.patient.address%></p>
-    <p><%=@visit.patient.compl_address%></p>
-    <a href="tel:<%= @visit.patient.phone %>"><i class="fas fa-mobile-alt mt-1"></i> <%= @visit.patient.phone %></a>
+    <h2><%=@visit.prescription.patient.first_name%> <%=@visit.prescription.patient.last_name%></h2>
+    <p><%=@visit.prescription.patient.address%></p>
+    <p><%=@visit.prescription.patient.compl_address%></p>
+    <a href="tel:<%= @visit.prescription.patient.phone %>"><i class="fas fa-mobile-alt mt-1"></i> <%= @visit.prescription.patient.phone %></a>
   </div>
   <%= render '/shared/patientheader' %>
 </div>
