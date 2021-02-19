@@ -40,30 +40,30 @@ class PrescriptionsController < ApplicationController
   end
 
   def create
-    @my_days = []
+    my_days = []
     @prescription = Prescription.new(prescription_params)
-    if @prescription.lundi == true
-      @my_days << 1
+    if @prescription.lundi
+      my_days << 1
     end
-    if @prescription.mardi == true
-      @my_days << 2
+    if @prescription.mardi
+      my_days << 2
     end
-    if @prescription.mercredi == true
-      @my_days << 3
+    if @prescription.mercredi
+      my_days << 3
     end
-    if @prescription.jeudi == true
-      @my_days << 4
+    if @prescription.jeudi
+      my_days << 4
     end
-    if @prescription.vendredi == true
-      @my_days << 5
+    if @prescription.vendredi
+      my_days << 5
     end
-    if @prescription.samedi == true
-      @my_days << 6
+    if @prescription.samedi
+      my_days << 6
     end
-    if @prescription.dimanche == true
-      @my_days << 0
+    if @prescription.dimanche
+      my_days << 0
     end
-    @results = (@prescription.start_at..@prescription.end_at).to_a.select { |k| @my_days.include?(k.wday) }
+    @results = (@prescription.start_at..@prescription.end_at).to_a.select { |d| my_days.include?(d.wday) }
     @results.each do |result|
       visit = Visit.new
       visit.user = current_user
@@ -80,9 +80,6 @@ class PrescriptionsController < ApplicationController
     else
       render :new
     end
-    # results.each do |result|
-    #   Visit.new(date: result)
-    # end
   end
 
   def update
@@ -98,7 +95,7 @@ class PrescriptionsController < ApplicationController
   private
 
   def prescription_params
-    params[:prescription].permit(:title, :start_at, :end_at, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche, :patient_id)
+    params[:prescription].permit(:title, :start_at, :end_at, :wish_time, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche, :patient_id, care_ids: [])
   end
 
   def set_prescription

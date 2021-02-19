@@ -1,8 +1,10 @@
 class Prescription < ApplicationRecord
   belongs_to :patient
   has_many :visits, dependent: :destroy
+  has_many :prescription_cares, dependent: :destroy
+  has_many :cares, through: :prescription_cares
   validates :title, presence: true
-  validates :start_at,  presence: true
+  validates :start_at, presence: true
   validates :end_at, presence: true
   validate :end_date_after_or_equal_start_date
 
@@ -13,5 +15,4 @@ class Prescription < ApplicationRecord
       end
     end
   end
-
 end

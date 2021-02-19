@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_102330) do
+ActiveRecord::Schema.define(version: 2021_02_19_161311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,15 @@ ActiveRecord::Schema.define(version: 2021_02_19_102330) do
     t.index ["team_id"], name: "index_patients_on_team_id"
   end
 
+  create_table "prescription_cares", force: :cascade do |t|
+    t.bigint "prescription_id", null: false
+    t.bigint "care_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["care_id"], name: "index_prescription_cares_on_care_id"
+    t.index ["prescription_id"], name: "index_prescription_cares_on_prescription_id"
+  end
+
   create_table "prescriptions", force: :cascade do |t|
     t.string "title"
     t.date "start_at"
@@ -98,6 +107,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_102330) do
     t.boolean "vendredi", default: false
     t.boolean "samedi", default: false
     t.boolean "dimanche", default: false
+    t.integer "wish_time"
     t.index ["patient_id"], name: "index_prescriptions_on_patient_id"
   end
 
@@ -157,6 +167,8 @@ ActiveRecord::Schema.define(version: 2021_02_19_102330) do
   add_foreign_key "journeys", "users", column: "start_user_id"
   add_foreign_key "minutes", "visits"
   add_foreign_key "patients", "teams"
+  add_foreign_key "prescription_cares", "cares"
+  add_foreign_key "prescription_cares", "prescriptions"
   add_foreign_key "prescriptions", "patients"
   add_foreign_key "users", "teams"
   add_foreign_key "visit_cares", "cares"

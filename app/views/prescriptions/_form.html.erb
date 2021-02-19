@@ -2,13 +2,15 @@
   <%= f.input :title, label: "titre" %>
   <%= f.input :start_at, label: "Date de début", as: :string, required: false, input_html: {class: "datepicker"}%>
   <%= f.input :end_at, label: "Date de fin", as: :string, required: false, input_html: {class: "datepicker"}%>
-  <%= f.input :lundi, as: :select  %>
-  <%= f.input :mardi, as: :select %>
-  <%= f.input :mercredi, as: :select  %>
-  <%= f.input :jeudi, as: :select  %>
-  <%= f.input :vendredi, as: :select %>
-  <%= f.input :samedi, as: :select  %>
-  <%= f.input :dimanche, as: :select  %>
+  <%= f.input :wish_time, label:"heure souhaitée" %>
+  <%= f.check_box :lundi, as: :check_boxes, label: "lun"  %>
+  <%= f.check_box :mardi, as: :check_boxes %>
+  <%= f.check_box :mercredi, as: :check_boxes  %>
+  <%= f.check_box :jeudi, as: :check_boxes  %>
+  <%= f.check_box :vendredi, as: :check_boxes %>
+  <%= f.check_box :samedi, as: :check_boxes  %>
+  <%= f.check_box :dimanche, as: :check_boxes  %>
+  <%= f.association :cares, label: "Soin(s) à réaliser",as: :check_boxes, multiple: true, label_method: :name, include_blank: false, value_method: :id %>
   <%= f.association :patient, label_method: :get_full_name, value_method: :id, include_blank: false%>
   <%= f.submit "Ajouter", class: "btn button" %>
 <% end %>
