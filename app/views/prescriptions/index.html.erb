@@ -28,7 +28,7 @@
               <h2>Title : <%= prescription.title %></h2>
               <p>Début : <%= prescription.start_at %></p>
               <p>Fin : <%= prescription.end_at %></p>
-              <p>Récurrence : <%= prescription.schedule %></p>
+              <p>Récurrence : <%= @schedule %></p>
               <p>Patient : <%= prescription.patient.first_name %> <%= prescription.patient.last_name %> </p>
             </div>
           <% end %>

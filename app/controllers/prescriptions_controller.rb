@@ -1,6 +1,5 @@
 class PrescriptionsController < ApplicationController
   before_action :set_prescription, only: [:show, :edit, :update, :destroy]
-  before_action :prescription_params, only: [:create, :update]
 
   def index
     @prescriptions = Prescription.all
@@ -9,6 +8,28 @@ class PrescriptionsController < ApplicationController
 
   def show
     @prescription = Prescription.find(params[:id])
+    @schedule = []
+    if @prescription.lundi == true
+      @schedule << "lundi"
+    end
+    if @prescription.mardi == true
+      @schedule << "mardi"
+    end
+    if @prescription.mercredi == true
+      @schedule << "mercredi"
+    end
+    if @prescription.jeudi == true
+      @schedule << "jeudi"
+    end
+    if @prescription.vendredi == true
+      @schedule << "vendredi"
+    end
+    if @prescription.samedi == true
+      @schedule << "samedi"
+    end
+    if @prescription.dimanche == true
+      @schedule << "dimanche"
+    end
   end
 
   def new
@@ -21,19 +42,37 @@ class PrescriptionsController < ApplicationController
   def create
     @my_days = []
     @prescription = Prescription.new(prescription_params)
-    case @prescription.schedule
-    when @prescription.schedule.include?('lundi')
+    if @prescription.lundi == true
       @my_days << 1
-    when @prescription.schedule.include?('mardi')
+    end
+    if @prescription.mardi == true
       @my_days << 2
     end
+    if @prescription.mercredi == true
+      @my_days << 3
+    end
+    if @prescription.jeudi == true
+      @my_days << 4
+    end
+    if @prescription.vendredi == true
+      @my_days << 5
+    end
+    if @prescription.samedi == true
+      @my_days << 6
+    end
+    if @prescription.dimanche == true
+      @my_days << 0
+    end
     @results = (@prescription.start_at..@prescription.end_at).to_a.select { |k| @my_days.include?(k.wday) }
+    @results.each do |result|
+      Visit.create(date: result, user: current_user, is_done: false, position: 1000)
+    end
 
     if @prescription.save
-        redirect_to prescription_path(@prescription)
-      else
-        render :new
-      end
+      redirect_to prescription_path(@prescription)
+    else
+      render :new
+    end
     # results.each do |result|
     #   Visit.new(date: result)
     # end
@@ -52,7 +91,7 @@ class PrescriptionsController < ApplicationController
   private
 
   def prescription_params
-    params[:prescription].permit(:title, :start_at, :end_at, :schedule, :patient_id)
+    params[:prescription].permit(:title, :start_at, :end_at, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche, :patient_id)
   end
 
   def set_prescription
