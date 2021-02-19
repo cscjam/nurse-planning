@@ -4,16 +4,11 @@ class Visit < ApplicationRecord
   has_many :visit_cares, dependent: :destroy
   has_many :cares, through: :visit_cares
   has_many :minutes, dependent: :destroy
-  has_one :patients, through: :prescriptions
+  has_one :patient, through: :prescription
   validates :date, presence: true
-  validates :position, presence: true, numericality: { only_integer: true, greater_or_equal_than: 0 }
+  validates :position, presence: true, numericality: { only_integer: true, greater_or_equal_than: 0}
   validates :wish_time, presence: true, inclusion: { in: (0..23).to_a }
   validates :is_done, inclusion: { in: [true, false] }
-
-  def new
-    @prescription = Prescription.find(params[:prescription_id])
-    @visit = Visit.new
-  end
 
   def get_wish_time
     "#{self.wish_time}-#{self.wish_time+1}h"
