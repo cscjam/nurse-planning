@@ -4,8 +4,7 @@
     <h2>Patient : <%= @prescription.patient.first_name %> <%= @prescription.patient.last_name %></h2>
     <p>Début : <%= @prescription.start_at %></p>
     <p>Fin : <%= @prescription.end_at %></p>
-    <p>Récurrence : <%= @schedule  %> </p>
-    <% bye-bug %>
+    <p>Schedule : <%= @schedule %> </p>
 
   </div>
   <%= render '/shared/patientheader' %>

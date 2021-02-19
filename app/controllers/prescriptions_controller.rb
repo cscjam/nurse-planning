@@ -65,7 +65,14 @@ class PrescriptionsController < ApplicationController
     end
     @results = (@prescription.start_at..@prescription.end_at).to_a.select { |k| @my_days.include?(k.wday) }
     @results.each do |result|
-      Visit.create(date: result, user: current_user, is_done: false, position: 1000)
+      visit = Visit.new
+      visit.user = current_user
+      visit.position = 1000
+      visit.is_done = false
+      visit.date = result
+      visit.prescription = @prescription
+      visit.wish_time = 9
+      visit.save
     end
 
     if @prescription.save
