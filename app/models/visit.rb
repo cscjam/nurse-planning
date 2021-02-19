@@ -2,8 +2,8 @@ class Visit < ApplicationRecord
   belongs_to :user
   belongs_to :prescription
   has_many :visit_cares, dependent: :destroy
-  has_many :cares, through: :visit_cares
   has_many :minutes, dependent: :destroy
+  has_many :cares, through: :visit_cares
   has_one :patient, through: :prescription
   validates :date, presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_or_equal_than: 0}

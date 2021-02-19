@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_101505) do
+ActiveRecord::Schema.define(version: 2021_02_19_102330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,10 +88,16 @@ ActiveRecord::Schema.define(version: 2021_02_17_101505) do
     t.string "title"
     t.date "start_at"
     t.date "end_at"
-    t.string "schedule"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "patient_id"
+    t.boolean "lundi", default: false
+    t.boolean "mardi", default: false
+    t.boolean "mercredi", default: false
+    t.boolean "jeudi", default: false
+    t.boolean "vendredi", default: false
+    t.boolean "samedi", default: false
+    t.boolean "dimanche", default: false
     t.index ["patient_id"], name: "index_prescriptions_on_patient_id"
   end
 
