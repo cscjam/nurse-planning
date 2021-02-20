@@ -1,6 +1,7 @@
 class Visit < ApplicationRecord
   belongs_to :user
   belongs_to :patient
+  has_one :team, through: :user
   has_many :visit_cares, dependent: :destroy
   has_many :cares, through: :visit_cares
   has_many :minutes, dependent: :destroy
@@ -8,6 +9,12 @@ class Visit < ApplicationRecord
   validates :position, presence: true, numericality: { only_integer: true, greater_or_equal_than: 0}
   validates :wish_time, presence: true, inclusion: { in: (0..23).to_a }
   validates :is_done, inclusion: { in: [true, false] }
+
+  accepts_nested_attributes_for :visit_cares
+  accepts_nested_attributes_for :patient
+  accepts_nested_attributes_for :cares
+
+  scope :futures, -> { where("date >= ? AND time >= ?", Date.today, Time.now ).order(:date) }
 
   def get_wish_time
     "#{self.wish_time}-#{self.wish_time+1}h"

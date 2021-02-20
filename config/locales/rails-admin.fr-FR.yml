@@ -1,0 +1,54 @@
+fr:
+  activerecord:
+    models:
+      care:
+        one: "Soin"
+        other: "Soins"
+      minute:
+        one: "Compte-Rendu"
+        other: "Compte-Rendus"
+      patient:
+        one: "Patient"
+        other: "Patients"
+      team:
+        one: "Cabinet"
+        other: "Cabinets"
+      user:
+        one: "Infirmier"
+        other: "Infirmiers"
+      visit:
+        one: "Visite"
+        other: "Visites"
+    attributes:
+      care:
+        name: "Nom"
+        duration: "Durée (min)"
+        icon: "Vignette"
+      minute:
+        content: "Contenu"
+      patient:
+        first_name: "Prénom"
+        last_name: "Nom"
+        team: "Cabinet"
+        address: "Adresse"
+        compl_address: "Complément d'adresse"
+        phone: "Téléphone"
+      team:
+        name: "Nom"
+      user:
+        first_name: "Prénom"
+        last_name: "Nom"
+        team: "Cabinet"
+        address: "Adresse"
+        current_locomotion: "Véhicule"
+      visit:
+        date: "Date"
+        position: "Position"
+        time: "Heure"
+        wish_time: "Heure souhaitée"
+        is_done: "Fait"
+
+
+
+
+

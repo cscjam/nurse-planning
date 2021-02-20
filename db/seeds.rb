@@ -1,5 +1,5 @@
 def load_avatar(instance, url)
-  file = URI.open(url)
+  file = URI.open
   instance.avatar.attach(io: file, filename: 'Nurse', content_type: 'image/png')
 end
 

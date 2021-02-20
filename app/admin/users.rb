@@ -18,19 +18,24 @@ ActiveAdmin.register User do
 
   index do
     selectable_column
+    actions
     column :id
+    column :team do |user|
+      link_to user.team.name, admin_team_path(user.team)
+    end
     column :email
     column :first_name
     column :last_name
     column :address
-    column :current_locomotion
-    column :admin
-    actions
+    column "Véhicule" do |user|
+      Journey.locomotions.keys[user.current_locomotion]
+    end
+    toggle_bool_column :admin
   end
 
   form do |f|
     tabs do
-      tab 'User' do
+      tab 'Infirmier' do
         f.inputs do
           f.input :email
           f.input :password
@@ -38,7 +43,8 @@ ActiveAdmin.register User do
           f.input :first_name
           f.input :last_name
           f.input :address
-          f.input :current_locomotion
+          f.input :current_locomotion, as: :select, collection: Journey.locomotions.keys
+          f.input :team
           f.input :admin
           f.button :submit
         end
