@@ -3,7 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         belongs_to :team
+
+  belongs_to :team
 
   has_one_attached :avatar
   has_many :start_journeys, :class_name => "Journey", :foreign_key => "start_user_id"
