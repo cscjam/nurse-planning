@@ -1,8 +1,16 @@
 ActiveAdmin.register Visit do
 
-  permit_params :date, :position, :time, :user_id, :user, :patient_id, :patient, :is_done, :wish_time,
-     visit_cares_attributes: [:id, care_ids: []]
+  permit_params :date, :position, :time, :user_id, :patient_id, :is_done, :wish_time,
+     visit_cares_attributes: [:id, :care, :care_id]
 
+  scope :all, :default => true
+  scope :pasts, association_method: :pasts
+  scope :futures, association_method: :futures
+  scope :of_the_week, association_method: :of_the_week
+  scope :of_the_day, association_method: :of_the_day
+  scope :mine do |visits|
+    visits.where(user: current_user)
+  end
 
   index do
     selectable_column
@@ -36,11 +44,13 @@ ActiveAdmin.register Visit do
           f.input :time
           f.input :wish_time
           f.input :is_done
+          f.input :patient, collection: Patient.all.map{|u| [u.get_full_name, u.id]}
+          f.input :user, collection: User.all.map{|u| [u.get_full_name, u.id]}
           #TODO la modification n'est pas active
-          #TODO l'affichage ci-dessous n'est pas celui attendu
-          f.input :patient
-          f.input :user
-          f.input :cares, label: "Soins", as: :tags, collection: Care.all, display_name: :name
+          # f.input :cares, label: "Soins", as: :tags, collection: Care.all, display_name: :name
+          f.has_many :visit_cares, for: [:visit_cares, f.object.visit_cares], heading: 'Soins' do |visit_care|
+            visit_care.input :care, display_name: :name
+          end
           f.button :submit
         end
       end

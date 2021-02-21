@@ -1,5 +1,5 @@
 def load_avatar(instance, url)
-  file = URI.open
+  file = URI.open(url)
   instance.avatar.attach(io: file, filename: 'Nurse', content_type: 'image/png')
 end
 
@@ -18,7 +18,7 @@ admin = User.new(
   email: "admin@nurseplanning.com",
   password: "CGK1iu7hwU8RhfLSjrpH",
   address: "",
-  team: parc_bordelais,
+  team: nil,
   admin: true)
 admin.save!
 jackie = User.new(

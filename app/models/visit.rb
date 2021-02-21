@@ -12,9 +12,12 @@ class Visit < ApplicationRecord
 
   accepts_nested_attributes_for :visit_cares
   accepts_nested_attributes_for :patient
-  accepts_nested_attributes_for :cares
+  accepts_nested_attributes_for :user
 
-  scope :futures, -> { where("date >= ? AND time >= ?", Date.today, Time.now ).order(:date) }
+  scope :futures,       -> { where("date >= ? AND time >= ?", Date.today, Time.now ).order(:date) }
+  scope :pasts,         -> { where("date < ?", Date.today ).order(:date) }
+  scope :of_the_week,   -> { where('date > ? and date < ?', Date.today, 1.week.from_now)}
+  scope :of_the_day,    -> { where('date = ?', Date.today)}
 
   def get_wish_time
     "#{self.wish_time}-#{self.wish_time+1}h"

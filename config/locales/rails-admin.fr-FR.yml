@@ -41,9 +41,14 @@ fr:
         team: "Cabinet"
         address: "Adresse"
         current_locomotion: "Véhicule"
+      visit_care:
+        care: "Soin"
+        visit: "Visite"
       visit:
         date: "Date"
         position: "Position"
+        user: "Infirmier"
+        patient: "Patient"
         time: "Heure"
         wish_time: "Heure souhaitée"
         is_done: "Fait"

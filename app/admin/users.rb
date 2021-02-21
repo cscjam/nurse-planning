@@ -45,7 +45,6 @@ ActiveAdmin.register User do
           f.input :address
           f.input :current_locomotion, as: :select, collection: Journey.locomotions.keys
           f.input :team
-          f.input :admin
           f.button :submit
         end
       end

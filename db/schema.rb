@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_080237) do
     t.string "first_name"
     t.string "last_name"
     t.string "address"
-    t.bigint "team_id", null: false
+    t.bigint "team_id"
     t.float "latitude"
     t.float "longitude"
     t.integer "current_locomotion", default: 0
