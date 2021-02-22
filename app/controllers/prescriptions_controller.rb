@@ -9,25 +9,25 @@ class PrescriptionsController < ApplicationController
   def show
     @prescription = Prescription.find(params[:id])
     @schedule = []
-    if @prescription.lundi == true
+    if @prescription.lundi
       @schedule << "lundi"
     end
-    if @prescription.mardi == true
+    if @prescription.mardi
       @schedule << "mardi"
     end
-    if @prescription.mercredi == true
+    if @prescription.mercredi
       @schedule << "mercredi"
     end
-    if @prescription.jeudi == true
+    if @prescription.jeudi
       @schedule << "jeudi"
     end
-    if @prescription.vendredi == true
+    if @prescription.vendredi
       @schedule << "vendredi"
     end
-    if @prescription.samedi == true
+    if @prescription.samedi
       @schedule << "samedi"
     end
-    if @prescription.dimanche == true
+    if @prescription.dimanche
       @schedule << "dimanche"
     end
   end
@@ -65,8 +65,8 @@ class PrescriptionsController < ApplicationController
     if @prescription.dimanche
       my_days << 0
     end
-    @results = (@prescription.start_at..@prescription.end_at).to_a.select { |d| my_days.include?(d.wday) }
-    @results.each do |result|
+    results = (@prescription.start_at..@prescription.end_at).to_a.select { |d| my_days.include?(d.wday) }
+    results.each do |result|
       visit = Visit.new
       visit.user = current_user
       visit.position = 1000

@@ -73,14 +73,14 @@ class VisitsController < ApplicationController
   end
 
   def new
-    @current_prescription = Prescription.find(params[:prescription_id])
-    @current_patient = @current_prescription.patient
     @visit = Visit.new
     if params[:patient_id].present?
       @visit.prescription.patient = Patient.find(params[:patient_id])
+      @current_patient = Patient.find(params[:patient_id]) #utilisation dans le head du front
     end
     if params[:prescription_id].present?
       @visit.prescription = Prescription.find(params[:prescription_id])
+      @current_patient = @visit.prescription.patient
     end
   end
 

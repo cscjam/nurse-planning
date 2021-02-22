@@ -1,8 +1,8 @@
 <%= simple_form_for(@prescription) do |f| %>
   <%= f.association :patient, label_method: :get_full_name, value_method: :id, include_blank: false%>
   <%= f.input :title, label: "titre" %>
-  <%= f.input :start_at, label: "Date de début", as: :string, required: false, input_html: {class: "datepicker"}%>
-  <%= f.input :end_at, label: "Date de fin", as: :string, required: false, input_html: {class: "datepicker"}%>
+  <%= f.input :start_at, label: "Date de début", as: :string, required: true, input_html: {class: "datepicker"}%>
+  <%= f.input :end_at, label: "Date de fin", as: :string, required: true, input_html: {class: "datepicker"}%>
   <%= f.input :wish_time, label:"heure souhaitée" %>
   <%= "Recurrence hebdomadaire" %> <br>
   <%=  ".L M M J V S D."  %> <br>
