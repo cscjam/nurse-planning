@@ -5,11 +5,11 @@
     <p>Début : <%= @prescription.start_at %></p>
     <p>Fin : <%= @prescription.end_at %></p>
     <p>Schedule : <%= @schedule %> </p>
-
+    <p>heure souhaitée : <%= @prescription.wish_time %>h</p>
   </div>
   <%= render '/shared/patientheader' %>
 </div>
-<br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">
   <%= link_to 'Modifier ', edit_prescription_path(@prescription) %> |
   <%= link_to ' Retour ', prescriptions_path %> |
@@ -23,6 +23,11 @@ ____________________________<br>
 <div class="d-flex justify-content-center">
 ____________________________<br>
 </div>
+<br> Liste des soins :<br>
+<br>
+<% @prescription.cares.each do |care| %>
+  <%= render '/cares/show', care: care %>
+<% end %>
 <br> Liste des visites liées :<br>
 <br>
 <% @prescription.visits.each do |prescr| %>

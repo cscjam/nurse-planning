@@ -34,6 +34,7 @@ class PrescriptionsController < ApplicationController
 
   def new
     @prescription = Prescription.new
+    @current_patient = Patient.find(params[:patient_id])
     if params[:patient_id].present?
       @prescription.patient = Patient.find(params[:patient_id])
     end
@@ -42,6 +43,7 @@ class PrescriptionsController < ApplicationController
   def create
     my_days = []
     @prescription = Prescription.new(prescription_params)
+    @current_patient = @prescription.patient
     if @prescription.lundi
       my_days << 1
     end
@@ -71,7 +73,8 @@ class PrescriptionsController < ApplicationController
       visit.is_done = false
       visit.date = result
       visit.prescription = @prescription
-      visit.wish_time = 9
+      visit.cares = @prescription.cares
+      visit.wish_time = @prescription.wish_time
       visit.save
     end
 
@@ -80,6 +83,11 @@ class PrescriptionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    @current_prescription = Prescription.find(@prescription.id)
+    @current_patient = @current_prescription.patient
   end
 
   def update

@@ -1,8 +1,8 @@
-<h2>Prescriptions#update</h2>
 <div class="container">
   <div class="row patient-form">
     <div class="col-12 col-md-6 col-lg-4">
-      <h2>Modifier une prescription</h2>
+      <h2>Modifier une prescription <br>
+        <%= @current_patient.get_full_name %></h2>
       <%= render "form", prescription: @prescription %>
     </div>
   </div>

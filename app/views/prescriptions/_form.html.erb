@@ -3,7 +3,9 @@
   <%= f.input :start_at, label: "Date de début", as: :string, required: false, input_html: {class: "datepicker"}%>
   <%= f.input :end_at, label: "Date de fin", as: :string, required: false, input_html: {class: "datepicker"}%>
   <%= f.input :wish_time, label:"heure souhaitée" %>
-  <%= f.check_box :lundi, as: :check_boxes, label: "lun"  %>
+  <%= "Recurrence hebdomadaire" %> <br>
+  <%=  ".L M M J V S D."  %> <br>
+  <%= f.check_box :lundi, as: :check_boxes %>
   <%= f.check_box :mardi, as: :check_boxes %>
   <%= f.check_box :mercredi, as: :check_boxes  %>
   <%= f.check_box :jeudi, as: :check_boxes  %>
