@@ -91,7 +91,48 @@ class PrescriptionsController < ApplicationController
   end
 
   def update
-    @prescription.update(prescription_params)
+    # @prescription.update(prescription_params)
+    #a revoir, les dates des visites liées ne sont pas modifiées en cas de modification de jourdate
+    if @prescription.update(prescription_params)
+      update = @prescription.visits.select { |d| d.date > Date.today}
+      update.each do |update|
+        update.destroy
+      end
+    my_days = []
+    if @prescription.lundi
+      my_days << 1
+    end
+    if @prescription.mardi
+      my_days << 2
+    end
+    if @prescription.mercredi
+      my_days << 3
+    end
+    if @prescription.jeudi
+      my_days << 4
+    end
+    if @prescription.vendredi
+      my_days << 5
+    end
+    if @prescription.samedi
+      my_days << 6
+    end
+    if @prescription.dimanche
+      my_days << 0
+    end
+    results = (Date.today..@prescription.end_at).to_a.select { |d| my_days.include?(d.wday) }
+      results.each do |result|
+        visit = Visit.new
+        visit.user = current_user
+        visit.position = 1000
+        visit.is_done = false
+        visit.date = result
+        visit.prescription = @prescription
+        visit.cares = @prescription.cares
+        visit.wish_time = @prescription.wish_time
+        visit.save
+      end
+    end
     redirect_to prescriptions_path(@prescription)
   end
 
