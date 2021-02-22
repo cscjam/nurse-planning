@@ -5,11 +5,11 @@ class VisitsController < ApplicationController
     @delay = params[:delay] || Date.today.to_s
     delay_integer = @delay.split('-').map { |element| element.to_i }
     if params[:query].present?
-      @visits = Visit.includes(:patient, :cares).where(date: params[:query]).order(:position)
+      @visits = Visit.includes(:prescription, :cares).where(date: params[:query]).order(:position)
     else
       date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
       shift(date)
-      @visits = Visit.includes(:patient, :cares).where(date: date).order(:position)
+      @visits = Visit.includes(:prescription, :cares).where(date: date).order(:position)
     end
     @locomotion = current_user.current_locomotion || 0
     # Si changement : mise @jour de l'utilisateur
@@ -73,10 +73,14 @@ class VisitsController < ApplicationController
   end
 
   def new
+    @visit = Visit.new
     if params[:patient_id].present?
-      @visit = Visit.new(patient_id: params[:patient_id])
-    else
-      @visit = Visit.new
+      @visit.prescription.patient = Patient.find(params[:patient_id])
+      @current_patient = Patient.find(params[:patient_id]) #utilisation dans le head du front
+    end
+    if params[:prescription_id].present?
+      @visit.prescription = Prescription.find(params[:prescription_id])
+      @current_patient = @visit.prescription.patient
     end
   end
 
@@ -88,7 +92,7 @@ class VisitsController < ApplicationController
     if @visit.save
       # Si reorder avant le save, il va faire un update sur une visit non sauvegarde
       reorder_by_wishtime(@visit.date)
-      redirect_to visit_path(@visit)
+      redirect_to prescription_path(@visit.prescription)
     else
       render :new
     end
@@ -101,7 +105,7 @@ class VisitsController < ApplicationController
   end
 
   def visit_params
-    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :patient_id, :prescription_id, care_ids: [])
+    params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :prescription_id, care_ids: [])
   end
 
   def reorder_by_wishtime(date)

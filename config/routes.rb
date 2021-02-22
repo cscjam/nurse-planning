@@ -2,13 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'dashboards#show'
   resources :patients, only: [:index, :show, :new, :create] do
-    resources :visits, only: [:new]
-    resources :prescriptions, only: [:new]
+    resources :prescriptions, only: [:new, :create]
   end
   resources :prescriptions do
     resources :visits, only: [:new, :create]
   end
-  resources :visits, only: [:index, :update, :destroy, :show, :new, :create]  do
+  resources :visits, only: [:index, :update, :destroy, :show, :create]  do
     member do
       patch :mark_as_done
       patch :move

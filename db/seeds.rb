@@ -148,43 +148,40 @@ pres8 = Prescription.create!(
 puts "SEED > PRESCRIPTIONS ENDED"
 puts Prescription.ids
 #--------------------------------------------------------------------
-# puts "SEED > ADD VISITES"
-# patients = Patient.all
-# prescriptions = Prescription.all
-# delays = (-5..-1).to_a
-# delays.each do |day|
-#   position = 0
-#   wish_time = 5
-#   (8..16).to_a.sample.times do
-#     Visit.create!(
-#       date: Date.today + day,
-#       position: position +=1,
-#       time: nil,
-#       wish_time: wish_time += 1,
-#       user: jackie,
-#       patient: patients.sample,
-#       prescription: prescriptions.sample,
-#       is_done: true)
-#   end
-# end
-# patients = Patient.all
-# prescriptions = Prescription.all
-# delays = (1..5).to_a
-# delays.each do |day|
-#   position = 0
-#   wish_time = 5
-#   (8..16).to_a.sample.times do
-#     Visit.create!(
-#       date: Date.today + day,
-#       position: position +=1 ,
-#       time: nil,
-#       wish_time: wish_time += 1,
-#       user: sabatier,
-#       patient: patients.sample,
-#       prescription: prescriptions.sample,
-#       is_done: false)
-#   end
-# end
+puts "SEED > ADD VISITES"
+prescriptions = Prescription.all
+delays = (-5..-1).to_a
+delays.each do |day|
+  position = 0
+  wish_time = 5
+  (8..16).to_a.sample.times do
+    Visit.create!(
+      date: Date.today + day,
+      position: position +=1,
+      time: nil,
+      wish_time: wish_time += 1,
+      user: jackie,
+      prescription: prescriptions.sample,
+      is_done: true)
+  end
+end
+prescriptions = Prescription.all
+delays = (1..5).to_a
+delays.each do |day|
+  position = 0
+  wish_time = 5
+  (8..16).to_a.sample.times do
+    Visit.create!(
+      date: Date.today + day,
+      position: position +=1 ,
+      time: nil,
+      wish_time: wish_time += 1,
+      user: sabatier,
+      prescription: prescriptions.sample,
+      is_done: false)
+  end
+end
+#-------------------------------------------------------------------
 puts "SEED > ADD VISITES"
 position = -1
 prescriptions = Prescription.all
@@ -194,7 +191,6 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: sabatier,
-  patient: alain,
   prescription: pres1,
   is_done: true)
 Visit.create!(
@@ -203,7 +199,6 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: sabatier,
-  patient: pierre,
   prescription: pres2,
   is_done: true)
 Visit.create!(
@@ -212,7 +207,6 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: sabatier,
-  patient: nicolas,
   prescription: pres3,
   is_done: true)
 Visit.create!(
@@ -221,7 +215,6 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: sabatier,
-  patient: hugues,
   prescription: pres4,
   is_done: true)
 Visit.create!(
@@ -230,7 +223,6 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: sabatier,
-  patient: jacques,
   prescription: pres5,
   is_done: true)
 Visit.create!(
@@ -239,7 +231,6 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: sabatier,
-  patient: fernand,
   prescription: pres6,
   is_done: true)
 Visit.create!(
@@ -248,7 +239,6 @@ Visit.create!(
   time: nil,
   wish_time: 11,
   user: sabatier,
-  patient: roger,
   prescription: pres7,
   is_done: false)
 Visit.create!(
@@ -257,7 +247,6 @@ Visit.create!(
   time: nil,
   wish_time: 11,
   user: sabatier,
-  patient: monique,
   prescription: pres8,
   is_done: false)
 Visit.create!(
@@ -266,7 +255,6 @@ Visit.create!(
   time: nil,
   wish_time: 12,
   user: sabatier,
-  patient: alain,
   prescription: pres1,
   is_done: false)
 Visit.create!(
@@ -275,7 +263,6 @@ Visit.create!(
   time: nil,
   wish_time: 12,
   user: sabatier,
-  patient: pierre,
   prescription: pres2,
   is_done: false)
 Visit.create!(
@@ -284,7 +271,6 @@ Visit.create!(
   time: nil,
   wish_time: 14,
   user: sabatier,
-  patient: nicolas,
   prescription: pres3,
   is_done: false)
 Visit.create!(
@@ -293,7 +279,6 @@ Visit.create!(
   time: nil,
   wish_time: 14,
   user: sabatier,
-  patient: hugues,
   prescription: pres4,
   is_done: false)
 #--------------------------------------------------------------------
