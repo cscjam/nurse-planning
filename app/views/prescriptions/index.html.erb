@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between">
           <h2 id="patient-header">Rechercher une prescription(à revoir)</h2>
         </div>
-        <%= simple_form_for :search, url: prescriptions_path, method: :get do |f| %>
+        <%= simple_form_for :search, url: patient_prescriptions_path(@patient), method: :get do |f| %>
           <div class="search-form-control form-group">
              <input class="form-control string required" type="search" name="search" id="search" />
               <button name="button" type="submit" class="btn btn-flat">
@@ -24,13 +24,7 @@
       <% @prescriptions.each do |prescription| %>
         <div class="patient-card">
           <%= link_to prescription_path(prescription) do %>
-            <div class="patient-card-info">
-              <h2>Title : <%= prescription.title %></h2>
-              <p>Début : <%= prescription.start_at %></p>
-              <p>Fin : <%= prescription.end_at %></p>
-              <p>Récurrence : <%= @schedule %></p>
-              <p>Patient : <%= prescription.patient.first_name %> <%= prescription.patient.last_name %> </p>
-            </div>
+            <%= render "display", prescription: prescription %>
           <% end %>
         </div>
       <% end %>

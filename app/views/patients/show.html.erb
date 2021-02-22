@@ -10,7 +10,7 @@
 <div class="container header-margin footer-margin">
   <div class="row justify-content-center">
     <div class="col-12 col-md-6 col-lg-4">
-      <%= link_to new_patient_prescription_path(@current_patient) do %>"Ajouter une prescription"<% end %><br>
+      <%= link_to new_patient_prescription_path(@patient) do %>"Ajouter une prescription"<% end %><br>
       Prescription : <%= @patient.prescription_ids %> -
       <%@patient.prescriptions.each do |prescription| %>
         <%= link_to prescription_path(prescription) do %>

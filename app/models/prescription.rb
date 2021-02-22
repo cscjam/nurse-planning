@@ -15,4 +15,35 @@ class Prescription < ApplicationRecord
       end
     end
   end
+
+  def get_binary_days
+    [@prescription.lundi, @prescription.mardi, @prescription.mercredi,
+        @prescription.jeudi, @prescription.vendredi, @prescription.samedi, @prescription.dimanche]
+  end
+
+  def get_schedule_txt
+    schedule = []
+    if lundi
+      schedule << "L"
+    end
+    if mardi
+      schedule << "Ma"
+    end
+    if mercredi
+      schedule << "Me"
+    end
+    if jeudi
+      schedule << "J"
+    end
+    if vendredi
+      schedule << "V"
+    end
+    if samedi
+      schedule << "S"
+    end
+    if dimanche
+      schedule << "D"
+    end
+    schedule.join(", ")
+  end
 end

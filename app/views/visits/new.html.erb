@@ -2,7 +2,7 @@
   <div class="row patient-form">
     <div class="col-12 col-md-6 col-lg-4">
       <h2>Ajouter un nouveau rendez-vous pour <br>
-       <%= @current_patient.get_full_name %></h2>
+       <%= @visit.patient.get_full_name %></h2>
       <%= simple_form_for(@visit) do |f| %>
         <%= f.input :date,  as: :string, required: false, input_html: {class: "datepicker"}%>
         <%= f.input :wish_time, label: "Heure souhaitée" %>

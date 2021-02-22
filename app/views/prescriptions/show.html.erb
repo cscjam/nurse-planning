@@ -1,18 +1,11 @@
 <div class="patient-header fixed-top">
-  <div class="patient-info">
-    <h2>Title : <%= @prescription.title %></h2>
-    <h2>Patient : <%= @prescription.patient.first_name %> <%= @prescription.patient.last_name %></h2>
-    <p>Début : <%= @prescription.start_at %></p>
-    <p>Fin : <%= @prescription.end_at %></p>
-    <p>Schedule : <%= @schedule %> </p>
-    <p>heure souhaitée : <%= @prescription.wish_time %>h</p>
-  </div>
+  <%= render "display", prescription: @prescription %>
   <%= render '/shared/patientheader' %>
 </div>
 <br><br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">
   <%= link_to 'Modifier ', edit_prescription_path(@prescription) %> |
-  <%= link_to ' Retour ', prescriptions_path %> |
+  <%= link_to ' Retour ', patient_prescriptions_path(@prescription.patient) %> |
 </div>
 <div class="d-flex justify-content-center">
 ____________________________<br>
@@ -30,9 +23,9 @@ ____________________________<br>
 <% end %>
 <br> Liste des visites liées :<br>
 <br>
-<% @prescription.visits.each do |prescr| %>
-  <%= link_to visit_path(prescr.id) do %>
-    <%= [prescr.id] %> : <%= prescr.date %>
+<% @prescription.visits.each do |visit| %>
+  <%= link_to visit_path(visit.id) do %>
+    <%= [visit.id] %> : <%= visit.date %>
   <% end %>
   <br>
 <% end %>

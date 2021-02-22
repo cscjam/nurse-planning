@@ -2,135 +2,60 @@ class PrescriptionsController < ApplicationController
   before_action :set_prescription, only: [:show, :edit, :update, :destroy]
 
   def index
-    @prescriptions = Prescription.all
-    @visits = Visit.all
+    @patient = Patient.find(params[:patient_id])
+    @prescriptions = Prescription.where(patient: @patient)
   end
 
   def show
-    @prescription = Prescription.find(params[:id])
-    @schedule = []
-    if @prescription.lundi
-      @schedule << "lundi"
-    end
-    if @prescription.mardi
-      @schedule << "mardi"
-    end
-    if @prescription.mercredi
-      @schedule << "mercredi"
-    end
-    if @prescription.jeudi
-      @schedule << "jeudi"
-    end
-    if @prescription.vendredi
-      @schedule << "vendredi"
-    end
-    if @prescription.samedi
-      @schedule << "samedi"
-    end
-    if @prescription.dimanche
-      @schedule << "dimanche"
-    end
   end
 
   def new
     @prescription = Prescription.new
-    @current_patient = Patient.find(params[:patient_id])
     if params[:patient_id].present?
       @prescription.patient = Patient.find(params[:patient_id])
     end
   end
 
   def create
-    my_days = []
     @prescription = Prescription.new(prescription_params)
-    @current_patient = @prescription.patient
-    if @prescription.lundi
-      my_days << 1
-    end
-    if @prescription.mardi
-      my_days << 2
-    end
-    if @prescription.mercredi
-      my_days << 3
-    end
-    if @prescription.jeudi
-      my_days << 4
-    end
-    if @prescription.vendredi
-      my_days << 5
-    end
-    if @prescription.samedi
-      my_days << 6
-    end
-    if @prescription.dimanche
-      my_days << 0
-    end
-    results = (@prescription.start_at..@prescription.end_at).to_a.select { |d| my_days.include?(d.wday) }
-    results.each do |result|
-      visit = Visit.new
-      visit.user = current_user
-      visit.position = 1000
-      visit.is_done = false
-      visit.date = result
-      visit.prescription = @prescription
-      visit.cares = @prescription.cares
-      visit.wish_time = @prescription.wish_time
-      visit.save
-    end
-
+    @prescription.patient = Patient.find(params[:patient_id])
     if @prescription.save
-      redirect_to prescription_path(@prescription)
+      days = @prescription.get_binary_days
+      dates = (@prescription.start_at..@prescription.end_at).to_a.select { |d| days[d.wday] }
+      dates.each do |date|
+        visit = Visit.new(user: current_user, position: 1000, is_done: false, date: date,
+          prescription: @prescription, wish_time: @prescription.wish_time)
+        if visit.save
+          @prescription.cares.each do |care|
+            VisitCare.create(visit: visit, care: care)
+          end
+        end
+      end
+      redirect_to patient_prescriptions_path(@prescription.patient)
     else
       render :new
     end
   end
 
   def edit
-    @current_prescription = Prescription.find(@prescription.id)
-    @current_patient = @current_prescription.patient
   end
 
   def update
-    # @prescription.update(prescription_params)
     #a revoir, les dates des visites liées ne sont pas modifiées en cas de modification de jourdate
     if @prescription.update(prescription_params)
-      update = @prescription.visits.select { |d| d.date > Date.today}
-      update.each do |update|
-        update.destroy
+      @prescription.visits.select { |d| d.date > Date.today}.each do |visit|
+        visit.destroy
       end
-    my_days = []
-    if @prescription.lundi
-      my_days << 1
-    end
-    if @prescription.mardi
-      my_days << 2
-    end
-    if @prescription.mercredi
-      my_days << 3
-    end
-    if @prescription.jeudi
-      my_days << 4
-    end
-    if @prescription.vendredi
-      my_days << 5
-    end
-    if @prescription.samedi
-      my_days << 6
-    end
-    if @prescription.dimanche
-      my_days << 0
-    end
-    results = (Date.today..@prescription.end_at).to_a.select { |d| my_days.include?(d.wday) }
-      results.each do |result|
-        visit = Visit.new
-        visit.user = current_user
-        visit.position = 1000
-        visit.is_done = false
-        visit.date = result
-        visit.prescription = @prescription
-        visit.cares = @prescription.cares
-        visit.wish_time = @prescription.wish_time
-        visit.save
+      days = @prescription.get_binary_days
+      dates = (Date.today..@prescription.end_at).to_a.select { |d| days[d.wday] }
+      dates.each do |date|
+        visit = Visit.new(user: current_user, position: 1000, is_done: false, date: date,
+          prescription: @prescription, wish_time: @prescription.wish_time)
+        if visit.save
+          @prescription.cares.each do |care|
+            VisitCare.create(visit: visit, care: care)
+          end
+        end
       end
     end
     redirect_to prescriptions_path(@prescription)

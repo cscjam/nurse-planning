@@ -1,9 +1,8 @@
 <div class="container">
   <div class="row patient-form">
     <div class="col-12 col-md-6 col-lg-4">
-      <h2>Ajouter une nouvelle prescription<br>
-        pour <%= @current_patient.get_full_name %></h2>
-      <%= render "form", prescription: @prescription %>
+      <h2>Ajouter une nouvelle prescription pour <%= @prescription.patient.get_full_name %></h2>
+      <%= render "form", prescription: @prescription, patient: @prescription.patient %>
     </div>
   </div>
 </div>
