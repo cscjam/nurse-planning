@@ -1,10 +1,11 @@
 puts "SEED > CLEAN DB"
-[VisitCare, Care, Minute, Visit, Journey, User, Patient, Team].each(&:delete_all)
+[VisitCare, Care, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
 #--------------------------------------------------------------------
 puts "SEED > ADD TEAMS"
 parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
 parc_bourran = Team.create!(name: "Cabinet du parc Bouran")
 #--------------------------------------------------------------------
+
 puts "SEED > ADD USERS"
 jackie = User.new(
   first_name: "Nurse",
@@ -84,9 +85,71 @@ monique = Patient.create!(
   compl_address: "Sonner à DURAND",
   phone: "06 34 12 23 46",
   team: parc_bordelais)
+
+puts Patient.ids
+#--------------------------------------------------------------------
+puts "SEED > ADD PRESCRIPTIONS"
+pres1 = Prescription.create!(
+  title: "pres1",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Lundi, Mercredi, Vendredi",
+  patient_id: Patient.ids[0]
+  )
+pres2 = Prescription.create!(
+  title: "pres2",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Mardi, Jeudi",
+  patient_id: Patient.ids[1]
+  )
+pres3 = Prescription.create!(
+  title: "pres3",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Mardi, Vendredi",
+  patient_id: Patient.ids[2]
+  )
+pres4 = Prescription.create!(
+  title: "pres4",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Lundi, Jeudi",
+  patient_id: Patient.ids[3]
+  )
+pres5 = Prescription.create!(
+  title: "pres5",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Mardi, Samedi",
+  patient_id: Patient.ids[4]
+  )
+pres6 = Prescription.create!(
+  title: "pres6",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Mardi",
+  patient_id: Patient.ids[5]
+  )
+pres7 = Prescription.create!(
+  title: "pres7",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Jeudi",
+  patient_id: Patient.ids[6]
+  )
+pres8 = Prescription.create!(
+  title: "pres8",
+  start_at: Date.today,
+  end_at: Date.today,
+  schedule: "Jeudi, Dimanche",
+  patient_id: Patient.ids[7]
+  )
+puts "SEED > PRESCRIPTIONS ENDED"
+puts Prescription.ids
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
-patients = Patient.all
+prescriptions = Prescription.all
 delays = (-5..-1).to_a
 delays.each do |day|
   position = 0
@@ -98,11 +161,11 @@ delays.each do |day|
       time: nil,
       wish_time: wish_time += 1,
       user: jackie,
-      patient: patients.sample,
+      prescription: prescriptions.sample,
       is_done: true)
   end
 end
-patients = Patient.all
+prescriptions = Prescription.all
 delays = (1..5).to_a
 delays.each do |day|
   position = 0
@@ -114,19 +177,21 @@ delays.each do |day|
       time: nil,
       wish_time: wish_time += 1,
       user: sabatier,
-      patient: patients.sample,
+      prescription: prescriptions.sample,
       is_done: false)
   end
 end
-
+#-------------------------------------------------------------------
+puts "SEED > ADD VISITES"
 position = -1
+prescriptions = Prescription.all
 Visit.create!(
   date: Date.today,
   position: position += 1,
   time: nil,
   wish_time: 8,
   user: sabatier,
-  patient: fernand,
+  prescription: pres1,
   is_done: true)
 Visit.create!(
   date: Date.today,
@@ -134,7 +199,7 @@ Visit.create!(
   time: nil,
   wish_time: 8,
   user: sabatier,
-  patient: roger,
+  prescription: pres2,
   is_done: true)
 Visit.create!(
   date: Date.today,
@@ -142,7 +207,7 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: sabatier,
-  patient: monique,
+  prescription: pres3,
   is_done: true)
 Visit.create!(
   date: Date.today,
@@ -150,7 +215,7 @@ Visit.create!(
   time: nil,
   wish_time: 9,
   user: sabatier,
-  patient: hugues,
+  prescription: pres4,
   is_done: true)
 Visit.create!(
   date: Date.today,
@@ -158,7 +223,7 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: sabatier,
-  patient: jacques,
+  prescription: pres5,
   is_done: true)
 Visit.create!(
   date: Date.today,
@@ -166,7 +231,7 @@ Visit.create!(
   time: nil,
   wish_time: 10,
   user: sabatier,
-  patient: fernand,
+  prescription: pres6,
   is_done: true)
 Visit.create!(
   date: Date.today,
@@ -174,7 +239,7 @@ Visit.create!(
   time: nil,
   wish_time: 11,
   user: sabatier,
-  patient: alain,
+  prescription: pres7,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -182,7 +247,7 @@ Visit.create!(
   time: nil,
   wish_time: 11,
   user: sabatier,
-  patient: pierre,
+  prescription: pres8,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -190,7 +255,7 @@ Visit.create!(
   time: nil,
   wish_time: 12,
   user: sabatier,
-  patient: nicolas,
+  prescription: pres1,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -198,7 +263,7 @@ Visit.create!(
   time: nil,
   wish_time: 12,
   user: sabatier,
-  patient: hugues,
+  prescription: pres2,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -206,7 +271,7 @@ Visit.create!(
   time: nil,
   wish_time: 14,
   user: sabatier,
-  patient: jacques,
+  prescription: pres3,
   is_done: false)
 Visit.create!(
   date: Date.today,
@@ -214,10 +279,10 @@ Visit.create!(
   time: nil,
   wish_time: 14,
   user: sabatier,
-  patient: monique,
+  prescription: pres4,
   is_done: false)
 #--------------------------------------------------------------------
-# Injection, Prise de sang, perfusion, alimentation gastro, CHimio
+# Injection, Prise de sang, perfusion, alimentation gastro, Chimio
 puts "SEED > ADD CARES"
 Care.create!(
     name: "Toilette",

@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_162519) do
+ActiveRecord::Schema.define(version: 2021_02_20_080237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -34,6 +48,18 @@ ActiveRecord::Schema.define(version: 2020_11_30_162519) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
   create_table "cares", force: :cascade do |t|
@@ -84,6 +110,34 @@ ActiveRecord::Schema.define(version: 2020_11_30_162519) do
     t.index ["team_id"], name: "index_patients_on_team_id"
   end
 
+  create_table "prescription_cares", force: :cascade do |t|
+    t.bigint "prescription_id", null: false
+    t.bigint "care_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["care_id"], name: "index_prescription_cares_on_care_id"
+    t.index ["prescription_id"], name: "index_prescription_cares_on_prescription_id"
+  end
+
+  create_table "prescriptions", force: :cascade do |t|
+    t.string "title"
+    t.date "start_at"
+    t.date "end_at"
+    t.string "schedule"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "patient_id"
+    t.boolean "lundi", default: false
+    t.boolean "mardi", default: false
+    t.boolean "mercredi", default: false
+    t.boolean "jeudi", default: false
+    t.boolean "vendredi", default: false
+    t.boolean "samedi", default: false
+    t.boolean "dimanche", default: false
+    t.integer "wish_time"
+    t.index ["patient_id"], name: "index_prescriptions_on_patient_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -101,10 +155,11 @@ ActiveRecord::Schema.define(version: 2020_11_30_162519) do
     t.string "first_name"
     t.string "last_name"
     t.string "address"
-    t.bigint "team_id", null: false
+    t.bigint "team_id"
     t.float "latitude"
     t.float "longitude"
     t.integer "current_locomotion", default: 0
+    t.boolean "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
@@ -124,12 +179,12 @@ ActiveRecord::Schema.define(version: 2020_11_30_162519) do
     t.integer "position"
     t.time "time"
     t.bigint "user_id", null: false
-    t.bigint "patient_id", null: false
     t.boolean "is_done"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "wish_time"
-    t.index ["patient_id"], name: "index_visits_on_patient_id"
+    t.bigint "prescription_id"
+    t.index ["prescription_id"], name: "index_visits_on_prescription_id"
     t.index ["user_id"], name: "index_visits_on_user_id"
   end
 
@@ -140,9 +195,12 @@ ActiveRecord::Schema.define(version: 2020_11_30_162519) do
   add_foreign_key "journeys", "users", column: "start_user_id"
   add_foreign_key "minutes", "visits"
   add_foreign_key "patients", "teams"
+  add_foreign_key "prescription_cares", "cares"
+  add_foreign_key "prescription_cares", "prescriptions"
+  add_foreign_key "prescriptions", "patients"
   add_foreign_key "users", "teams"
   add_foreign_key "visit_cares", "cares"
   add_foreign_key "visit_cares", "visits"
-  add_foreign_key "visits", "patients"
+  add_foreign_key "visits", "prescriptions"
   add_foreign_key "visits", "users"
 end
