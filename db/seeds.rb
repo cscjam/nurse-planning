@@ -1,5 +1,5 @@
 puts "SEED > CLEAN DB"
-[VisitCare, Care, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
+[Care, VisitCare, PrescriptionCare, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
 #--------------------------------------------------------------------
 puts "SEED > ADD TEAMS"
 parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
@@ -93,56 +93,65 @@ pres1 = Prescription.create!(
   title: "pres1",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Lundi, Mercredi, Vendredi",
+  lundi: true,
+  mardi: true,
   patient_id: Patient.ids[0]
   )
 pres2 = Prescription.create!(
   title: "pres2",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi, Jeudi",
+  mercredi: true,
+  vendredi: true,
   patient_id: Patient.ids[1]
   )
 pres3 = Prescription.create!(
   title: "pres3",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi, Vendredi",
+  lundi: true,
+  vendredi: true,
   patient_id: Patient.ids[2]
   )
 pres4 = Prescription.create!(
   title: "pres4",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Lundi, Jeudi",
+  mercredi: true,
   patient_id: Patient.ids[3]
   )
 pres5 = Prescription.create!(
   title: "pres5",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi, Samedi",
+  dimanche: true,
   patient_id: Patient.ids[4]
   )
 pres6 = Prescription.create!(
   title: "pres6",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi",
+  mercredi: true,
+  vendredi: true,
   patient_id: Patient.ids[5]
   )
 pres7 = Prescription.create!(
   title: "pres7",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Jeudi",
+  lundi: true,
+  mardi: true,
+  mercredi: true,
+  jeudi: true,
+  vendredi: true,
+  samedi: true,
   patient_id: Patient.ids[6]
   )
 pres8 = Prescription.create!(
   title: "pres8",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Jeudi, Dimanche",
+  dimanche: true,
   patient_id: Patient.ids[7]
   )
 puts "SEED > PRESCRIPTIONS ENDED"
