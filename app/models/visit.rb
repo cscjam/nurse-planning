@@ -1,6 +1,4 @@
 class Visit < ApplicationRecord
-  before_save :shift
-
   belongs_to :user
   belongs_to :prescription
   has_many :visit_cares, dependent: :destroy
@@ -36,11 +34,5 @@ class Visit < ApplicationRecord
 
   def care_duration
     self.cares.map(&:duration).sum
-  end
-
-  def shift
-    Visit.where(date: date).order(:position).each_with_index do |visit, index|
-      visit.update(position: index)
-    end
   end
 end

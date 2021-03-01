@@ -1,5 +1,5 @@
 puts "SEED > CLEAN DB"
-[Care, VisitCare, PrescriptionCare, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
+[VisitCare, PrescriptionCare, Care, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
 #--------------------------------------------------------------------
 puts "SEED > ADD TEAMS"
 parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
@@ -85,8 +85,6 @@ monique = Patient.create!(
   compl_address: "Sonner à DURAND",
   phone: "06 34 12 23 46",
   team: parc_bordelais)
-
-puts Patient.ids
 #--------------------------------------------------------------------
 puts "SEED > ADD PRESCRIPTIONS"
 pres1 = Prescription.create!(
@@ -154,8 +152,6 @@ pres8 = Prescription.create!(
   dimanche: true,
   patient_id: Patient.ids[7]
   )
-puts "SEED > PRESCRIPTIONS ENDED"
-puts Prescription.ids
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
 prescriptions = Prescription.all
