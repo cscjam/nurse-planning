@@ -1,7 +1,7 @@
 ActiveAdmin.register Visit do
 
   permit_params :date, :position, :time, :user_id, :patient_id, :is_done, :wish_time,
-     visit_cares_attributes: [:id, :care, :care_id]
+     visit_cares_attributes: [:id, :care, :care_id], prescription_attributes: [:id, :patient, :patient_id]
 
   scope :all, :default => true
   scope :pasts, association_method: :pasts
@@ -44,10 +44,8 @@ ActiveAdmin.register Visit do
           f.input :time
           f.input :wish_time
           f.input :is_done
-          f.input :patient, collection: Patient.all.map{|u| [u.get_full_name, u.id]}
           f.input :user, collection: User.all.map{|u| [u.get_full_name, u.id]}
           #TODO la modification n'est pas active
-          # f.input :cares, label: "Soins", as: :tags, collection: Care.all, display_name: :name
           f.has_many :visit_cares, for: [:visit_cares, f.object.visit_cares], heading: 'Soins' do |visit_care|
             visit_care.input :care, display_name: :name
           end

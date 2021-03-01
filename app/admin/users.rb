@@ -21,7 +21,9 @@ ActiveAdmin.register User do
     actions
     column :id
     column :team do |user|
-      link_to user.team.name, admin_team_path(user.team)
+      if user.team.present?
+        link_to user.team.name, admin_team_path(user.team)
+      end
     end
     column :email
     column :first_name

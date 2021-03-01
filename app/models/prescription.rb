@@ -1,5 +1,6 @@
 class Prescription < ApplicationRecord
   belongs_to :patient
+  has_one :team, through: :patient
   has_many :visits, dependent: :destroy
   has_many :prescription_cares, dependent: :destroy
   has_many :cares, through: :prescription_cares
@@ -7,6 +8,8 @@ class Prescription < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
   validate :end_date_after_or_equal_start_date
+
+  accepts_nested_attributes_for :patient
 
   def end_date_after_or_equal_start_date
     if end_at.present? && start_at.present?

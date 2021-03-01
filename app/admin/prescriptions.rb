@@ -1,6 +1,6 @@
 ActiveAdmin.register Prescription do
 
-  permit_params :title, :start_at, :end_at, :schedule, :patient_id, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche, :wish_time
+  permit_params :title, :start_at, :end_at, :wish_time, :schedule, :patient_id, :team_id, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche
 
   index do
     selectable_column
@@ -18,14 +18,14 @@ ActiveAdmin.register Prescription do
     toggle_bool_column :vendredi
     toggle_bool_column :samedi
     toggle_bool_column :dimanche
-    column :patient do |visit|
-      link_to visit.patient.get_full_name, admin_patient_path(visit.patient)
+    column :patient do |prescription|
+      link_to prescription.patient.get_full_name, admin_patient_path(prescription.patient)
     end
-    column :user do |visit|
-      link_to visit.user.get_full_name, admin_user_path(visit.user)
+    column "Nb Visits" do |prescription|
+      prescription.visits.count
     end
-    column :team do |visit|
-      link_to visit.team.name, admin_team_path(visit.team)
+    column :team do |prescription|
+      link_to prescription.team.name, admin_team_path(prescription.team)
     end
   end
 
@@ -38,9 +38,7 @@ ActiveAdmin.register Prescription do
           f.input :end_at
           f.input :schedule
           f.input :wish_time
-          f.input :is_done
           f.input :patient, collection: Patient.all.map{|u| [u.get_full_name, u.id]}
-          f.input :user, collection: User.all.map{|u| [u.get_full_name, u.id]}
           f.input :lundi
           f.input :mardi
           f.input :mercredi

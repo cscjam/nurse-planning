@@ -15,7 +15,7 @@ ActiveAdmin.register Minute do
       tab 'Compte-Rendu' do
         f.inputs do
           f.input :content
-          f.input :visite
+          f.input :visit
           f.button :submit
         end
       end
