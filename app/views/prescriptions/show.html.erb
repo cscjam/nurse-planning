@@ -21,6 +21,12 @@ ____________________________<br>
 <% @prescription.cares.each do |care| %>
   <%= render '/cares/show', care: care %>
 <% end %>
+____________________________</BR>
+
+<%= cl_image_tag @prescription.photo.key, height: 300, width: 400, crop: :fill %>
+
+____________________________</BR>
+
 <br> Liste des visites liées :<br>
 <br>
 <% @prescription.visits.each do |visit| %>

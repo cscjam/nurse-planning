@@ -3,6 +3,7 @@ class Prescription < ApplicationRecord
   has_many :visits, dependent: :destroy
   has_many :prescription_cares, dependent: :destroy
   has_many :cares, through: :prescription_cares
+  has_many_attached :photos
   validates :title, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
@@ -45,5 +46,11 @@ class Prescription < ApplicationRecord
       schedule << "D"
     end
     schedule.join(", ")
+  end
+
+private
+
+  def prescription_params
+    params.require(:prescription).permit(:title, :wish_time, photos: [])
   end
 end

@@ -4,6 +4,7 @@
   <%= f.input :start_at, label: "Date de début", as: :string, required: true, input_html: {class: "datepicker"}%>
   <%= f.input :end_at, label: "Date de fin", as: :string, required: true, input_html: {class: "datepicker"}%>
   <%= f.input :wish_time, label:"Heure souhaitée" %>
+  <%= f.input :photo, as: :file, input_html: { multiple: true } %>
   <%= "Recurrence hebdomadaire" %> <br>
   <%=  " L M M J V S D "  %> <br>
   <%= f.check_box :lundi, as: :check_boxes %>
