@@ -2,7 +2,8 @@
   <%= render "display", prescription: @prescription %>
   <%= render '/shared/patientheader' %>
 </div>
-<br><br><br><br><br><br><br><br>
+
+<br><br><br><br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">
   <%= link_to 'Modifier ', edit_prescription_path(@prescription) %> |
   <%= link_to ' Retour ', patient_prescriptions_path(@prescription.patient) %> |
@@ -23,11 +24,13 @@ ____________________________<br>
 <% end %>
 ____________________________</BR>
 
-<% @prescription.photos.each do |photo| %>
-  <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
+<div>
+<% if @prescription.photo.attached? %>
+  <%= cl_image_tag @prescription.photo.key, height: 300, width: 400, crop: :fill %>
+  <% else %>
+  <%= "Ajouter une ordonnance" %>
 <% end %>
-
-
+</div>
 ____________________________</BR>
 
 <br> Liste des visites liées :<br>

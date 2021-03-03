@@ -20,28 +20,7 @@ class PrescriptionsController < ApplicationController
     @prescription = Prescription.new(prescription_params)
     @prescription.patient = Patient.find(params[:patient_id])
     if @prescription.save
-      days = []
-      if @prescription.lundi
-        days << 1
-      end
-      if @prescription.mardi
-        days << 2
-      end
-      if @prescription.mercredi
-        days << 3
-      end
-      if @prescription.jeudi
-        days << 4
-      end
-      if @prescription.vendredi
-        days << 5
-      end
-      if @prescription.samedi
-        days << 6
-      end
-      if @prescription.dimanche
-        days << 0
-      end
+      days = @prescription.get_binary_days
       dates = (@prescription.start_at..@prescription.end_at).to_a.select { |d| days[d.wday] }
       dates.each do |date|
         visit = Visit.new(user: current_user, position: 1000, is_done: false, date: date,
@@ -92,7 +71,7 @@ class PrescriptionsController < ApplicationController
   def prescription_params
     params[:prescription].permit(:title, :start_at, :end_at, :wish_time,
                                  :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche,
-                                 :patient_id, care_ids: [], photos: [])
+                                 :patient_id, :photo, care_ids: [])
   end
 
   def set_prescription
