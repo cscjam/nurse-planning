@@ -20,7 +20,28 @@ class PrescriptionsController < ApplicationController
     @prescription = Prescription.new(prescription_params)
     @prescription.patient = Patient.find(params[:patient_id])
     if @prescription.save
-      days = @prescription.get_binary_days
+      days = []
+      if @prescription.lundi
+        days << 1
+      end
+      if @prescription.mardi
+        days << 2
+      end
+      if @prescription.mercredi
+        days << 3
+      end
+      if @prescription.jeudi
+        days << 4
+      end
+      if @prescription.vendredi
+        days << 5
+      end
+      if @prescription.samedi
+        days << 6
+      end
+      if @prescription.dimanche
+        days << 0
+      end
       dates = (@prescription.start_at..@prescription.end_at).to_a.select { |d| days[d.wday] }
       dates.each do |date|
         visit = Visit.new(user: current_user, position: 1000, is_done: false, date: date,
@@ -50,7 +71,7 @@ class PrescriptionsController < ApplicationController
       dates = (Date.today..@prescription.end_at).to_a.select { |d| days[d.wday] }
       dates.each do |date|
         visit = Visit.new(user: current_user, position: 1000, is_done: false, date: date,
-          prescription: @prescription, wish_time: @prescription.wish_time)
+                          prescription: @prescription, wish_time: @prescription.wish_time)
         if visit.save
           @prescription.cares.each do |care|
             VisitCare.create(visit: visit, care: care)
@@ -63,17 +84,18 @@ class PrescriptionsController < ApplicationController
 
   def destroy
     @prescription.destroy
-    redirect_to prescriptions_path
+    redirect_to patient_path(@prescription.patient)
   end
 
   private
 
   def prescription_params
-    params[:prescription].permit(:title, :start_at, :end_at, :wish_time, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche, :patient_id, care_ids: [])
+    params[:prescription].permit(:title, :start_at, :end_at, :wish_time,
+                                 :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche,
+                                 :patient_id, care_ids: [], photos: [])
   end
 
   def set_prescription
     @prescription = Prescription.find(params[:id])
   end
-
 end

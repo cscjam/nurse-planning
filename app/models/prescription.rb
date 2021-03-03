@@ -22,6 +22,31 @@ class Prescription < ApplicationRecord
         @prescription.jeudi, @prescription.vendredi, @prescription.samedi, @prescription.dimanche]
   end
 
+  def get_days_form
+    days = []
+    if @prescription.lundi
+      days << 1
+    end
+    if @prescription.mardi
+      days << 2
+    end
+    if @prescription.mercredi
+      days << 3
+    end
+    if @prescription.jeudi
+      days << 4
+    end
+    if @prescription.vendredi
+      days << 5
+    end
+    if @prescription.samedi
+      days << 6
+    end
+    if @prescription.dimanche
+      days << 0
+    end
+  end
+
   def get_schedule_txt
     schedule = []
     if lundi
