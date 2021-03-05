@@ -1,12 +1,10 @@
 <div class="patient-header fixed-top">
   <%= render "display", prescription: @prescription %>
-  <%= render '/shared/patientheader' %>
 </div>
-
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 <div class="d-flex justify-content-center">
   <%= link_to 'Modifier ', edit_prescription_path(@prescription) %> |
-  <%= link_to ' Retour ', patient_prescriptions_path(@prescription.patient) %> |
+  <%= link_to ' Retour ', patient_path(@prescription.patient) %> |
 </div>
 <div class="d-flex justify-content-center">
 ____________________________<br>
@@ -17,32 +15,41 @@ ____________________________<br>
 <div class="d-flex justify-content-center">
 ____________________________<br>
 </div>
-<br> Liste des soins :<br>
+<div class="d-flex justify-content-center">
+  <br> Liste des soins :<br>
+</div>
 <br>
 <% @prescription.cares.each do |care| %>
   <%= render '/cares/show', care: care %>
 <% end %>
-____________________________</BR>
-
-<div>
-<% if @prescription.photo.attached? %>
-  <%= cl_image_tag @prescription.photo.key, height: 300, width: 400, crop: :fill %>
-  <% else %>
-  <%= "Ajouter une ordonnance" %>
-<% end %>
+<div class="d-flex justify-content-center">
+____________________________<br>
 </div>
-____________________________</BR>
-
+<div class="d-flex justify-content-center">
+  <% if @prescription.photo.attached? %>
+    <%= cl_image_tag @prescription.photo.key, height: 300, width: 400, crop: :fill %>
+    <% else %>
+    <%= link_to "Ajouter une ordonnance", edit_prescription_path(@prescription) %>
+  <% end %>
+</div>
+<div class="d-flex justify-content-center">
+____________________________<br>
+</div>
+<div class="d-flex justify-content-center">
 <br> Liste des visites liées :<br>
 <br>
-<% @prescription.visits.each do |visit| %>
-  <%= link_to visit_path(visit.id) do %>
-    <%= [visit.id] %> : <%= visit.date %>
-  <% end %>
-  <br>
-<% end %>
-____________________________</BR>
+</div>
 
+<% @prescription.visits.each do |visit| %>
+  <div class="d-flex justify-content-center">
+    <%= link_to visit_path(visit.id) do %>
+      <%= [visit.id] %> : <%= visit.date %>
+    <% end %>
+  </div>
+<% end %>
+<div class="d-flex justify-content-center">
+____________________________<br>
+</div>
 <div class="d-flex justify-content-center">
   <div class="alert alert-danger" role="alert">
     <%= link_to 'Supprimer',
@@ -50,5 +57,4 @@ ____________________________</BR>
           method: :delete,
           data: { confirm: "êtes-vous certain de vouloir supprimer cette prescription et toutes ses visites et CR liées?" } %>
   </div>
-
 </div>

@@ -58,7 +58,7 @@ class PrescriptionsController < ApplicationController
         end
       end
     end
-    redirect_to prescriptions_path(@prescription)
+    redirect_to patient_path(@prescription.patient)
   end
 
   def destroy
