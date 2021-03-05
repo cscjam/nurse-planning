@@ -8,6 +8,7 @@ class VisitsController < ApplicationController
       @visits = Visit.includes(:prescription, :cares).where(date: params[:query]).order(:position)
     else
       date = Date.new(delay_integer[0], delay_integer[1], delay_integer[2])
+      shift(date)
       @visits = Visit.includes(:prescription, :cares).where(date: date).order(:position)
     end
     @locomotion = current_user.current_locomotion || 0
@@ -67,6 +68,7 @@ class VisitsController < ApplicationController
   def destroy
     date = @visit.date
     @visit.destroy
+    shift(date)
     redirect_to visits_path(delay: params[:delay])
   end
 
@@ -103,6 +105,13 @@ class VisitsController < ApplicationController
 
   def visit_params
     params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :prescription_id, care_ids: [])
+  end
+
+  def shift(date)
+    @visits = Visit.where(date: date).order(:position)
+    @visits.each_with_index do |visit, index|
+      visit.update(position: index)
+    end
   end
 
   def reorder_by_wishtime(date)

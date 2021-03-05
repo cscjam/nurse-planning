@@ -37,9 +37,11 @@ gem 'simple_form'
 gem 'geocoder'
 gem 'mapbox-sdk'
 
-gem 'dotenv-rails', groups: [:development, :test]
-
 gem 'cloudinary', '~> 1.16.0'
+gem 'activeadmin'
+gem 'activeadmin_addons'
+
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
