@@ -20,8 +20,7 @@ class Prescription < ApplicationRecord
   end
 
   def get_binary_days
-    [@prescription.lundi, @prescription.mardi, @prescription.mercredi,
-        @prescription.jeudi, @prescription.vendredi, @prescription.samedi, @prescription.dimanche]
+    [lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche]
   end
 
   def get_schedule_txt
