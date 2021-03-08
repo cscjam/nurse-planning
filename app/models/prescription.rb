@@ -4,6 +4,7 @@ class Prescription < ApplicationRecord
   has_many :visits, dependent: :destroy
   has_many :prescription_cares, dependent: :destroy
   has_many :cares, through: :prescription_cares
+  has_one_attached :photo
   validates :title, presence: true
   validates :start_at, presence: true
   validates :end_at, presence: true
@@ -22,6 +23,7 @@ class Prescription < ApplicationRecord
   def get_binary_days
     [lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche]
   end
+
 
   def get_schedule_txt
     schedule = []
@@ -47,5 +49,11 @@ class Prescription < ApplicationRecord
       schedule << "D"
     end
     schedule.join(", ")
+  end
+
+private
+
+  def prescription_params
+    params.require(:prescription).permit(:title, :wish_time, :photo)
   end
 end

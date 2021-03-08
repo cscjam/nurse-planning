@@ -5,13 +5,45 @@ end
 
 
 puts "SEED > CLEAN DB"
-[VisitCare, Care, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
+[VisitCare, PrescriptionCare, Care, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
 #--------------------------------------------------------------------
 puts "SEED > ADD TEAMS"
 parc_bordelais = Team.create!(name: "Cabinet du parc Bordelais")
 parc_bourran = Team.create!(name: "Cabinet du parc Bouran")
 #--------------------------------------------------------------------
-
+# Injection, Prise de sang, perfusion, alimentation gastro, Chimio
+puts "SEED > ADD CARES"
+Care.create!(
+    name: "Toilette",
+    duration: "20",
+    icon: "fas fa-hand-sparkles"
+)
+Care.create!(
+    name: "Pansement",
+    duration: "10",
+    icon: "fas fa-band-aid"
+)
+Care.create!(
+    name: "Insuline",
+    duration: "5",
+    icon: "fas fa-syringe"
+)
+Care.create!(
+    name: "Diabete",
+    duration: "5",
+    icon: "fas fa-candy-cane"
+)
+Care.create!(
+    name: "Traitement",
+    duration: "5",
+    icon: "fas fa-prescription-bottle"
+)
+Care.create!(
+    name: "Pillulier",
+    duration: "15",
+    icon: "fas fa-pills"
+)
+#--------------------------------------------------------------------
 puts "SEED > ADD USERS"
 admin = User.new(
   first_name: "Nurse",
@@ -98,64 +130,80 @@ monique = Patient.create!(
   compl_address: "Sonner à DURAND",
   phone: "06 34 12 23 46",
   team: parc_bordelais)
-
 #--------------------------------------------------------------------
 puts "SEED > ADD PRESCRIPTIONS"
 pres1 = Prescription.create!(
   title: "pres1",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Lundi, Mercredi, Vendredi",
-  patient_id: Patient.ids[0]
+  lundi: true,
+  mardi: true,
+  patient_id: Patient.ids[0],
+  wish_time: 5
   )
 pres2 = Prescription.create!(
   title: "pres2",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi, Jeudi",
-  patient_id: Patient.ids[1]
+  mercredi: true,
+  vendredi: true,
+  patient_id: Patient.ids[1],
+  wish_time: 6
   )
 pres3 = Prescription.create!(
   title: "pres3",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi, Vendredi",
-  patient_id: Patient.ids[2]
+  lundi: true,
+  vendredi: true,
+  patient_id: Patient.ids[2],
+  wish_time: 7
   )
 pres4 = Prescription.create!(
   title: "pres4",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Lundi, Jeudi",
-  patient_id: Patient.ids[3]
+  mercredi: true,
+  patient_id: Patient.ids[3],
+  wish_time: 8
   )
 pres5 = Prescription.create!(
   title: "pres5",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi, Samedi",
-  patient_id: Patient.ids[4]
+  dimanche: true,
+  patient_id: Patient.ids[4],
+  wish_time: 9
   )
 pres6 = Prescription.create!(
   title: "pres6",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Mardi",
-  patient_id: Patient.ids[5]
+  mercredi: true,
+  vendredi: true,
+  patient_id: Patient.ids[5],
+  wish_time: 10
   )
 pres7 = Prescription.create!(
   title: "pres7",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Jeudi",
-  patient_id: Patient.ids[6]
+  lundi: true,
+  mardi: true,
+  mercredi: true,
+  jeudi: true,
+  vendredi: true,
+  samedi: true,
+  patient_id: Patient.ids[6],
+  wish_time: 11
   )
 pres8 = Prescription.create!(
   title: "pres8",
   start_at: Date.today,
   end_at: Date.today,
-  schedule: "Jeudi, Dimanche",
-  patient_id: Patient.ids[7]
+  dimanche: true,
+  patient_id: Patient.ids[7],
+  wish_time: 12
   )
 #--------------------------------------------------------------------
 puts "SEED > ADD VISITES"
@@ -291,51 +339,32 @@ Visit.create!(
   user: sabatier,
   prescription: pres4,
   is_done: false)
-#--------------------------------------------------------------------
-# Injection, Prise de sang, perfusion, alimentation gastro, Chimio
-puts "SEED > ADD CARES"
-Care.create!(
-    name: "Toilette",
-    duration: "20",
-    icon: "fas fa-hand-sparkles"
-)
-Care.create!(
-    name: "Pansement",
-    duration: "10",
-    icon: "fas fa-band-aid"
-)
-Care.create!(
-    name: "Insuline",
-    duration: "5",
-    icon: "fas fa-syringe"
-)
-Care.create!(
-    name: "Diabete",
-    duration: "5",
-    icon: "fas fa-candy-cane"
-)
-Care.create!(
-    name: "Traitement",
-    duration: "5",
-    icon: "fas fa-prescription-bottle"
-)
-Care.create!(
-    name: "Pillulier",
-    duration: "15",
-    icon: "fas fa-pills"
-)
-#--------------------------------------------------------------------
-puts "SEED > ADD VISITS-CARES"
-visits = Visit.all
+# --------------------------------------------------------------------
+puts "SEED > ADD PRESCRIPTIONS-CARES"
+prescriptions = Prescription.all
 cares = Care.all
-visits.each do |visit|
+prescriptions.each do |prescription|
   (1..4).to_a.sample.times do
-    VisitCare.create!(
-      visit: visit,
+    PrescriptionCare.create!(
+      prescription: prescription,
       care: cares.sample
     )
   end
 end
+# --------------------------------------------------------------------
+puts "SEED > ADD VISITS-CARES"
+visits = Visit.all
+prescriptions = Prescription.all
+
+
+visits.each do |visit|
+  visit.prescription.prescription_cares.each do |care|
+    VisitCare.create!(
+      visit: visit,
+      care: care.care)
+  end
+end
+
 #--------------------------------------------------------------------
 puts "SEED > ADD MNINUTES"
 compte_rendu =   ["La cicatrisation du patient se fait normalement, les fils sont à enlever à J12.",

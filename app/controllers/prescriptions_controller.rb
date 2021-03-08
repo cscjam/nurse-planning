@@ -50,7 +50,7 @@ class PrescriptionsController < ApplicationController
       dates = (Date.today..@prescription.end_at).to_a.select { |d| days[d.wday] }
       dates.each do |date|
         visit = Visit.new(user: current_user, position: 1000, is_done: false, date: date,
-          prescription: @prescription, wish_time: @prescription.wish_time)
+                          prescription: @prescription, wish_time: @prescription.wish_time)
         if visit.save
           @prescription.cares.each do |care|
             VisitCare.create(visit: visit, care: care)
@@ -58,22 +58,23 @@ class PrescriptionsController < ApplicationController
         end
       end
     end
-    redirect_to prescriptions_path(@prescription)
+    redirect_to patient_path(@prescription.patient)
   end
 
   def destroy
     @prescription.destroy
-    redirect_to prescriptions_path
+    redirect_to patient_path(@prescription.patient)
   end
 
   private
 
   def prescription_params
-    params[:prescription].permit(:title, :start_at, :end_at, :wish_time, :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche, :patient_id, care_ids: [])
+    params[:prescription].permit(:title, :start_at, :end_at, :wish_time,
+                                 :lundi, :mardi, :mercredi, :jeudi, :vendredi, :samedi, :dimanche,
+                                 :patient_id, :photo, care_ids: [])
   end
 
   def set_prescription
     @prescription = Prescription.find(params[:id])
   end
-
 end

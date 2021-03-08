@@ -63,6 +63,10 @@ class VisitsController < ApplicationController
   end
 
   def update
+    if @visit.update(prescription_params)
+      shift(@visit.date)
+      redirect_to visits_path(delay: params[:delay])
+    end
   end
 
   def destroy
