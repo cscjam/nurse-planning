@@ -111,7 +111,6 @@ class VisitsController < ApplicationController
     params[:visit].permit(:date, :position, :time, :wish_time, :is_done, :prescription_id, care_ids: [])
   end
 
-
   def shift(date)
     @visits = Visit.where(date: date).order(:position)
     @visits.each_with_index do |visit, index|

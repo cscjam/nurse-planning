@@ -6,7 +6,6 @@
     <div class="progress-bar" role="progressbar" style="width: <%=@progress%>%;" aria-valuenow="<%=@progress%>" aria-valuemin="0" aria-valuemax="100"><%=@progress%>%</div>
     </div>
     <img  id="meteo-icon" src="https://openweathermap.org/img/w/01d.png" alt="Weather Icon" id="icon">
-    <%# L'admin par exemple n'a pas d'avatar %>
     <% if current_user.avatar.present? %>
       <%= cl_image_tag(current_user.avatar.key, :transformation=>[
       {:width=>400, :height=>400, :gravity=>"face", :crop=>"thumb"}

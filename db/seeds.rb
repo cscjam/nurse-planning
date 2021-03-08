@@ -1,3 +1,9 @@
+def load_avatar(instance, url)
+  file = URI.open(url)
+  instance.avatar.attach(io: file, filename: 'Nurse', content_type: 'image/png')
+end
+
+
 puts "SEED > CLEAN DB"
 [VisitCare, PrescriptionCare, Care, Minute, Visit, Prescription, Journey, User, Patient, Team].each(&:delete_all)
 #--------------------------------------------------------------------
@@ -39,6 +45,15 @@ Care.create!(
 )
 #--------------------------------------------------------------------
 puts "SEED > ADD USERS"
+admin = User.new(
+  first_name: "Nurse",
+  last_name: "ADMIN",
+  email: "admin@nurseplanning.com",
+  password: "CGK1iu7hwU8RhfLSjrpH",
+  address: "",
+  team: nil,
+  admin: true)
+admin.save!
 jackie = User.new(
   first_name: "Nurse",
   last_name: "JACKIE",
@@ -46,8 +61,7 @@ jackie = User.new(
   password: "nurseplan",
   address: "avenue Carnot 33200 Bordeaux",
   team: parc_bordelais)
-file = URI.open('https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
-jackie.avatar.attach(io: file, filename: 'Nurse Jackie', content_type: 'image/png')
+load_avatar(jackie, 'https://streamondemandathome.com/wp-content/uploads/2016/01/NurseJackie.jpg')
 jackie.save!
 sabatier = User.new(
   first_name: "J.Christophe",
@@ -56,10 +70,9 @@ sabatier = User.new(
   password: "nurseplan",
   address: "107 Cours Balguerie Stuttenberg, 33300 Bordeaux",
   team: parc_bordelais)
-file = URI.open('https://avatars3.githubusercontent.com/u/70380868?v=4')
-sabatier.avatar.attach(io: file, filename: 'Jean-Christophe SABATIER', content_type: 'image/png')
+load_avatar(sabatier, 'https://avatars3.githubusercontent.com/u/70380868?v=4')
 sabatier.save!
- #--------------------------------------------------------------------
+#--------------------------------------------------------------------
 puts "SEED > ADD PATIENTS"
 alain = Patient.create!(
   first_name: "Alain",
@@ -354,7 +367,7 @@ end
 
 #--------------------------------------------------------------------
 puts "SEED > ADD MNINUTES"
-cr =   ["La cicatrisation du patient se fait normalement, les fils sont à enlever à J12.",
+compte_rendu =   ["La cicatrisation du patient se fait normalement, les fils sont à enlever à J12.",
   "Le patient montre des signes d’instabilité. Il faut joindre le medecin traitant." ,
   "Le traitement semble parfaitement adapté aprés l’ajustement fait avec le medecin traitant." ,
   "La cicatrice du patient est gonflée. Si cela ne s’améliore pas d’ici la prochaine visite, il faudra prévoir une hospitalisation." ,
@@ -384,7 +397,7 @@ visits = Visit.where(is_done: true)
 visits.each do |visit|
   Minute.create!(
     visit: visit,
-    content: cr.sample
+    content: compte_rendu.sample
   )
 end
 #--------------------------------------------------------------------
