@@ -4,6 +4,8 @@ class DashboardsController < ApplicationController
     visitref = @today_visits.find { |visit| !visit.is_done }
     index = @today_visits.index(visitref)
     @visits = []
+    authorize @visits
+    authorize @today_visits
     case index
     when 0
       # quand aucune visite n'est faite

@@ -39,6 +39,7 @@ class VisitsController < ApplicationController
 
   def new
     @visit = Visit.new
+    authorize @visit
     if params[:patient_id].present?
       @visit.prescription.patient = Patient.find(params[:patient_id])
     end
