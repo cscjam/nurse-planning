@@ -35,6 +35,8 @@ class VisitsController < ApplicationController
   def show
     @minute = Minute.new
     @last_visit_done = @visit.patient.visits.where(is_done: true).last
+    authorize @minute
+    authorize @last_visit_done
   end
 
   def new
@@ -79,6 +81,7 @@ class VisitsController < ApplicationController
   end
 
   def mark_as_done
+    authorize @visit
     @visit.is_done = !@visit.is_done
     @visit.save
     if params["format"] == "dashboards"
