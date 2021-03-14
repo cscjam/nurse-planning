@@ -49,6 +49,7 @@ class VisitsController < ApplicationController
 
   def create
     @visit = Visit.new(visit_params)
+    authorize @visit
     #TODO, le user est pas celui qui créé
     @visit.user = current_user
     @visit.position = 1000
