@@ -43,6 +43,9 @@ gem 'activeadmin_addons'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
+# Gem for CSV Import 0.8.1
+gem 'csv-importer'
+
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
 
