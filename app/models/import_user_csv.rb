@@ -3,14 +3,15 @@ class ImportUserCSV < ApplicationRecord
 
   model Patient #Link with the model to save in
 
-  column :team_id, as: [ /team.?id/i, "cabinet"], required: true
-  column :first_name, as: [ /first.?name/i, /pr(é|e)nom/i ], required: true
-  column :last_name,  as: [ /last.?name/i, "nom" ] , required: true
-  column :phone, as: [ /p.?hone/i, /t(é|e)phone/i]
-  column :address, as: [ /a.?ddress/i, "adresse"], to: ->(adress) {adress.downcase}
-  column :compl_address, as: [ /compl.?address/i, "complement adresse" ]
+  column :team_id, as: [ "cabinet"], to: ->(name) {Team.find_by(name: name).id}, required: true
+  column :first_name, as: [ "prénom" ],  required: true
+  column :last_name,  as: [ "nom" ], required: true
+  column :phone, as: [ "téléphone"]
+  column :address, as: [ "adresse"]
+  column :compl_address, as: [ "complement adresse"]
 
-  identifier :last_name, :phone #will check if patient already exist
+  identifier :first_name, :last_name #will check if patient already exist
 
   when_invalid :skip #or :abort when invalid entry
 end
+

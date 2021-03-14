@@ -8,14 +8,9 @@ Rails.application.load_tasks
 namespace :import do
   desc 'an import profiles test'
   task :patients => :environment do
-    my_file = "test/Profilestest.CSV"
-    import = ImportUserCSV.new(file: my_file)
-    import.valid_header?
-    import.report.message
-
+    import = ImportUserCSV.new(path: "test/Profilestest.csv")
     import.run!
-    import.run.success?
-    import.report.message
+    pp import.report.message unless import.report.success?
   end
 end
 

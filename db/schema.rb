@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_141236) do
+ActiveRecord::Schema.define(version: 2021_03_14_090402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,11 @@ ActiveRecord::Schema.define(version: 2021_03_05_141236) do
     t.string "name"
     t.integer "duration"
     t.string "icon"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "import_user_csvs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -154,7 +159,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_141236) do
     t.string "first_name"
     t.string "last_name"
     t.string "address"
-    t.bigint "team_id", null: false
+    t.bigint "team_id"
     t.float "latitude"
     t.float "longitude"
     t.integer "current_locomotion", default: 0
