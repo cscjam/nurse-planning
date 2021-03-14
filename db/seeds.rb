@@ -51,7 +51,7 @@ admin = User.new(
   email: "admin@nurseplanning.com",
   password: "CGK1iu7hwU8RhfLSjrpH",
   address: "",
-  team: nil,
+  team: parc_bordelais,
   admin: true)
 admin.save!
 jackie = User.new(

@@ -35,10 +35,13 @@ class VisitsController < ApplicationController
   def show
     @minute = Minute.new
     @last_visit_done = @visit.patient.visits.where(is_done: true).last
+    authorize @minute
+    authorize @last_visit_done
   end
 
   def new
     @visit = Visit.new
+    authorize @visit
     if params[:patient_id].present?
       @visit.prescription.patient = Patient.find(params[:patient_id])
     end
@@ -49,6 +52,7 @@ class VisitsController < ApplicationController
 
   def create
     @visit = Visit.new(visit_params)
+    authorize @visit
     #TODO, le user est pas celui qui créé
     @visit.user = current_user
     @visit.position = 1000
@@ -77,6 +81,7 @@ class VisitsController < ApplicationController
   end
 
   def mark_as_done
+    authorize @visit
     @visit.is_done = !@visit.is_done
     @visit.save
     if params["format"] == "dashboards"

@@ -7,6 +7,7 @@ class PrescriptionsController < ApplicationController
   end
 
   def show
+    authorize @prescription
   end
 
   def new

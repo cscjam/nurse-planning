@@ -14,14 +14,18 @@ class PatientsController < ApplicationController
     @visits = @patient.visits.order(:date)
     @last_visit_done = @visits.where(is_done: true).last
     @current_patient = @patient
+    authorize @visits
+    authorize @current_patient
   end
 
   def new
     @patient = Patient.new
+    authorize @patient
   end
 
   def create
     @patient = Patient.new(patient_params)
+    authorize @patient
     @patient.team = current_user.team
     if @patient.save
       redirect_to patient_path(@patient)
