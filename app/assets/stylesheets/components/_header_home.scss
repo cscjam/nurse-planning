@@ -3,17 +3,44 @@
   height: 141px;
 }
 
+.header-home .progress {
+  position: absolute;
+  width: 220px;
+  height: 14px;
+  right: 20px;
+  top: 115px;
+  .progress-bar {
+  background-color: grey;
+  }
+}
+
+.header-home h2 {
+  position: absolute;
+  width: 240px;
+  height: 28px;
+  left: 30px;
+  top: 10px;
+
+  font-family: $headers-font;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+
+  color: white;
+}
+
 .header-home h1 {
   position: absolute;
   width: 240px;
   height: 28px;
   left: 30px;
-  top: 40px;
+  top: 38px;
 
   font-family: $headers-font;
   font-style: normal;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 28px;
 
   color: white;
@@ -23,8 +50,16 @@
   position: absolute;
   width: 240px;
   height: 16px;
-  left: 30px;
-  top: 72px;
+  &:nth-of-type(1){
+    left: 30px;
+    top: 72px;
+  }
+  &:nth-of-type(2){
+    // text-align: right;
+    left: 70px;
+    top: 114px;
+    font-size: 14px;
+  }
 
   font-family: $headers-font;
   font-style: normal;
@@ -35,15 +70,23 @@
   color: white;
 }
 
-.header-home img {
+.header-home #navbarDropdown {
   width: 60px;
   border-radius: 50%;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   border: white 1px solid;
 
   position: absolute;
-  left: 74.72%;
-  right: 11.11%;
-  top: 6.25%;
+  right: 20px;
+  top: 4.25%;
   bottom: 85.94%;
 }
+
+.header-home #meteo-icon{
+  position: absolute;
+  left: 30px;
+  top: 100px;
+  width: 40px;
+  height: 40px;
+}
+

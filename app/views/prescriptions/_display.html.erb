@@ -1,0 +1,7 @@
+<div class="patient-info">
+  <h2>Title : <%= prescription.title %></h2>
+  <p>Début : <%= prescription.start_at %></p>
+  <p>Fin : <%= prescription.end_at %></p>
+  <p>Récurrence : <%= prescription.get_schedule_txt %></p>
+  <p>Patient : <%= prescription.patient.get_full_name %> </p>
+</div>

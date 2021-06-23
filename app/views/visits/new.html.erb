@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row patient-form">
+    <div class="col-12 col-md-6 col-lg-4">
+      <h2>Ajouter un nouveau rendez-vous pour <br>
+       <%= @visit.patient.get_full_name %></h2>
+      <%= simple_form_for(@visit) do |f| %>
+        <%= f.input :date,  as: :string, required: false, input_html: {class: "datepicker"}%>
+        <%= f.input :wish_time, label: "Heure souhaitée" %>
+        <%= f.association :cares, label: "Soin(s) à réaliser",as: :check_boxes, multiple: true, label_method: :name, include_blank: false, value_method: :id %>
+        <%= f.association :prescription, label: "prescription", value_method: :id, include_blank: false %>
+        <%= f.submit "Ajouter", class: "btn button" %>
+      <% end %>
+    </div>
+  </div>
+</div>

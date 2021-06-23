@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
   def show
-    @today_visits = Visit.includes(:patient, :cares).where(date: Date.today).order(:position)
+    @today_visits = Visit.includes(:prescription, :cares).where(date: Date.today).order(:position)
     visitref = @today_visits.find { |visit| !visit.is_done }
     index = @today_visits.index(visitref)
     @visits = []
@@ -27,5 +27,9 @@ class DashboardsController < ApplicationController
       @visits << @today_visits[index + 1]
     end
     @visits.compact!
+    @progress = 100
+    if @today_visits.length > 0 && index!=nil
+      @progress = visitref.position*100/@today_visits.length
+    end
   end
 end

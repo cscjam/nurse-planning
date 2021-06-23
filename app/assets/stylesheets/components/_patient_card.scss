@@ -11,10 +11,16 @@
     font-size: 14px;
   }
   i{
-    color: $orange;
-    padding: 10px 10px 10px 0px;
+    color: $white;
+    &:hover{
+      color: $white;
+    }
+  }
+}
+
+#minute-content i {
+  color: $orange;
     &:hover{
       color: $orange;
     }
-  }
 }

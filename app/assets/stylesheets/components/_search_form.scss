@@ -10,12 +10,57 @@
 }
 
 .search-form-control .form-control {
-  height: 3.5rem;
+  height: 3rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   border: 1px solid #E7E7E7;
+  font-size: 14px;
 }
 
 .search-form-control .form-control:focus {
   outline: none !important;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
+
+#patient-header {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.patient-card {
+  height: 120px;
+  margin: 10px 0;
+  background-color: $orange;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    font-family: $body-font;
+  }
+
+  h2 {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: $body-font;
+  }
+}
+
+.patient-card-info {
+  height: 100%;
+  width: 100%;
+  padding: 8px 20px;
+  position: relative;
+}
+
+

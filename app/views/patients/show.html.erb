@@ -2,16 +2,25 @@
   <div class="patient-info">
     <h2><%=@patient.first_name%> <%=@patient.last_name%></h2>
     <p><%=@patient.address%></p>
-    <p><%=@patient.phone%></p>
     <p><%=@patient.compl_address%></p>
+    <a href="tel:<%= @patient.phone %>"><i class="fas fa-mobile-alt mt-1"></i> <%= @patient.phone %></a>
   </div>
   <%= render '/shared/patientheader' %>
 </div>
-<div class="container header-margin">
+<div class="container header-margin footer-margin">
   <div class="row justify-content-center">
     <div class="col-12 col-md-6 col-lg-4">
+      <%= link_to new_patient_prescription_path(@patient) do %>"Ajouter une prescription"<% end %><br>
+      Prescription : <%= @patient.prescription_ids %> -
+      <%@patient.prescriptions.each do |prescription| %>
+        <%= link_to prescription_path(prescription) do %>
+        Titre: <%= prescription.title %> -
+        Début: <%= prescription.start_at %> -
+        Fin: <%= prescription.end_at %> -
+        <% end %>
+      <% end %>
       <% @visits.each do |visit| %>
-        <div class="minute-history">
+        <div class="minute-history <%= visit == @last_visit_done ? "anchor" : "" %>" id=<%= visit == @last_visit_done ? "anchor-#{@last_visit_done.id}" : " "%> >
           <h4 class="text-center"><%= visit.date %></h4>
           <div class="card_care">
             <div class="cares">
